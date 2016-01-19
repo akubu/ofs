@@ -1,0 +1,18 @@
+.dropdown-menu {
+    width: 100%;
+}
+
+.btn{
+    width: 100%;
+}
+
+
+.dc-box{
+    -moz-box-shadow: 0 0 2px blue;
+    -webkit-box-shadow: 0 0 2px blue;
+    box-shadow: 0 0 2px blue;
+}
+
+td:hover {
+    background-color: #C2EDFF;
+}
