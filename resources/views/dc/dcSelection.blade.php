@@ -2,7 +2,20 @@
     $(document).ready(function () {
 
 
-        $(function () {
+        @if( !count($response))
+        $(function(){
+                    $.growl.error({
+                        message: 'No DC registerd yet. ',
+                        size: 'large',
+                        duration: 10000
+                    });
+                    $('#allocate_device').hide();
+                });
+        $('#info_status').html('<center><h3>NO DC Registered yet</h3></center>');
+
+        @endif
+
+                $(function () {
             var availableTags = [
                 @foreach( $response as $dc)
 
@@ -43,6 +56,7 @@
 
 <center><h3>Update DC</h3></center>
 
+<div id="info_status">
 <table class="table table-bordered">
     <tr>
         <th>
@@ -58,7 +72,7 @@
         </th>
     </tr>
 </table>
-
+</div>
 <div id="edit_div">
 
 </div>

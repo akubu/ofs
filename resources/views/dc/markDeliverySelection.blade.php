@@ -2,6 +2,19 @@
     $(document).ready(function () {
 
 
+        @if( !count($dc_numbers))
+          $(function(){
+                    $.growl.error({
+                        message: 'No DC registered Yet,. ',
+                        size: 'large',
+                        duration: 10000
+                    });
+                    $('#allocate_device').hide();
+                });
+        $('#info_status').html('<center><h3>NO DC Registered yet</h3></center>');
+        @endif
+
+
         $(function () {
             var availableTags = [
                 @foreach( $dc_numbers as $dc_number)
@@ -45,6 +58,8 @@
         Mark Delivered
     </h3></center>
 
+<div id="info_status">
+
 <table class="table table-bordered">
     <tr>
         <th>
@@ -60,7 +75,7 @@
         </th>
     </tr>
 </table>
-
+</div>
 <div id="edit_div">
 
 </div>

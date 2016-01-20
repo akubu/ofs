@@ -1,7 +1,10 @@
 <script type="application/javascript">
     $.(document).ready(function(){
 
-    $("#deliverydate").datepicker({
+
+
+
+$("#deliverydate").datepicker({
         dateFormat: "yy-mm-dd"
     });
 
@@ -37,7 +40,7 @@
 
 
 </script>
-
+<div id="info_status">
 <div class="row">
     <center>
     <table class="table table-bordered" >
@@ -65,4 +68,5 @@
         </tr>
         </table>
         </center>
+</div>
 </div>

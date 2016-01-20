@@ -114,7 +114,7 @@ class androidApi extends Controller
         foreach( $runner_alocation as $assignment){
 
             $start_check = device::where('dc_number','=', $assignment->dc_number)->get();
-            if(!$start_check) {
+            if($start_check->count() == 0) {
                 $response[$ii]['vehicle_number'] = $assignment->truck_number;
                 $response[$ii]['invocie_number'] = $assignment->dc_number;
                 ++$ii;

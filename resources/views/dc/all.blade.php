@@ -1,6 +1,20 @@
 <script type="application/javascript">
 
-    var options = {
+
+    @if( !count($response))
+        $(function(){
+                $.growl.error({
+                    message: 'No DC registered Yet,. ',
+                    size: 'large',
+                    duration: 10000
+                });
+                $('#allocate_device').hide();
+            });
+    $('#info_status').html('<center><h3>NO DC Registered yet</h3></center>');
+            @endif
+
+
+                var options = {
         valueNames: [ 'name', 'born' ]
     };
 
@@ -108,7 +122,7 @@
 
 
 <h3 align="center"> All Undelivered DC in System </h3>
-
+<div id="info_status">
 <div height="200px">
     <div id="users">
         <input class="search" placeholder="Search" />
@@ -176,10 +190,12 @@
 
 
 </div>
+
 <hr>
 <p><h3 id="info"></h3></p>
 <br>
 
 <div id="map_view" width="80%">
     <iframe id="map_frame" src="" width="80%" height="400px" ></iframe>
+</div>
 </div>

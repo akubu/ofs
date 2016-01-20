@@ -17,6 +17,7 @@ class CustomerContactMaster extends Migration
             $table->string('customer_number');
             $table->string('customer_email');
             $table->string('customer_preference');
+            $table->string('customer_contact_number');
             $table->timestamps();
         });
 

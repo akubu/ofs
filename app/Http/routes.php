@@ -10,20 +10,37 @@ Route::post($base_url . '/auth/vtiger/user', 'Auth\AuthController@validateVtiger
 Route::get($base_url . '/api/features/{id?}/{force_api?}', 'Api\FeatureController@get');
 
 
-Route::group(array('prefix' => 'api/v1'), function () {
+Route::group(array('prefix' => '/webApp'), function () {
 
-    Route::get('runnerDetails/{id}', 'androidApi@runnerDetails');
-    Route::get('getRunnerAllocations/{id}', 'androidApi@getRunnerAllocations');
-    Route::get('getAttachedDevices/{id}', 'androidApi@getAttachedDevices');
-    Route::get('deliver/{invoice1}/{invoice2}/{invoice3}/{invoice4}/{deviceId}/{comment}', 'androidApi@deliver');
-    Route::get('getAttachedDevices/{id}', 'androidApi@getAttachedDevices');
-    Route::get('attach/{vehicle_number}/{device_id}', 'androidApi@attach');
-    Route::get('startTracking/{d1}/{d2}/{d3}/{d4}/{deviceId}/{runnerId}', 'androidApi@startTracking');
-    Route::get('getLocation/{device_id}', "androidApi@getLocation");
-    Route::get('getTrackingStatus', 'androidApi@getTrackingStatus');
-    Route::get('getOrderLocation', 'androidApi@getOrderLocation');
+        Route::group(['middleware' => ['auth']], function () {
+    Route::get('/', 'webApp@index');
+    Route::get('/startLoading', 'webApp@startLoading');
+    Route::get('/dispatch', 'webApp@dispatchIt');
+    Route::get('/deliver', 'webApp@deliver');
+    Route::get('/track', 'webApp@track');
 
 });
+});
+
+
+
+Route::group(array('prefix' => 'api/v1'), function () {
+
+
+
+
+        Route::get('runnerDetails/{id}', 'androidApi@runnerDetails');
+        Route::get('getRunnerAllocations/{id}', 'androidApi@getRunnerAllocations');
+        Route::get('getAttachedDevices/{id}', 'androidApi@getAttachedDevices');
+        Route::get('deliver/{invoice1}/{invoice2}/{invoice3}/{invoice4}/{deviceId}/{comment}', 'androidApi@deliver');
+        Route::get('getAttachedDevices/{id}', 'androidApi@getAttachedDevices');
+        Route::get('attach/{vehicle_number}/{device_id}', 'androidApi@attach');
+        Route::get('startTracking/{d1}/{d2}/{d3}/{d4}/{deviceId}/{runnerId}', 'androidApi@startTracking');
+        Route::get('getLocation/{device_id}', "androidApi@getLocation");
+        Route::get('getTrackingStatus', 'androidApi@getTrackingStatus');
+        Route::get('getOrderLocation', 'androidApi@getOrderLocation');
+
+    });
 
 
 $router->group(['middleware' => ['auth']], function () {   ///'actionLog'

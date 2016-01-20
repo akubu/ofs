@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Input;
 use Session;
 
@@ -58,6 +59,9 @@ class device extends Controller
             $tmp->save();
             $device->device_id = $device->id;
             $device->save();
+            $locationService = new  locationServices();
+            $locationService->updateDeviceLocation($device->id);
+
 
             return $device->id;
 

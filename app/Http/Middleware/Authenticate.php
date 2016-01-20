@@ -35,6 +35,13 @@ class Authenticate
     public function handle($request, Closure $next)
     {
         if (!Session::has('authenticated') || !Session::get('authenticated')) {
+
+            $url = \URL::full();
+            if($url)
+            Session::set('redirectURL', \URL::full());
+            else
+                Session::set('redirectURL', "/");
+
             if ($request->ajax()) {
                 return response()->json(array('auth_required' => true));
             } else {

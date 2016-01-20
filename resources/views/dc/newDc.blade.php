@@ -12,6 +12,20 @@
         });
 
 
+
+        @if( !count($runner_names))
+         $(function(){
+                    $.growl.error({
+                        message: 'No Runner registered Yet,. ',
+                        size: 'large',
+                        duration: 10000
+                    });
+                    $('#allocate_device').hide();
+                });
+        $('#info_status').html('<center><h3>Please add a runner first</h3></center>');
+        @endif
+
+
         $(function () {
             var availableTags = [
                 @foreach( $runner_names as $runner_name)
@@ -331,7 +345,7 @@
 
 
 <hr>
-<div class="row">
+<div class="row" id="info_status">
     <div class="form-group">
         <table class="table table-bordered">
             <tr>
@@ -500,7 +514,7 @@
             </tr>
         </table>
     </div>
-</div>
+</div >
 
 
 

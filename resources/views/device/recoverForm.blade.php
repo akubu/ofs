@@ -3,7 +3,19 @@
     $(document).ready(function(){
 
 
-        $(function () {
+        @if( !count($devices))
+     $(function(){
+                    $.growl.error({
+                        message: 'No Devices Allocated to Runners. ',
+                        size: 'large',
+                        duration: 10000
+                    });
+                    $('#allocate_device').hide();
+                });
+        $('#info_status').html('<center><h3>No Devices Allocated to Runners</h3></center>');
+        @endif
+
+                $(function () {
             var availableTags = [
                 @foreach( $devices as $device)
 
@@ -57,7 +69,7 @@
 
 </script>
 
-<div>
+<div id="info_status">
 
     <center><h3>Recover A Device From a Runner</h3></center>
 

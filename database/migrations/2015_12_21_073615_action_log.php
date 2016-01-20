@@ -18,6 +18,7 @@ class ActionLog extends Migration
             $table->string('action');
             $table->string('parameter_string');
             $table->string('response');
+            $table->string('method');
             $table->timestamps();
         });
 

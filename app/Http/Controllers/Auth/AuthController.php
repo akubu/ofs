@@ -141,7 +141,23 @@ class AuthController extends Controller
 
 			$response = array();
 			$response['error'] = false;
-			$response['redirect'] = '/';
+//            $uri = $request->path();
+//dd($uri);
+//            if($uri == "webApp"){
+//                $response['redirect'] = '/webApp';
+//            }else {
+
+            $redirect_to  = Session::get('redirectURL');
+            if($redirect_to == null)
+                $redirect_to = "/";
+
+                $response['redirect'] = $redirect_to;
+
+
+
+//            }
+//            return redirect()->intended('defaultpage');
+
 		} else {
 
 			Session::put('authenticated', false);

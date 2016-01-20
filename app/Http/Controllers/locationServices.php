@@ -66,6 +66,8 @@ class locationServices extends Controller
             return $address;
         }
 
+
+
     public static function get_data($url)
     {
         $ch = curl_init();
@@ -107,6 +109,9 @@ class locationServices extends Controller
         curl_close($process);
 
         if (is_null($result) || $result == "" || !$result || empty($result)) {
+
+
+
             Log::info("\n Java API did not respond \n");
             return 0;
         }
@@ -123,10 +128,12 @@ class locationServices extends Controller
         if( $cord[0]["long"] && $cord[0]["lat"]) {
             $long = $cord[0]["long"];
             $lat = $cord[0]["lat"];
-        }
+        }else{
 
-        $long = 0;
-        $lat = 0;
+            $long = 0;
+            $lat = 0;
+
+        }
 
         $loc = new \App\locations();
         $loc->device_id = $device_id;
@@ -135,7 +142,7 @@ class locationServices extends Controller
         $loc->dc_number = $dc_number;
         $loc->save();
 
-        Log::info("\n\ " . $number . "   ". $cord . " \n\n");
+        Log::info("\n\ " . $number . "   " . " \n\n");
 
     }
 

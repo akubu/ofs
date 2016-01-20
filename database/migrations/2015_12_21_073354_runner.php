@@ -27,6 +27,9 @@ class Runner extends Migration
             $table->string('reports_to_reports_to_name');
             $table->string('reports_to_reports_to_email');
             $table->string('runner_to_reports_to_phone');
+            $table->string('runner_contact_number_1');
+            $table->string('runner_contact_number_2');
+            $table->string('runner_email');
             $table->timestamps();
         });
 

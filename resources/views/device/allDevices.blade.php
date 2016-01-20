@@ -1,6 +1,20 @@
 <script type="application/javascript">
 
-    var options = {
+    @if( !count($devices))
+    $(function(){
+                $.growl.error({
+                    message: 'No Devices Registered in system. ',
+                    size: 'large',
+                    duration: 10000
+                });
+                $('#allocate_device').hide();
+            });
+    $('#info_status').html('<center><h3>No Devices Registered in system.</h3></center>');
+            @endif
+
+
+
+        var options = {
         valueNames: [ 'name', 'born' ]
     };
 
@@ -101,7 +115,7 @@
 
 <h3 align="center"> All Devices in System </h3>
 
-<div>
+<div id="info_status">
     <div id="users">
         <input class="search" placeholder="Search" />
         <button class="sort" data-sort="name">
@@ -162,7 +176,7 @@
     <script src="http://listjs.com/no-cdn/list.js"></script>
 
 
-</div>
+
 <br>
 <hr>
 <p><h3 id="info"></h3></p>
@@ -171,3 +185,5 @@
 <div id="map_view" width="80%">
     <iframe id="map_frame" src="" width="80%" height="400px" ></iframe>
 </div>
+
+        </div>

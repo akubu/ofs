@@ -242,7 +242,7 @@ class dc extends Controller
 
 
         $test = false;
-        while(!test) {
+        while(!$test) {
             $dc_count = \App\dc::where('so_number', '=', $so_number)->get()->count() + 1;
             $seed = str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ'); // and any other characters
             shuffle($seed); // probably optional since array_is randomized; this may be redundant

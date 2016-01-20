@@ -1,6 +1,19 @@
 <script type="application/javascript" >
 
 
+
+    @if( !count($response))
+        $(function(){
+                $.growl.error({
+                    message: 'No Runner registered Yet,. ',
+                    size: 'large',
+                    duration: 10000
+                });
+                $('#allocate_device').hide();
+            });
+    $('#info_status').html('<center><h3>NO Runner Registered yet</h3></center>');
+            @endif
+
     var options = {
         valueNames: [ 'name', 'born' ]
     };
@@ -101,7 +114,7 @@
 </style>
 
 <h3 align="center"> All runners in System </h3>
-
+<div id="info_status">
 <div>
     <div id="users">
         <input class="search" placeholder="Search" />
@@ -147,4 +160,6 @@
 
 <div id="map_view" width="80%">
 <iframe id="map_frame" src="" width="80%" height="400px" ></iframe>
+</div>
+
 </div>

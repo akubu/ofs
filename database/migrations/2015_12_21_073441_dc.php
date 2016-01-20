@@ -25,7 +25,7 @@ class Dc extends Migration
             $table->string('expected_delivery_dt');
             $table->string('driver_contact_number');
             $table->string('truck_type');
-
+            $table->integer('is_delivered')->default(0);
             $table->timestamps();
         });
 

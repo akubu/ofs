@@ -3,7 +3,20 @@
     $(document).ready(function(){
 
 
-        $(function() {
+        @if( !count($runner_names))
+            $(function(){
+                    $.growl.error({
+                        message: 'No Runner registered Yet,. ',
+                        size: 'large',
+                        duration: 10000
+                    });
+                    $('#allocate_device').hide();
+                });
+        $('#info_status').html('<center><h3>NO Runner Registered yet</h3></center>');
+        @endif
+
+
+    $(function() {
             var availableTags = [
                 @foreach( $runner_names as $named)
 
@@ -69,7 +82,7 @@
 
 
 </script>
-
+<div id="info_status">
 <div id="runner_selector" >
 
     <h3 align="center"> Select Runner to Delete</h3>
@@ -96,8 +109,11 @@
 
 <hr />
 
+
 <div id="delete_result">
 
 
+
+</div>
 
 </div>

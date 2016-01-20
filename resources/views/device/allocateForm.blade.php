@@ -2,6 +2,17 @@
 
     $(document).ready(function () {
 
+        @if( !count($device_ids))
+        $(function(){
+                    $.growl.error({
+                        message: 'No Devices Vaccant, Please recover first. ',
+                        size: 'large',
+                        duration: 10000
+                    });
+                    $('#allocate_device').hide();
+        });
+        $('#info_status').html('<center><h3>No Devices Vaccant, Please recover or add Device first</h3></center>');
+@endif
 
         $(function () {
             var availableTags = [
@@ -110,7 +121,7 @@
 
 
 <h3 align="center"> Allocate a Device to Runner </h3>
-
+<div id="info_status">
 
 <div id="device_selector">
 
@@ -164,4 +175,5 @@
         </th>
     </table>
 
+</div>
 </div>

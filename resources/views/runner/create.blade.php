@@ -8,15 +8,41 @@
         $('#add_runner').click(function () {
 
 
+            var runner_email = $('#runner_email').val();
+            var reports_to_email = $('#reports_to_mail').val();
+
+            var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+//            return pattern.test(emailAddress);
+
+            if(pattern.test(runner_email)){
+                $.growl.notice({
+                    message: 'Enter proper E-mail Address.',
+                    size: 'large',
+                    duration: 10000
+                });
+                return false;
+
+            }
+
+            if(pattern.test(reports_to_email)){
+                $.growl.notice({
+                    message: 'Enter proper E-mail Address.',
+                    size: 'large',
+                    duration: 10000
+                });
+                return false;
+
+            }
+
             var runner_name = $('#runner_name').val();
             var vtiger_id = $('#runner_vtiger_id').val();
             var runner_address = $('#runner_address').val();
             var runner_station_address = $('#runner_station_address').val();
             var runner_contact_number_1 = $('#runner_contact_number_1').val();
             var runner_contact_number_2 = $('#runner_contact_number_2').val();
-            var runner_email = $('#runner_email').val();
+
             var reports_to_name = $('#runner_reports_to').val();
-            var reports_to_email = $('#reports_to_mail').val();
+
 
             if (runner_name.length > 3) {
                 if (vtiger_id.length == 7) {
@@ -47,6 +73,9 @@
                                                         size: 'large',
                                                         duration: 10000
                                                     });
+
+                                                 $('#create_runner').html('<center><h3>Runner "'+ runner_name + '" Created</h3></center>')
+
 
                                                 }
 

@@ -31,7 +31,7 @@
             var sim_number = $('#sim_number').val();
             var gsm_number = $('#gsm_number').val();
             var scm_id = $('#scm_id').val();
-            var runner_id = $('#runner_id').val();
+
 
 
             if (!(type && model && imei_number && sim_number && gsm_number && scm_id )) {
@@ -49,7 +49,7 @@
                 if ($.isNumeric(imei_number) && imei_number.length > 10) {
                     if ($.isNumeric(sim_number) && sim_number.length > 10) {
                         if ($.isNumeric(gsm_number) && gsm_number.length > 9) {
-                            if (runner_id.length > 6 || runner_id == "0" || runner_id == 0) {
+                            if (true) {
                                 $.post("device/add", {
                                     type: type,
                                     model: model,
@@ -175,15 +175,7 @@
                        readonly="readonly"></th>
         </tr>
 
-        <tr>
-            <th>
-                Runner Id
-            </th>
-            <th>
-                <input type="text" class="form-control" id="runner_id" value="0" placeholder="Enter runner id">
-            </th>
 
-        </tr>
 
         <tr>
             <th colspan="4">

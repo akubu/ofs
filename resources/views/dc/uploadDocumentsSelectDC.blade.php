@@ -2,7 +2,20 @@
     $(document).ready(function () {
 
 
-        $(function () {
+        @if( !count($dc_numbers))
+   $(function(){
+                    $.growl.error({
+                        message: 'No Devices Registered in system. ',
+                        size: 'large',
+                        duration: 10000
+                    });
+                    $('#allocate_device').hide();
+                });
+        $('#info_status').html('<center><h3>No Devices Registered in system.</h3></center>');
+        @endif
+
+
+    $(function () {
             var availableTags = [
                 @foreach( $dc_numbers as $dc_number)
 
@@ -44,7 +57,7 @@
 
 </script>
 
-
+<div id="info_status">
 <table class="table table-bordered">
     <tr>
         <th>
@@ -62,6 +75,8 @@
 </table>
 
 <div id="upload_div">
+
+</div>
 
 </div>
 

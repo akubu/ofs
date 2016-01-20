@@ -253,6 +253,7 @@ catch(Exception $e){
     public function deleteForm(){
 
         $runners = App\runner::all();
+        $response = array();
         foreach($runners as $runner)
         {
             $response[] = $runner->runner_name . "(" . $runner->vtiger_id . ")";
