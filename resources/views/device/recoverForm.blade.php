@@ -15,13 +15,16 @@
         $('#info_status').html('<center><h3>No Devices Allocated to Runners</h3></center>');
         @endif
 
-                $(function () {
-            var availableTags = [
-                @foreach( $devices as $device)
 
-        "{{ $device }}",
-                @endforeach
-        ];
+
+
+           availableTags = [
+            @foreach( $devices as $device)
+
+    "{{ $device }}",
+            @endforeach
+    ];
+                $(function () {
             $("#device_id").autocomplete({
                 source: availableTags
             });
@@ -32,6 +35,18 @@
         $('#recover').click(function(){
 
             var device_id = $('#device_id').val();
+
+            if($.inArray(device_id, availableTags) == -1)
+            {
+
+                $.growl.error({
+                    message: 'Select Runner Number from dropdown. ',
+                    size: 'large',
+                    duration: 10000
+                });
+                return false;
+            }
+
             if ( device_id.length >2)
             {
                 $.post("/device/recover", { device_id : device_id}, function(result) {

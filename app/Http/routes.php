@@ -114,6 +114,9 @@ $router->group(['middleware' => ['auth']], function () {   ///'actionLog'
     Route::post('/dc/markDelivered', 'dc@markDelivered');
 
 
+    Route::post('/dc/validateDCNumber/{dc_number}', 'dc@validateDCNumber');
+
+
     Route::get('home', 'panel@home');
 
     Route::get($base_url . '/', 'panel@index');

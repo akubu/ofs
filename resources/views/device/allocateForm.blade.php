@@ -14,26 +14,30 @@
         $('#info_status').html('<center><h3>No Devices Vaccant, Please recover or add Device first</h3></center>');
 @endif
 
-        $(function () {
-            var availableTags = [
-                @foreach( $device_ids as $device_id)
+ availableTags = [
+    @foreach( $device_ids as $device_id)
 
-        "{{ $device_id }}",
-                @endforeach
-        ];
+"{{ $device_id }}",
+    @endforeach
+];
+$(function () {
+
+
             $("#deviceToAllocate").autocomplete({
                 source: availableTags
             });
         });
 
 
-        $(function () {
-            var availableTagsRunner = [
-                @foreach( $runner_names as $runner_name)
+        availableTagsRunner = [
+            @foreach( $runner_names as $runner_name)
 
-        "{{ $runner_name }}",
-                @endforeach
-        ];
+    "{{ $runner_name }}",
+            @endforeach
+    ];
+
+        $(function () {
+
             $("#runnerId").autocomplete({
                 source: availableTagsRunner
             });
@@ -49,8 +53,20 @@
 
             var device_id = $('#deviceToAllocate').val();
 
+
+            if($.inArray(device_id, availableTags) == -1)
+            {
+
+                $.growl.error({
+                    message: 'Select Device from dropdown. ',
+                    size: 'large',
+                    duration: 10000
+                });
+                return false;
+            }
+
             if (device_id && device_id.length > 11) {
-                $.get("device/show/device" + device_id, function (result) {
+                $.get("device/show/" + device_id, function (result) {
 
                     if(result == 0){
                         $.growl.error({
@@ -84,6 +100,8 @@
         $('#assign_device').click(function () {
 
             var runner = $('#runnerId').val();
+
+
             var device_id = $('#deviceToAllocate').val();
 
 

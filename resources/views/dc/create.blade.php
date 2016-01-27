@@ -3,13 +3,15 @@
 <script type="application/javascript">
     $(document).ready(function () {
 
-        $(function () {
-            var availableTags = [
-                @foreach( $so_numbers as $so_number)
+         availableTags = [
+            @foreach( $so_numbers as $so_number)
 
-        "{{ $so_number }}",
-                @endforeach
-        ];
+    "{{ $so_number }}",
+            @endforeach
+    ];
+
+        $(function () {
+
             $("#so_number").autocomplete({
                 source: availableTags
             });

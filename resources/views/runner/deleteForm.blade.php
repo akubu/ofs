@@ -16,13 +16,15 @@
         @endif
 
 
-    $(function() {
-            var availableTags = [
-                @foreach( $runner_names as $named)
 
-        "{{ $named }}",
-                @endforeach
-        ];
+      availableTags = [
+            @foreach( $runner_names as $named)
+
+    "{{ $named }}",
+            @endforeach
+    ];
+    $(function() {
+
             $( "#runnerToDelete" ).autocomplete({
                 source: availableTags
             });
@@ -36,6 +38,17 @@
             if (sure == true) {
 
             var runner_name = $('#runnerToDelete').val();
+
+                if($.inArray(runner_name, availableTags) == -1)
+                {
+
+                    $.growl.error({
+                        message: 'Select Runner Number from dropdown. ',
+                        size: 'large',
+                        duration: 10000
+                    });
+                    return false;
+                }
 
             $.post("runner/delete", {runner_name : runner_name}, function(result) {
 

@@ -35,7 +35,7 @@ class androidApi extends Controller
         $response['error'] = "0";
 
         $runner = \App\runner::where('vtiger_id', '=', $id)->get()->first();
-        $dc = \App\dc::where('runner_id', '=', $id)->where('is_delivered', '=', 0)->where('is_tracked', '=', 1)->get();
+        $dc = \App\dc::where('runner_id', '=', $id)->where('is_delivered', '=', 0)->where('is_tracked', '>', 0)->get();
 
         $response['name'] = $runner->runner_name;
         $response['id'] = $runner->vtiger_id;
@@ -45,7 +45,7 @@ class androidApi extends Controller
 
         if ($dcCount > 0) {
 
-            $response['invoices'] = array();
+//            $response['invoices'] = array();
 
             $ii = 0;
             //echo "<br>".$invoiceCount."<br>";
@@ -55,6 +55,10 @@ class androidApi extends Controller
                 $dc_details = dc_details::where('dc_number', '=', $inv->dc_number)->get();
 
                 $detail = "";
+
+                $device_for_dc = device::where('dc_number', '=', $inv->dc_number)->get()->first();
+                if($device_for_dc) {
+
                 foreach($dc_details as $dc_detail){
 
                     $sku = so_details::where('so_number', '=', $inv->so_number)->where('sku', '=', $dc_detail->sku)->get()->first();
@@ -63,19 +67,22 @@ class androidApi extends Controller
 
                 }
 
-                $response['invoices'][$ii]['invoice_id'] = $inv->dc_number;
-                $response['invoices'][$ii]['vehicle_number'] = $inv->truck_number;
-                $response['invoices'][$ii]['details'] = $detail;
-                $response['invoices'][$ii]['devices'] = array();
 
-                $deviceList = \App\device::where('dc_number', '=', $inv->dc_number)->get();
+                    $response['invoices'][$ii]['invoice_id'] = $inv->dc_number;
+                    $response['invoices'][$ii]['vehicle_number'] = $inv->truck_number;
+                    $response['invoices'][$ii]['details'] = $detail;
+                    $response['invoices'][$ii]['devices'] = array();
 
-                $dx = 0;
-                foreach ($deviceList as $dev) {
-                    $response['invoices'][$ii]['devices'][$dx]['id'] = $dev->device_id;
-                    ++$dx;
+                    $deviceList = \App\device::where('dc_number', '=', $inv->dc_number)->get();
+
+                    $dx = 0;
+                    foreach ($deviceList as $dev) {
+                        $response['invoices'][$ii]['devices'][$dx]['id'] = $dev->device_id;
+                        ++$dx;
+                    }
+                    ++$ii;
                 }
-                ++$ii;
+
 
             }
 
@@ -131,17 +138,16 @@ class androidApi extends Controller
     {
         $response = array();
 
-        $dcs = dc::where('runner_id', '=', $runner_id)->where('is_delivered','=',0)->get();
+        $dcs = dc::where('runner_id', '=', $runner_id)->where('is_delivered','=',0)->where('is_tracked','=',1)->get();
 
         $count = $dcs->count();
 
-        if($count == 0)
-        {
+
             $response['count'] = $count;
-            $response[$count]['vehicle_number'] = "not available";
-            $response[$count]['invocie_number'] = "not available";
-            $response[$count]['device_id'] = "not available";
-        }
+            $response[0]['vehicle_number'] = "not available";
+            $response[0]['invocie_number'] = "not available";
+            $response[0]['device_id'] = "not available";
+
 
 
         $ii =0;
@@ -185,7 +191,7 @@ class androidApi extends Controller
             $device->save();
             $dc->save();
             $notifier = new notifications();
-            $notifier->sendDeliveredNotification($device->dc_number);
+            $notifier->sendDeliveredNotification($dc_number);
 
         $response['status'] = "1";
         return $response;
@@ -208,7 +214,8 @@ class androidApi extends Controller
 
         if ($device && $dc) {
 
-
+        $dc->is_tracked = 2;
+            $dc->save();
 
             if ($device->dc_number == 0) {
                 $device->dc_number = $dc->dc_number;
@@ -216,6 +223,7 @@ class androidApi extends Controller
                 $device->save();
                 $dc_track = dc_track::where('dc_number', '=', $dc->dc_number)->get()->first();
                 $dc_track->loading_start_dt = \Carbon\Carbon::now();
+                $dc_track->device_id = $device_id;
                 $dc_track->save();
 
                 $response['status'] = "1";
@@ -244,6 +252,9 @@ class androidApi extends Controller
         $dc_number = $id1 . "/" . $id2 ."/". $id3 . "/" . $id4 ;
 
         $dc_track = dc_track::where('dc_number','=',$dc_number)->get()->first();
+        $dc = dc::where('dc_number', '=', $dc_number)->get()->first();
+        $dc->is_tracked = 3;
+        $dc->save();
 
         if ($dc_track){
             $response['status'] = "1";

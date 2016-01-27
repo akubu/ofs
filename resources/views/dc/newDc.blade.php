@@ -26,17 +26,21 @@
         @endif
 
 
-        $(function () {
-            var availableTags = [
-                @foreach( $runner_names as $runner_name)
+ availableTags = [
+            @foreach( $runner_names as $runner_name)
 
-        "{{ $runner_name }}",
-                @endforeach
-        ];
+    "{{ $runner_name }}",
+            @endforeach
+    ];
+
+        $(function () {
+
             $("#runner_assigned").autocomplete({
                 source: availableTags
             });
         });
+
+
 
 
         $('#select_address').click(function () {
@@ -111,6 +115,20 @@
 
         var dc_number = $('#dc_number').val();
         var runner_assigned = $('#runner_assigned').val();
+
+
+
+        if($.inArray(device_id, availableTags) == -1)
+        {
+            alert("hello");
+            $.growl.error({
+                message: 'Select From from dropdown. ',
+                size: 'large',
+                duration: 10000
+            });
+            return false;
+        }
+
         var driver_name = $('#driver_name').val();
         var driver_contact_number = $('#driver_contact_number').val();
         var truck_number = $('#truck_number').val();

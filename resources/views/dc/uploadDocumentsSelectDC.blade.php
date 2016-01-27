@@ -15,13 +15,15 @@
         @endif
 
 
-    $(function () {
-            var availableTags = [
-                @foreach( $dc_numbers as $dc_number)
+  availableTags = [
+            @foreach( $dc_numbers as $dc_number)
 
-        "{{ $dc_number }}",
-                @endforeach
-        ];
+    "{{ $dc_number }}",
+            @endforeach
+    ];
+
+    $(function () {
+
             $("#dcNumberSelect").autocomplete({
                 source: availableTags
             });
@@ -30,6 +32,16 @@
         $('#dc_select').click(function(){
 
             var dcNumberSelect = $("#dcNumberSelect").val();
+            if($.inArray(dcNumberSelect, availableTags) == -1)
+            {
+
+                $.growl.error({
+                    message: 'Select Device ID from dropdown. ',
+                    size: 'large',
+                    duration: 10000
+                });
+                return false;
+            }
 
             $.get('dc/documentsForDC?dc_number=' + dcNumberSelect, function(data){
 

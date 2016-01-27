@@ -17,7 +17,7 @@ use Response;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
-
+use Log;
 class dc extends Controller
 {
     public function test()
@@ -130,8 +130,13 @@ class dc extends Controller
 
         }
 
+        Log::useDailyFiles(storage_path() . '/logs/notificationsl.log');
+
         $notifier = new notifications();
-        $notifier->sendDcCreatedNotification($dc_number, $so_number);
+        $notif = $notifier->sendDcCreatedNotification($dc_number, $so_number);
+
+        Log::info("\n DC created  : "  .$dc_number . " andd : ".$notif."\n");
+
 
 
         return 1;
@@ -472,5 +477,7 @@ class dc extends Controller
         return 1;
 
     }
+
+
 
 }

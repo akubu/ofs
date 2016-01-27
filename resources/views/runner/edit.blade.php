@@ -15,13 +15,15 @@
         $('#info_status').html('<center><h3>NO RunnerRegistered yet</h3></center>');
         @endif
 
-        $(function() {
-            var availableTags = [
-                @foreach( $runner_names as $named)
 
-        "{{ $named }}",
-                @endforeach
-        ];
+     availableTags = [
+            @foreach( $runner_names as $named)
+
+    "{{ $named }}",
+            @endforeach
+    ];
+
+        $(function() {
             $( "#runnerToEdit" ).autocomplete({
                 source: availableTags
             });
@@ -30,6 +32,18 @@
         $('#edit_runner').click(function(){
 
             var runner_name = $('#runnerToEdit').val();
+
+            if($.inArray(runner_name, availableTags) == -1)
+            {
+
+                $.growl.error({
+                    message: 'Select DC Number from dropdown. ',
+                    size: 'large',
+                    duration: 10000
+                });
+                return false;
+            }
+
 
             $.post("runner/updateSelect", {runner_name : runner_name}, function(result) {
 

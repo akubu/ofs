@@ -17,13 +17,15 @@
 
 
 
-        $(function () {
-            var availableTags = [
-                @foreach( $device_ids as $device_id)
+       availableTags = [
+            @foreach( $device_ids as $device_id)
 
-        "{{ $device_id }}",
-                @endforeach
-        ];
+    "{{ $device_id }}",
+            @endforeach
+    ];
+
+        $(function () {
+
             $("#device_id").autocomplete({
                 source: availableTags
             });
@@ -34,6 +36,16 @@
         $('#register_loss').click(function(){
 
             var device_id = $('#device_id').val();
+            if($.inArray(device_id, availableTags) == -1)
+            {
+
+                $.growl.error({
+                    message: 'Select Device ID from dropdown. ',
+                    size: 'large',
+                    duration: 10000
+                });
+                return false;
+            }
             var reason = $('#reason').val();
 
             if (device_id.length >2 && reason && reason.length > 10)
