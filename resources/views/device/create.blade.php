@@ -57,7 +57,7 @@
                                     sim_number: sim_number,
                                     gsm_number: gsm_number,
                                     scm_id: scm_id,
-                                    runner_id: runner_id
+                                    runner_id: "0"
                                 }, function (result) {
 
 

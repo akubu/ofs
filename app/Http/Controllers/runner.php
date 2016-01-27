@@ -44,7 +44,7 @@ return $response;
     {
 
         $runner_name = Input::get('runner_name');
-        $vtiger_id = Input::get('vtiger_id');
+        $vtiger_id = strtoupper(Input::get('vtiger_id'));
         $runner_address =Input::get('runner_address');
         $runner_station_address = Input::get('runner_station_address');
         $runner_contact_number_1 =Input::get('runner_contact_number_1');

@@ -127,6 +127,19 @@
         var so_number = $('#so_number').val();
 
 
+        var is_a_quantity = 0;
+        $(".sku_class").each(function () {
+
+            is_a_quantity = is_a_quantity + $(this).val();
+
+        });
+
+        if(is_a_quantity == 0 || is_a_quantity == 0.0)
+        {
+            alert("please enter a quantity");
+            return false;
+        }
+
         if(expected_delivery_date < expected_dispatch_date)
         {
             $.growl.error({

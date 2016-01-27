@@ -5,13 +5,13 @@
         @if( !count($dc_numbers))
           $(function(){
                     $.growl.error({
-                        message: 'No DC registered Yet,. ',
+                        message: 'No Untracked DC registered Yet,. ',
                         size: 'large',
                         duration: 10000
                     });
                     $('#allocate_device').hide();
                 });
-        $('#info_status').html('<center><h3>NO DC Registered yet</h3></center>');
+        $('#info_status').html('<center><h3>No untracked DC Registered yet</h3></center>');
         @endif
 
 
@@ -39,7 +39,7 @@
 
                 }else {
                     $.growl.error({
-                        message: 'Please check the DC Number As eneterd. ',
+                        message: 'Please check the DC Number As enterd. ',
                         size: 'large',
                         duration: 5000
                     });

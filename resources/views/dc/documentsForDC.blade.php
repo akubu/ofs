@@ -144,7 +144,7 @@
 
                 done: function(e, data) {
                     var r = data.result;
-                    if(r != 1){
+                    if(r.length < 5){
                         $.growl.error({
                             message: 'FileType Not Allowed. ',
                             size: 'large',

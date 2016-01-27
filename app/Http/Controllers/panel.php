@@ -64,7 +64,11 @@ class panel extends Controller
 
     public function test()
     {
-            echo "hello!!";
+           return view('trackIt.thet');
+    }
+    public function test2()
+    {
+           return view('trackIt.thet2');
     }
 
 

@@ -120,6 +120,7 @@ $router->group(['middleware' => ['auth']], function () {   ///'actionLog'
 
 
     Route::get($base_url . '/test', 'panel@test');
+    Route::get($base_url . '/test2', 'panel@test2');
 
 
     Route::get($base_url . '/auth/logout', 'Auth\AuthController@logout');

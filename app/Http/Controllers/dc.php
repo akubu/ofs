@@ -378,6 +378,7 @@ class dc extends Controller
             $response[$ii]['dc_track_info'] = $dc_track;
             $gsm_number = device::where('device_id', '=', $dc_track->device_id)->get()->first();
             if ($gsm_number) {
+                
                 $response[$ii]['device_gsm_number'] = $gsm_number->gsm_number;
             } else {
                 $response[$ii]['device_gsm_number'] = 0;
