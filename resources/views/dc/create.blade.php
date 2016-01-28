@@ -19,7 +19,7 @@
 
 
         $('#so_entered').click(function () {
-            var so_number = $('#so_number').val();
+            var so_number = $.trim($('#so_number').val());
             $.post("so/checkExistence", {so_number: so_number}, function (result) {
 //                alert(result);
                 if (result == 1) {

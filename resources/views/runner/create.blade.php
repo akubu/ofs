@@ -76,6 +76,7 @@
 
                                                  $('#create_runner').html('<center><h3>Runner "'+ runner_name + '" Created</h3></center>')
 
+                                                    return false;
 
                                                 }
 

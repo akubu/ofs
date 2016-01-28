@@ -5,7 +5,8 @@ $(document).ready(function(){
     $("#ask").click(function () {
 
 
-    var question = $('#question').val();
+     question = $('#question').val();
+
 
     if(question.length < 5){
         $.growl.error({
@@ -17,13 +18,14 @@ $(document).ready(function(){
     }
         $.get("/help/question?question="+question, function (data) {
 
-            if(data == 0){
+            if(data == 1){
                 $.growl.notice({
-                    message: 'We will get back to you !',
+                    message: 'Question received, We will get back to you !',
                     size: 'large',
                     duration: 5000
                 });
-            $('#msg').html("We Willl get back to you soon, with reply to your Question.<br>Q: <font color='blue' " + question +"</font");
+
+            $('#msg').html("We Willl get back to you soon, with reply to your Question.<br>Q: <font color='blue'> " + question +"</font>");
 
             }else {
 

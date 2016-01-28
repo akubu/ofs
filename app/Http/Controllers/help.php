@@ -28,11 +28,16 @@ class help extends Controller
      */
     public function question()
     {
+        $emp_ID = Session::get('vt_user');
         $question = Input::get('question');
+
         $help = new \App\help();
         $help->question = $question;
-        $help->vtiger_id = Session::get('vt_user');
+        $help->vtiger_id = $emp_ID;
         $help->save();
+
+        $notifier = new notifications();
+        return $notifier->helpNotification($emp_ID, $question);
     }
 
     /**

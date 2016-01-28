@@ -57,7 +57,7 @@
                 if (result == 1)
                 {
 
-                    $.growl.error({
+                    $.growl.notice({
                         message: 'Runned Deleted .',
                         size: 'large',
                         duration: 10000

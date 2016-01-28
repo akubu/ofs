@@ -123,12 +123,14 @@
 
 <h3 align="center"> All Undelivered DC in System </h3>
 <div id="info_status">
-<div height="200px">
+<div >
     <div id="users">
         <input class="search" placeholder="Search" />
         <button class="sort" data-sort="name">
             Sort by Dc Number
         </button>
+
+     <div height="200px" style="overflow-y: scroll; height:200px;">
         <table class="table table-bordered">
             <tbody class="list">
 
@@ -185,6 +187,7 @@
             @endforeach
             </tbody>
         </table>
+     </div>
     </div>
     <script src="http://listjs.com/no-cdn/list.js"></script>
 

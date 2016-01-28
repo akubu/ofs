@@ -171,7 +171,7 @@
             <th>
                 SCM ID
             </th>
-            <th><input type="text" class="form-control" id="scm_id" value="<?php session_start(); echo $_SESSION["vt_user"] ?>" placeholder="Enter SCM id"
+            <th><input type="text" class="form-control" id="scm_id" value="<?php session_start();  ?>" placeholder="Enter SCM id"
                        readonly="readonly"></th>
         </tr>
 

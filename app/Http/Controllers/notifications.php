@@ -11,10 +11,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Log;
+
 class notifications extends Controller
 {
-
-
 
 
     function sendNotification($datax)
@@ -60,9 +59,9 @@ class notifications extends Controller
 
         $url = "http://103.25.172.110:8080/openbd/mq/endpoint.cfc";
 
-         $data = array("method" => "enqueue",
-             "payload" => $datax['payload']
-         );
+        $data = array("method" => "enqueue",
+            "payload" => $datax['payload']
+        );
 
 
         $ch = curl_init();
@@ -81,12 +80,11 @@ class notifications extends Controller
 
         curl_close($ch);
 
-        Log::info("\n Data  : "  .$datax['payload'] . " and response : ".$result."\n");
+        Log::info("\n Data  : " . $datax['payload'] . " and response : " . $result . "\n");
 
-        if($result > 0)
-        {
+        if ($result > 0) {
             return 1;
-        }else{
+        } else {
             return 0;
         }
 
@@ -95,10 +93,10 @@ class notifications extends Controller
     public function sendDcCreatedNotification($dc_number, $so_number)
     {
         $so = \App\so::where('so_number', '=', $so_number)->get()->first();
-        if(!$so){
+        if (!$so) {
             $customer_number = 0;
             return 0;
-        }else{
+        } else {
             $customer_number = $so->customer_number;
         }
         $customer = customer_contact_master::where('customer_number', '=', $customer_number)->get()->first();
@@ -106,14 +104,13 @@ class notifications extends Controller
         $customer_email = $customer->customer_email;
         $customer_phone = $customer->customr_contact_number;
 
-        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>dc registered</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><name>".$so->bill_to_name."</name><so_number>" . $so_number . "</so_number><dc_number>" . $dc_number . "</dc_number></payload>" );
-            $status =  $this->sendNotification($data);
-        if($status > 0)
-        {
+        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>dc registered</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><name>" . $so->bill_to_name . "</name><so_number>" . $so_number . "</so_number><dc_number>" . $dc_number . "</dc_number></payload>");
+        $status = $this->sendNotification($data);
+        if ($status > 0) {
 
 
             return $status;
-        }else{
+        } else {
             return 0;
         }
 
@@ -121,7 +118,7 @@ class notifications extends Controller
 
     public function sendLoadingStartedNotification($dc_number)
     {
-        $so_number = \App\dc::where('dc_number','=',$dc_number)->get()->first()->so_number;
+        $so_number = \App\dc::where('dc_number', '=', $dc_number)->get()->first()->so_number;
         $so = so::where('so_number', '=', $so_number)->get()->first();
         $customer_number = $so->customer_number;
         $customer_name = $so->bill_to_name;
@@ -130,8 +127,8 @@ class notifications extends Controller
         $customer_email = $customer->customer_email;
         $customer_phone = $customer->customr_contact_number;
 
-        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>loading started</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><name>" . $customer_name . "</name><dc_no>" . $dc_number . "</dc_no></payload>") ;
-            return $this->sendNotification($data);
+        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>loading started</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><name>" . $customer_name . "</name><dc_no>" . $dc_number . "</dc_no><so_number></so_number>" . $so_number . "<so_number></payload>");
+        return $this->sendNotification($data);
     }
 
     public function sendDispatchNotification($dc_number)
@@ -140,14 +137,14 @@ class notifications extends Controller
         $so = so::where('so_number', '=', $dc->so_number)->get()->first();
 
         $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>dispatch</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><name>" . $so->bill_to_name . "</name><dc_no>" . $dc_number . "</dc_no></payload>");
-            return $this->sendNotification($data);
+        return $this->sendNotification($data);
     }
 
     public function sendDeliveredNotification($dc_number)
     {
         $ir = 0;
 
-        $so_number = \App\dc::where('dc_number','=',$dc_number)->get()->first()->so_number;
+        $so_number = \App\dc::where('dc_number', '=', $dc_number)->get()->first()->so_number;
         $so = so::where('so_number', '=', $so_number)->get()->first()->customer_number;
         $customer_number = $so->customer_number;
         $customer_name = $so->bill_to_name;
@@ -157,39 +154,42 @@ class notifications extends Controller
         $customer_phone = $customer->customr_contact_number;
 
         $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>delivery notification</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><name>" . $customer_name . "</name><invoice_no>" . $dc_number . "</invoice_no></payload>");
-            return $this->sendNotification($data);
+        return $this->sendNotification($data);
     }
 
     public function sendIncorrectAddress($so_number, $address)
     {
 
-        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>error report</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><so_number>" . $so_number . "</so_number><address>" . $address . "</address></payload>" );
-          return  $this->sendNotification($data);
+        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>error report</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><so_number>" . $so_number . "</so_number><address>" . $address . "</address></payload>");
+        return $this->sendNotification($data);
     }
 
-    public function reportNotification($values){
+    public function reportNotification($values)
+    {
 
         $response = array();
-        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>daily report</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><dispatch_pending_today_count>" . $values['dispatch_pending_today_count'] . "</dispatch_pending_today_count><delivery_pending_today_count>" . $values['delivery_pending_today_count'] . "</delivery_pending_today_count><late_delivery_count>" . $values['late_delivery_count'] . "</late_delivery_count><late_dispatch_count>".$values['late_dispatch_count']."</late_dispatch_count></payload>" );
+        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>daily report</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><dispatch_pending_today_count>" . $values['dispatch_pending_today_count'] . "</dispatch_pending_today_count><delivery_pending_today_count>" . $values['delivery_pending_today_count'] . "</delivery_pending_today_count><late_delivery_count>" . $values['late_delivery_count'] . "</late_delivery_count><late_dispatch_count>" . $values['late_dispatch_count'] . "</late_dispatch_count></payload>");
 
         $response['payload'] = $data;
         $response['status'] = $this->sendNotification($data);
 
 
-        return  $response;
+        return $response;
 
     }
 
-    public function helpNotification($values){
+    public function helpNotification($emp_id, $question)
+    {
 
         $response = array();
-        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>daily report</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><dispatch_pending_today_count>" . $values['dispatch_pending_today_count'] . "</dispatch_pending_today_count><delivery_pending_today_count>" . $values['delivery_pending_today_count'] . "</delivery_pending_today_count><late_delivery_count>" . $values['late_delivery_count'] . "</late_delivery_count><late_dispatch_count>".$values['late_dispatch_count']."</late_dispatch_count></payload>" );
+        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>tracking system user query</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><employee_ID>" . $emp_id . "</employee_ID><question>" . $question . "</question></payload>");
 
         $response['payload'] = $data;
         $response['status'] = $this->sendNotification($data);
 
 
-        return  $response;
+        return $response['status'];
+
 
     }
 

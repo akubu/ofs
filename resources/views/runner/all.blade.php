@@ -121,6 +121,7 @@
         <button class="sort" data-sort="name">
             Sort by name
         </button>
+        <div height="200px" style="overflow-y: scroll; height:200px;">
     <table class="table table-bordered">
         <tbody class="list">
 
@@ -148,6 +149,7 @@
         @endforeach
         </tbody>
     </table>
+            </div>
     </div>
     <script src="http://listjs.com/no-cdn/list.js"></script>
 

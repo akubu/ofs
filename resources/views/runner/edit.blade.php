@@ -37,7 +37,7 @@
             {
 
                 $.growl.error({
-                    message: 'Select DC Number from dropdown. ',
+                    message: 'Select Runner ID from dropdown. ',
                     size: 'large',
                     duration: 10000
                 });

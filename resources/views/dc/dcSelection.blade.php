@@ -30,7 +30,7 @@
 
         $('#dc_select').click(function(){
 
-            var dcNumberSelect = $("#dcNumberSelect").val();
+            var dcNumberSelect = $.trim($("#dcNumberSelect").val());
 
             if($.inArray(dcNumberSelect, availableTags) == -1)
             {

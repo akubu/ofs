@@ -138,7 +138,7 @@ class androidApi extends Controller
     {
         $response = array();
 
-        $dcs = dc::where('runner_id', '=', $runner_id)->where('is_delivered','=',0)->where('is_tracked','=',1)->get();
+        $dcs = dc::where('runner_id', '=', $runner_id)->where('is_delivered','=',0)->where('is_tracked','=',2)->get();
 
         $count = $dcs->count();
 

@@ -252,7 +252,7 @@
 //                                }
 //                            })
 
-                                        $.post("/dc/create", data, function (data, status) {
+                                        $.post("/dc/update", data, function (data, status) {
 
                                             if (data == 1) {
                                                 $.growl.notice({
@@ -389,7 +389,7 @@
                     {{--<label for="sel1">Select list:</label>--}}
                     <select class="form-control" id="tracking_status">
                         <option value="-1">Select Tracking status</option>
-                        <option value="1">This DC is location Tracked</option>
+                        <option value="1">This DC is Tracked</option>
                         <option value="0">This DC is Un-Tracked</option>
                     </select>
                 </td>
@@ -494,7 +494,7 @@
                         {{ $detail['sku_description'] }}
                     </td>
                     <td>
-                        <input type="text" value="0" class="sku_class" sku="{{ $detail['sku'] }}" size="40"
+                        <input type="text" value="{{ $detail['current_quantity'] }}" class="sku_class" sku="{{ $detail['sku'] }}" size="40"
                                placeholder="Enter Quantity">
 
                         {{ $detail['sku_units'] }}

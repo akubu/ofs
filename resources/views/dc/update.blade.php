@@ -56,7 +56,7 @@
             </td>
             <td>
                 <label for="sel1">Tracking status</label>
-                <input class="form-group" type="text" value="{{ $dc['is_tracked'] }}" readonly="true"/>
+                <input class="form-group" type="text" value=" @if ( $dc['is_tracked'] == 1 ) Tracked @else Un-Tracked @endif" readonly="true"/>
             </td>
         </tr>
 
@@ -107,7 +107,7 @@
             </th>
             <td style="background-color: #b2dba1">
 
-                <input id="expected_dispatch_dt" size="40" value="{{ $dc['expected_dispatch_dt'] }}"  type="text" value="">
+                <input id="expected_dispatch_dt" size="40" value="{{ $dc['expected_dispatch_dt'] }}"  type="text" value="" readonly="readonly">
 
 
             </td>
@@ -118,7 +118,7 @@
             </th>
             <td style="background-color: #b2dba1">
                 <input id="expected_delivery_dt" type="datetime" size="40" value="{{ $dc['expected_delivery_dt'] }}"
-                       placeholder="Select Expected Delivery Date"/>
+                       placeholder="Select Expected Delivery Date" readonly="readonly"/>
             </td>
         </tr>
         <tr>

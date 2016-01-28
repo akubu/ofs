@@ -399,7 +399,44 @@ class dc extends Controller
         $dc_number = Input::get('dc_number');
         $dc = \App\dc::where('dc_number', '=', $dc_number)->get()->first();
 
-        return view('dc.update', compact('dc'));
+        $so_number = $dc->so_number;
+        $so = new \App\Http\Controllers\so();
+        $details = $so->details($so_number);
+
+        $dc_details = dc_details::where('dc_number', '=', $dc_number)->get();
+
+
+//dd($details);
+        foreach ( $dc_details as $dc_detail ) {
+
+            $ii = 0;
+
+            foreach( $details['details'] as $detail)
+            {
+
+                if($detail['sku'] == $dc_detail->sku)
+                {
+                    $details['details'][$ii]['current_quantity'] = $dc_detail['sku_quantity'];
+                }
+                ++$ii;
+            }
+        }
+
+
+
+
+
+
+        $runners = runner::all();
+        foreach($runners as $runner)
+        {
+            $response[] = $runner->runner_name . "(" . $runner->vtiger_id . ")";
+        }
+        $runner_names = $response;
+
+//        dd($details);
+
+        return view('dc.update', compact('dc', 'runner_names', 'details' ));
     }
 
     public function updateDCSelection()
@@ -436,7 +473,7 @@ class dc extends Controller
     public function markDeliveredSelection()
     {
 
-        $dcs = \App\dc::where('is_tracked', '=', 0)->get();
+        $dcs = \App\dc::where('is_tracked', '=', 0)->where('is_delivered', '=', 0)->get();
         $dc_numbers = array();
         foreach ($dcs as $dc) {
             $dc_numbers[] = $dc->dc_number;
@@ -471,7 +508,7 @@ class dc extends Controller
         $dc_track->save();
 
 
-        $dc->is_deliverd = 1;
+        $dc->is_delivered = 1;
         $dc->save();
 
         return 1;

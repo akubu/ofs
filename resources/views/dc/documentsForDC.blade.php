@@ -77,7 +77,19 @@
         <div class="progress-bar progress-bar-success"></div>
     </div>
     <!-- The container for the uploaded files -->
-    <div id="files" class="files"></div>
+    <div id="files" class="files">
+        <table class="table table-bordered" >
+            <div id="file_uploaded">
+            <tr>
+                <td>
+                  <font color="">
+
+                  </font>
+                </td>
+            </tr>
+            </div>
+        </table>
+    </div>
     <br>
 
 
@@ -92,6 +104,7 @@
     <script>
         /*jslint unparam: true */
         /*global window, $ */
+        r = '';
         $(function () {
             'use strict';
             // Change this to the location of your server-side upload handler:
@@ -143,13 +156,22 @@
                 },
 
                 done: function(e, data) {
-                    var r = data.result;
-                    if(r.length < 5){
+
+                     r = data.result.path;
+                    if(data.result == 0){
                         $.growl.error({
                             message: 'FileType Not Allowed. ',
                             size: 'large',
                             duration: 5000
                         });
+                    }else{
+                        $.growl.notice({
+                            message: 'File Uploaded. ',
+                            size: 'large',
+                            duration: 5000
+                        });
+
+                        $('#file_uploaded').append('<tr><td><font color="green"> File Uploaded at : ' + r +'</font></td></tr>');
                     }
 
                 },
