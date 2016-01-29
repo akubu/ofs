@@ -14,7 +14,7 @@ class Locations extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('device_id')->unique();
+            $table->string('device_id');
             $table->string('lat');
             $table->string('long');
             $table->string('dc_number');

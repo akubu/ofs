@@ -8,8 +8,7 @@
             window.open("dc/getDownload?file_id=" + file_id);
 
 
-//            $.get("dc/getDownload?file_id=" + file_id, function(data){
-//            });
+
             return false;
         });
 
@@ -172,12 +171,13 @@
                 done: function(e, data) {
 
                      r = data.result.path;
-                    if(data.result == 0){
+                    if(data.result == 0 || data.result == -1){
                         $.growl.error({
                             message: 'FileType Not Allowed. ',
                             size: 'large',
                             duration: 5000
                         });
+                        return false;
                     }else{
                         $.growl.notice({
                             message: 'File Uploaded. ',
@@ -185,7 +185,7 @@
                             duration: 5000
                         });
 
-                        $('#file_uploaded').append('<tr><td><font color="green"> File Uploaded at : ' + r +'</font></td></tr>');
+                        $('#file_uploaded').html($('#file_uploaded').html() + '<tr><td><font color="green"> File Uploaded at : ' + r +'</font></td></tr>');
                     }
 
                 },

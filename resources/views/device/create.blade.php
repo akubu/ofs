@@ -6,11 +6,14 @@
                 "GSM",
             ];
             $("#type").autocomplete({
-                source: availableTagsType,
-                minLength: 0,
-                scroll: true
+                source: function( request, response ) {
+                    var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i" );
+                    response($.grep(availableTagsType, function(value) {
+                        return matcher.test( value.toUpperCase() );
+                    }));
+                },
             }).focus(function() {
-                $(this).autocomplete("search", "");
+                $(this).autocomplete("search",  $("#type").val());
             });
         });
 
@@ -18,14 +21,20 @@
         $(function () {
             var availableTagsModel = [
                 "Nokia 105",
-                    "Samsung 1200"
+                "Samsung 1200"
             ];
             $("#model").autocomplete({
-                source: availableTagsModel,
+
+                source: function( request, response ) {
+                    var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i" );
+                    response($.grep(availableTagsModel, function(value) {
+                        return matcher.test( value.toUpperCase() );
+                    }));
+                },
                 minLength: 0,
                 scroll: true
             }).focus(function() {
-                $(this).autocomplete("search", "");
+                $(this).autocomplete("search",  $("#model").val());
             });
         });
 
@@ -146,6 +155,18 @@
                                         });
 
                                         $('#device_id').html(' <h3 align="center"> New Device Id is : ' + result + '  </h3>');
+
+                                        $.get("/device/add", function (data, status) {
+                                            if(data.auth_required == true)
+                                            {
+                                                window.location = "/auth/login";
+                                                return false;
+                                            }
+                                            $('#body_div').html(data);
+                                        });
+
+                                        return false;
+
 
                                     }
 

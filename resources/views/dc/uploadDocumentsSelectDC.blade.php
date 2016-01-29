@@ -25,7 +25,12 @@
     $(function () {
 
             $("#dcNumberSelect").autocomplete({
-                source: availableTags,
+                source: function( request, response ) {
+                    var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i" );
+                    response($.grep(availableTags, function(value) {
+                        return matcher.test( value.toUpperCase() );
+                    }));
+                },
                 minLength: 0,
                 scroll: true
             }).focus(function() {

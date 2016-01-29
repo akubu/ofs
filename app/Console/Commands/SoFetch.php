@@ -47,7 +47,8 @@ class SoFetch extends Command
         //confingure log
         Log::useDailyFiles(storage_path() . '/logs/navision-pull.log');
 
-        $nav_so = SalesHeader::where('1','=','1')->get();
+        $nav_so = SalesHeader::all();
+
         Log::info("Master SO count : "  .$nav_so->count() . "\n");
 
         foreach ($nav_so as $so) {

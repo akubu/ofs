@@ -25,13 +25,16 @@
                 minLength: 0,
                 scroll: true
             }).focus(function() {
-                $(this).autocomplete("search", "");
+                $(this).autocomplete("search", $('#so_number').val());
             })
         });
 
 
         $('#so_entered').click(function () {
-            var so_number = $.trim($('#so_number').val().toUpperCase());
+            var so_number = $.trim($('#so_number').val().toUpperCase()).replace("+","");
+
+
+
             $.post("so/checkExistence", {so_number: so_number}, function (result) {
 //                alert(result);
                 if (result == 1) {

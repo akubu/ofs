@@ -145,7 +145,7 @@ class notifications extends Controller
         $ir = 0;
 
         $so_number = \App\dc::where('dc_number', '=', $dc_number)->get()->first()->so_number;
-        $so = so::where('so_number', '=', $so_number)->get()->first()->customer_number;
+        $so = so::where('so_number', '=', $so_number)->get()->first();
         $customer_number = $so->customer_number;
         $customer_name = $so->bill_to_name;
         $customer = customer_contact_master::where('customer_number', '=', $customer_number)->get()->first();

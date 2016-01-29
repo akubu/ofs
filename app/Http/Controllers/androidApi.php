@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\dc;
 use App\dc_details;
 use App\dc_track;
+use App\delivery;
 use App\device;
 use App\locations;
+use App\runner;
 use App\so_details;
 use Illuminate\Http\Request;
 
@@ -187,9 +189,17 @@ class androidApi extends Controller
         $dc_track = dc_track::where('dc_number','=',$dc_number)->get()->first();
             $dc_track->delivered_dt = \Carbon\Carbon::now();
             $dc_track->save();
+            $delivery = new delivery();
+            $delivery->dc_number = $dc_number;
+            $delivery->comment = $comment;
+            $delivery->runner_id = $dc->runner_id;
+            $delivery->save();
+
 
             $device->save();
             $dc->save();
+
+
             $notifier = new notifications();
             $notifier->sendDeliveredNotification($dc_number);
 
@@ -209,8 +219,11 @@ class androidApi extends Controller
     {
 
         $response = array();
+
+
+
         $device = device::where('device_id', '=', $device_id)->get()->first();
-        $dc = dc::where('truck_number', '=', $truck_number)->where('is_tracked', '=', 1)->get()->first();
+        $dc = dc::where('truck_number', '=', $truck_number)->where('is_tracked', '=', 1)->where('is_delivered','=', 0)->get()->first();
 
         if ($device && $dc) {
 
@@ -250,6 +263,15 @@ class androidApi extends Controller
 
         $response = array();
         $dc_number = $id1 . "/" . $id2 ."/". $id3 . "/" . $id4 ;
+        $device = device::where('device_id', '=', $device_id)->get()->first();
+        $runner = runner::where('vtiger_id', '=', $runner_id)->get()->first();
+
+
+
+        if( is_null($device) || is_null($runner)){
+            $response['status'] = "0";
+            return $response;
+        }
 
         $dc_track = dc_track::where('dc_number','=',$dc_number)->get()->first();
         $dc = dc::where('dc_number', '=', $dc_number)->get()->first();

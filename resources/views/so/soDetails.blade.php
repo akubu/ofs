@@ -2,7 +2,8 @@
     $(document).ready(function () {
         $('#register_new_dc').click(function () {
 
-            var so_number = $('#so_number').val();
+            var so_number = $.trim($('#so_number').val().toUpperCase()).replace("+","");
+
 
             $.post("dc/newDC", {so_number: so_number}, function (result) {
 

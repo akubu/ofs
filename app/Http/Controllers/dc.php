@@ -18,6 +18,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Log;
+
 class dc extends Controller
 {
     public function test()
@@ -50,23 +51,23 @@ class dc extends Controller
         $jsonInput = Input::get('json');
         $decoded = json_decode($jsonInput, true);
 
-        $dc_number = $decoded['dc_number'];
-        $runner_assigned = $decoded['runner_assigned'];
+        $dc_number = trim($decoded['dc_number']);
+        $runner_assigned = trim($decoded['runner_assigned']);
 
         $runner_id = substr($runner_assigned, strpos($runner_assigned, "(") + 1, -1);
-        $driver_name = $decoded['driver_name'];
-        $driver_contact_number = $decoded['driver_contact_number'];
-        $truck_number = $decoded['truck_number'];
-        $truck_type = $decoded['truck_type'];
-        $expected_delivery_date = $decoded['expected_delivery_date'];
+        $driver_name = trim($decoded['driver_name']);
+        $driver_contact_number = trim($decoded['driver_contact_number']);
+        $truck_number = trim($decoded['truck_number']);
+        $truck_type = trim($decoded['truck_type']);
+        $expected_delivery_date = trim($decoded['expected_delivery_date']);
 
-        $expected_dispatch_date = $decoded['expected_dispatch_date'];
-        $address = $decoded['address'];;
-        $lat = $decoded['lat'];
-        $long = $decoded['long'];
-        $tracking_status = $decoded['tracking_status'];
-        $no_tracking_reason = $decoded['no_tracking_reason'];
-        $so_number = $decoded['so_number'];
+        $expected_dispatch_date = trim($decoded['expected_dispatch_date']);
+        $address = trim($decoded['address']);
+        $lat = trim($decoded['lat']);
+        $long = trim($decoded['long']);
+        $tracking_status = trim($decoded['tracking_status']);
+        $no_tracking_reason = trim($decoded['no_tracking_reason']);
+        $so_number = trim($decoded['so_number']);
 
 
         $sku_details = $decoded['sku_details'];
@@ -103,7 +104,7 @@ class dc extends Controller
             $dc_detail = new dc_details();
             $dc_detail->dc_number = $dc_number;
             $dc_detail->sku = $sku_detail['sku'];
-            $dc_detail->sku_quantity = $sku_detail['sku_quantity'];
+            $dc_detail->sku_quantity = trim($sku_detail['sku_quantity']);
 
             $dc_detail->save();
         }
@@ -135,8 +136,7 @@ class dc extends Controller
         $notifier = new notifications();
         $notif = $notifier->sendDcCreatedNotification($dc_number, $so_number);
 
-        Log::info("\n DC created  : "  .$dc_number . " andd : ".$notif."\n");
-
+        Log::info("\n DC created  : " . $dc_number . " andd : " . $notif . "\n");
 
 
         return 1;
@@ -247,17 +247,17 @@ class dc extends Controller
 
 
         $test = false;
-        while(!$test) {
+        while (!$test) {
             $dc_count = \App\dc::where('so_number', '=', $so_number)->get()->count() + 1;
-            $seed = str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ'); // and any other characters
+            $seed = str_split('ABDEFGHJKLMNPRSTUVWXYZ'); // and any other characters
             shuffle($seed); // probably optional since array_is randomized; this may be redundant
             $rand = array();
             foreach (array_rand($seed, 5) as $k) $rand [] = $seed[$k];
 
             $dc_number = $so_number . "/" . $dc_count . $rand[3];
             $dc_number = str_replace("SO", "DC", $dc_number);
-            $dc = \App\dc::where('dc_number','=',$dc_number)->get()->first();
-            if(!$dc){
+            $dc = \App\dc::where('dc_number', '=', $dc_number)->get()->first();
+            if (!$dc) {
                 $test = true;
             }
         }
@@ -336,7 +336,8 @@ class dc extends Controller
 //        dd(Input::all());
 //        dd(Input::file('files'));
 
-        $dc_number = Input::get('dc');
+        $dc_number = trim(Input::get('dc'));
+
         $type = Input::get('type');
         $type_name = document_type_master::where('id', '=', $type)->get()->first()->document_type;
         $type_name = str_replace(" ", "_", $type_name);
@@ -345,11 +346,13 @@ class dc extends Controller
             //upload an image to the /img/tmp directory and return the filepath.
             $file = Input::file('files')[0];
 
-            return filesize($file);
-            if(filesize($file) > 10000000)
-            {
+
+
+            if (filesize($file) > 10000000) {
                 return 0;
             }
+
+
 
             $tmpFilePath = '/uploads/' . $dc_number . '/';
 
@@ -390,7 +393,7 @@ class dc extends Controller
             $response[$ii]['dc_track_info'] = $dc_track;
             $gsm_number = device::where('device_id', '=', $dc_track->device_id)->get()->first();
             if ($gsm_number) {
-                
+
                 $response[$ii]['device_gsm_number'] = $gsm_number->gsm_number;
             } else {
                 $response[$ii]['device_gsm_number'] = 0;
@@ -414,15 +417,13 @@ class dc extends Controller
 
 
 //dd($details);
-        foreach ( $dc_details as $dc_detail ) {
+        foreach ($dc_details as $dc_detail) {
 
             $ii = 0;
 
-            foreach( $details['details'] as $detail)
-            {
+            foreach ($details['details'] as $detail) {
 
-                if($detail['sku'] == $dc_detail->sku)
-                {
+                if ($detail['sku'] == $dc_detail->sku) {
                     $details['details'][$ii]['current_quantity'] = $dc_detail['sku_quantity'];
                 }
                 ++$ii;
@@ -430,20 +431,15 @@ class dc extends Controller
         }
 
 
-
-
-
-
         $runners = runner::all();
-        foreach($runners as $runner)
-        {
+        foreach ($runners as $runner) {
             $response[] = $runner->runner_name . "(" . $runner->vtiger_id . ")";
         }
         $runner_names = $response;
 
 //        dd($details);
 
-        return view('dc.update', compact('dc', 'runner_names', 'details' ));
+        return view('dc.update', compact('dc', 'runner_names', 'details'));
     }
 
     public function updateDCSelection()
@@ -521,7 +517,6 @@ class dc extends Controller
         return 1;
 
     }
-
 
 
 }

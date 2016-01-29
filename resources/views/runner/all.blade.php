@@ -161,7 +161,7 @@
 
 
 <div id="map_view" width="80%">
-<iframe id="map_frame" src="" width="80%" height="400px" ></iframe>
+<iframe id="map_frame" src="" width="80%" height="400px" frameborder="0"></iframe>
 </div>
 
 </div>

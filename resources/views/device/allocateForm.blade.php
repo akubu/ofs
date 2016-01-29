@@ -24,11 +24,16 @@ $(function () {
 
 
             $("#deviceToAllocate").autocomplete({
-                source: availableTags,
+                source: function( request, response ) {
+                    var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i" );
+                    response($.grep(availableTags, function(value) {
+                        return matcher.test( value.toUpperCase() );
+                    }));
+                },
                 minLength: 0,
                 scroll: true
             }).focus(function() {
-                $(this).autocomplete("search", "");
+                $(this).autocomplete("search",  $("#deviceToAllocate").val());
             });
         });
 
@@ -43,11 +48,17 @@ $(function () {
         $(function () {
 
             $("#runnerId").autocomplete({
-                source: availableTagsRunner,
+
+                source: function( request, response ) {
+                    var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i" );
+                    response($.grep(availableTagsRunner, function(value) {
+                        return matcher.test( value.toUpperCase() );
+                    }));
+                },
                 minLength: 0,
                 scroll: true
             }).focus(function() {
-                $(this).autocomplete("search", "");
+                $(this).autocomplete("search",  $("#runnerId").val());
             });
         });
 

@@ -1,7 +1,7 @@
 <script type="application/javascript">
     $(document).ready(function () {
 
-        errorFlag = 0;
+
 
         $('#map_sellector').hide();
         $('#select_address').hide();
@@ -38,11 +38,16 @@
         $(function () {
 
             $("#runner_assigned").autocomplete({
-                source: availableTags,
+                source: function( request, response ) {
+                    var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i" );
+                    response($.grep(availableTags, function(value) {
+                        return matcher.test( value.toUpperCase() );
+                    }));
+                },
                 minLength: 0,
                 scroll: true
             }).focus(function() {
-                $(this).autocomplete("search", "");
+                $(this).autocomplete("search", $('#so_number').val());
 
             });
         });
@@ -119,6 +124,7 @@
 
     $('#register_dc').click(function () {
 
+        errorFlag = 0;
 
         var dc_number = $('#dc_number').val();
         if (dc_number == ''  ) {
@@ -265,7 +271,7 @@
         var no_tracking_reason = $('#no_tracking_reason').val();
 
 
-        if (  no_tracking_reason == '' ||  no_tracking_reason == '0' ) {
+        if (  no_tracking_reason == '' &&  tracking_status == '0' ) {
             $('#no_tracking_reason').css('border-color', 'red');
             ++errorFlag ;
         }
@@ -291,14 +297,22 @@
         }
 
 
-        var is_a_quantity = 0;
+        var is_a_quantity = 0; var qty_error = 0;
         $(".sku_class").each(function () {
 
-            is_a_quantity = is_a_quantity + $(this).val();
+            if($.isNumeric($(this).val()))
+            {
+                is_a_quantity = is_a_quantity + $(this).val();
+                $(this).css('border-color', 'green');
+            }else{
+                $(this).css('border-color', 'red');
+                qty_error = 1;
+            }
+
 
         });
 
-        if (is_a_quantity == 0 || is_a_quantity == 0.0) {
+        if (is_a_quantity == 0 || is_a_quantity == 0.0 ) {
 
             $('.sku_class').css('border-color', 'red');
             ++errorFlag ;
