@@ -57,7 +57,7 @@
                 </th>
 
                 <th>
-                    <input id="fileupload{{ $document['type_number'] }}" type="file" name="files[]" >
+                    <input class="selector_file" id="fileupload{{ $document['type_number'] }}" type="file" name="files[]" >
 
                 </th>
                 <th>
@@ -104,8 +104,22 @@
     <script>
         /*jslint unparam: true */
         /*global window, $ */
+
+
+
+
         r = '';
         $(function () {
+
+
+            $('#myFile').bind('change', function() {
+
+                //this.files[0].size gets the size of your file.
+                alert(this.files[0].size);
+
+            });
+
+
             'use strict';
             // Change this to the location of your server-side upload handler:
             var url = 'dc/documentUpload';

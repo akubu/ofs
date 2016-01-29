@@ -6,7 +6,11 @@
                 "GSM",
             ];
             $("#type").autocomplete({
-                source: availableTagsType
+                source: availableTagsType,
+                minLength: 0,
+                scroll: true
+            }).focus(function() {
+                $(this).autocomplete("search", "");
             });
         });
 
@@ -17,7 +21,11 @@
                     "Samsung 1200"
             ];
             $("#model").autocomplete({
-                source: availableTagsModel
+                source: availableTagsModel,
+                minLength: 0,
+                scroll: true
+            }).focus(function() {
+                $(this).autocomplete("search", "");
             });
         });
 
@@ -25,12 +33,79 @@
 
         $('#add_device').click(function () {
 
+            errorFlag =0;
+
             var type = $('#type').val();
+            if (type == '' || type.length < 3 ) {
+
+                $('#type').css('border-color', 'red');
+                ++errorFlag ;
+            }
+            else {
+                $('#type').css('border-color', 'green');
+            }
+
+
             var model = $('#model').val();
+            if (model == '' || model.length < 3 ) {
+
+                $('#model').css('border-color', 'red');
+                ++errorFlag ;
+            }
+            else {
+                $('#model').css('border-color', 'green');
+            }
+
+
+
             var imei_number = $('#imei_number').val();
+            if (model == '' || model < 9999999999 ) {
+
+                $('#imei_number').css('border-color', 'red');
+                ++errorFlag ;
+            }
+            else {
+                $('#imei_number').css('border-color', 'green');
+            }
+
             var sim_number = $('#sim_number').val();
+            if (sim_number == '' || sim_number < 9999999999 ) {
+
+                $('#sim_number').css('border-color', 'red');
+                ++errorFlag ;
+            }
+            else {
+                $('#sim_number').css('border-color', 'green');
+            }
+
+
             var gsm_number = $('#gsm_number').val();
+            if (gsm_number == '' || gsm_number < 7000000000 || gsm_number.length !=10 ) {
+
+                $('#gsm_number').css('border-color', 'red');
+                ++errorFlag ;
+            }
+            else {
+                $('#gsm_number').css('border-color', 'green');
+            }
+
+
+
             var scm_id = $('#scm_id').val();
+
+            if(errorFlag > 0){
+
+                $.growl.error({
+                    message: 'Please correct all fields marked in Red .',
+                    size: 'large',
+                    duration: 5000
+                });
+
+                return false;
+
+            }
+
+
 
 
 
@@ -171,7 +246,7 @@
             <th>
                 SCM ID
             </th>
-            <th><input type="text" class="form-control" id="scm_id" value="<?php session_start();  ?>" placeholder="Enter SCM id"
+            <th><input type="text" class="form-control" id="scm_id" value=" {{ $vt_user }} " placeholder="Enter SCM id"
                        readonly="readonly"></th>
         </tr>
 

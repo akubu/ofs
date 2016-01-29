@@ -344,6 +344,13 @@ class dc extends Controller
         if (Input::hasFile('files')) {
             //upload an image to the /img/tmp directory and return the filepath.
             $file = Input::file('files')[0];
+
+            return filesize($file);
+            if(filesize($file) > 10000000)
+            {
+                return 0;
+            }
+
             $tmpFilePath = '/uploads/' . $dc_number . '/';
 
             $name = $file->getClientOriginalName();

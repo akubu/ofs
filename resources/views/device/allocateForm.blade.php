@@ -24,7 +24,11 @@ $(function () {
 
 
             $("#deviceToAllocate").autocomplete({
-                source: availableTags
+                source: availableTags,
+                minLength: 0,
+                scroll: true
+            }).focus(function() {
+                $(this).autocomplete("search", "");
             });
         });
 
@@ -39,7 +43,11 @@ $(function () {
         $(function () {
 
             $("#runnerId").autocomplete({
-                source: availableTagsRunner
+                source: availableTagsRunner,
+                minLength: 0,
+                scroll: true
+            }).focus(function() {
+                $(this).autocomplete("search", "");
             });
         });
 

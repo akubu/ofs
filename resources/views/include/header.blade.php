@@ -69,7 +69,7 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Help <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                       <li><a href="#" id="ask_question_nav"> Ask Question </a></li>
-                      <li><a href="#" id="about_nav"> About </a></li>
+
                   </ul>
               </li>
 

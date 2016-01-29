@@ -3,6 +3,11 @@ $(document).ready(function () {
 
     $.get("/home", function (data, status) {
 
+        if(data.auth_required == true)
+        {
+            window.location = "/auth/login";
+            return false;
+        }
         $('#body_div').html(data);
     });
 
@@ -10,7 +15,11 @@ $(document).ready(function () {
 
 
         $.get("/home", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -25,7 +34,8 @@ $(document).ready(function () {
     $('#new_assignment_nav').click(function () {
 
 
-        $.get("manageDc", function (data, status) {
+
+        $.get("/manageDc", function (data, status) {
 
             $('#body_div').html(data);
 
@@ -40,7 +50,11 @@ $(document).ready(function () {
 
 
         $.get("/dc/markDeliveredSelection", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
 
 
@@ -57,7 +71,11 @@ $(document).ready(function () {
     $('#current_assignment_nav').click(function () {
 
         $.get("dc/manageDC", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -69,7 +87,11 @@ $(document).ready(function () {
 
 
         $.get("dc/updateDCSelection", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -85,7 +107,11 @@ $(document).ready(function () {
 
 
         $.get("dc/manageDC", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -97,7 +123,11 @@ $(document).ready(function () {
 
 
         $.get("/runner/all", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -109,7 +139,11 @@ $(document).ready(function () {
 
 
         $.get("/device/all", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -121,7 +155,11 @@ $(document).ready(function () {
 
 
         $.get("/runner/create", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -133,7 +171,11 @@ $(document).ready(function () {
 
 
         $.get("/runner/updateSelect", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -145,7 +187,11 @@ $(document).ready(function () {
 
 
         $.get("/runner/delete", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -157,7 +203,11 @@ $(document).ready(function () {
 
 
         $.get("/runner/all", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -169,7 +219,11 @@ $(document).ready(function () {
 
 
         $.get("/device/add", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -181,7 +235,11 @@ $(document).ready(function () {
 
 
         $.get("/device/allocateForm", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -193,7 +251,11 @@ $(document).ready(function () {
 
 
         $.get("/device/recover", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -206,7 +268,11 @@ $(document).ready(function () {
 
 
         $.get("/device/loss", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -217,7 +283,11 @@ $(document).ready(function () {
 
 
         $.get("/device/all", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -230,7 +300,11 @@ $(document).ready(function () {
 
 
         $.get("/dc/uploadDocuments", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -241,7 +315,11 @@ $(document).ready(function () {
 
 
         $.get("/dc/uploadDocuments", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -253,7 +331,11 @@ $(document).ready(function () {
 
 
         $.get("/start_shipment", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -265,7 +347,11 @@ $(document).ready(function () {
 
 
         $.get("/register_delivery", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -277,7 +363,11 @@ $(document).ready(function () {
 
 
         $.get("/urgent_notifications", function (data, status) {
-
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
             $('#body_div').html(data);
         });
 
@@ -289,6 +379,15 @@ $(document).ready(function () {
 
 
         $.get("/help/askForm", function (data, status) {
+
+
+
+            if(data.auth_required == true)
+            {
+                window.location = "/auth/login";
+                return false;
+            }
+
 
             $('#body_div').html(data);
         });

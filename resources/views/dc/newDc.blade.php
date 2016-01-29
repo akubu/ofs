@@ -1,5 +1,8 @@
 <script type="application/javascript">
     $(document).ready(function () {
+
+        errorFlag = 0;
+
         $('#map_sellector').hide();
         $('#select_address').hide();
         $('#reason_row').hide();
@@ -35,7 +38,12 @@
         $(function () {
 
             $("#runner_assigned").autocomplete({
-                source: availableTags
+                source: availableTags,
+                minLength: 0,
+                scroll: true
+            }).focus(function() {
+                $(this).autocomplete("search", "");
+
             });
         });
 
@@ -76,9 +84,11 @@
                     locationNameInput: $('#address')
                 },
                 enableAutocomplete: true,
+                    enableReverseGeocode: true,
                 onchanged: function (currentLocation, radius, isMarkerDropped) {
                     // Uncomment line below to show alert on each Location Changed event
                     //alert("Location changed. New location (" + currentLocation.latitude + ", " + currentLocation.longitude + ")");
+
                 }
             });
         });
@@ -111,33 +121,161 @@
 
 
         var dc_number = $('#dc_number').val();
+        if (dc_number == ''  ) {
+            $('#dc_number').css('border-color', 'red');
+            ++errorFlag ;
+        }
+        else {
+            $('#dc_number').css('border-color', 'green');
+        }
+
+
         var runner_assigned = $('#runner_assigned').val();
 
 
         if ($.inArray(runner_assigned, availableTags) == -1) {
 
-            $.growl.error({
-                message: 'Select Runner From from dropdown. ',
-                size: 'large',
-                duration: 10000
-            });
-            return false;
+                $('#runner_assigned').css('border-color', 'red');
+                ++errorFlag ;
+
+
         }
 
+        else{
+            $('#runner_assigned').css('border-color', 'green');
+        }
+
+
+
+
         var driver_name = $('#driver_name').val();
+
+
+        if (driver_name == '' || driver_name.length <3 ) {
+            $('#driver_name').css('border-color', 'red');
+           ++errorFlag ;
+        }
+        else {
+            $('#driver_name').css('border-color', 'green');
+        }
+
         var driver_contact_number = $('#driver_contact_number').val();
+
+
+        if (driver_contact_number == '' || driver_contact_number.length !=10 ||  driver_contact_number <7000000000 ) {
+            $('#driver_contact_number').css('border-color', 'red');
+            ++errorFlag ;
+        }
+        else {
+            $('#driver_contact_number').css('border-color', 'green');
+        }
+
+
         var truck_number = $('#truck_number').val();
+
+        if ( truck_number == '' || truck_number <5 || truck_number >13 ) {
+            $('#truck_number').css('border-color', 'red');
+            ++errorFlag ;
+        }
+        else {
+            $('#truck_number').css('border-color', 'green');
+        }
+
         var truck_type = $('#truck_type').val();
+
+        if ( truck_type == '' || truck_type <2 || truck_type.length >25 ) {
+            $('#truck_type').css('border-color', 'red');
+            ++errorFlag ;
+        }
+        else {
+            $('#truck_type').css('border-color', 'green');
+        }
+
+
+
 //        var expected_delivery_date = $('#expected_delivery_date').datepicker('getDate');
         var expected_delivery_date = $('#expected_delivery_date').val();
+
+
+        if ( expected_delivery_date == ''  ) {
+            $('#expected_delivery_date').css('border-color', 'red');
+            ++errorFlag ;
+        }
+        else {
+            $('#expected_delivery_date').css('border-color', 'green');
+        }
+
         var expected_dispatch_date = $('#expected_dispatch_date').val();
 //        var expected_dispatch_date = $('#expected_dispatch_date').datepicker('getDate');
+
+        if ( expected_dispatch_date == ''  ) {
+            $('#expected_dispatch_date').css('border-color', 'red');
+            ++errorFlag ;
+        }
+        else {
+            $('#expected_dispatch_date').css('border-color', 'green');
+        }
+
+
         var address = $('#address').val();
+
+        if ( address == '' ||  address <5  ) {
+            $('#address').css('border-color', 'red');
+            ++errorFlag ;
+        }
+        else {
+            $('#address').css('border-color', 'green');
+        }
+
+
         var lat = $('#lat').val();
+
+        if ( lat == '' || lat < 3  ) {
+            $('#lat').css('border-color', 'red');
+            $('#address').css('border-color', 'red');
+            ++errorFlag ;
+        }
+        else {
+            $('#lat').css('border-color', 'green');
+        }
+
         var long = $('#long').val();
+
+        if ( long == '' || long < 3  ) {
+            $('#address').css('border-color', 'red');
+            $('#long').css('border-color', 'red');
+            ++errorFlag ;
+        }
+        else {
+            $('#long').css('border-color', 'green');
+        }
+
+
+
         var tracking_status = $('#tracking_status').val();
+
+        if ( tracking_status == '-1'  ) {
+            $('#tracking_status').css('border-color', 'red');
+            ++errorFlag ;
+        }
+        else {
+            $('#tracking_status').css('border-color', 'green');
+        }
+
         var no_tracking_reason = $('#no_tracking_reason').val();
+
+
+        if (  no_tracking_reason == '' ||  no_tracking_reason == '0' ) {
+            $('#no_tracking_reason').css('border-color', 'red');
+            ++errorFlag ;
+        }
+        else {
+            $('#no_tracking_reason').css('border-color', 'green');
+        }
+
         var so_number = $('#so_number').val();
+
+
 
         if(lat == 0 || long == 0)
         {
@@ -146,6 +284,9 @@
                 size: 'large',
                 duration: 5000
             });
+            $('#address').css('border-color', 'red');
+            $('#address').css('border-color', 'red');
+            $('#address').css('border-color', 'red');
             return false;
         }
 
@@ -158,13 +299,31 @@
         });
 
         if (is_a_quantity == 0 || is_a_quantity == 0.0) {
-            alert("please enter a quantity");
-            return false;
+
+            $('.sku_class').css('border-color', 'red');
+            ++errorFlag ;
+
         }
+        else{
+            $('.sku_class').css('border-color', 'green');
+        }
+
+        if(errorFlag > 0){
+
+            $.growl.error({
+                message: 'Please correct all fields marked in Red .',
+                size: 'large',
+                duration: 5000
+            });
+
+            return false;
+
+        }
+
 
         if (expected_delivery_date < expected_dispatch_date) {
             $.growl.error({
-                message: 'How can delivery date come before dispatch date. ',
+                message: 'Delivery date can not be before dispatch date. ',
                 size: 'large',
                 duration: 5000
             });
@@ -174,12 +333,15 @@
         if (lat == 0 || long == 0) {
 
             $.growl.error({
-                message: ' Please Update Address ??!',
+                message: ' Please Update Address .',
                 size: 'large',
                 duration: 5000
             });
             return false;
         }
+
+
+
 
         if (!(dc_number && runner_assigned && driver_contact_number && driver_name && truck_number && truck_type && expected_delivery_date && expected_dispatch_date && address && lat && long)) {
             $.growl.error({
@@ -389,7 +551,7 @@
                     {{--<label for="sel1">Select list:</label>--}}
                     <select class="form-control" id="tracking_status">
                         <option value="-1">Select Tracking status</option>
-                        <option value="1">This DC is location Tracked</option>
+                        <option value="1">This DC is Tracked</option>
                         <option value="0">This DC is Un-Tracked</option>
                     </select>
                 </td>
@@ -460,7 +622,7 @@
                     </center>
                 </th>
                 <td>
-                    <input id="expected_delivery_date" type="datetime" size="40"
+                    <input id="expected_delivery_date" type="text" size="40"
                            placeholder="Select Expected Delivery Date" readonly="readonly"/>
                 </td>
             </tr>
@@ -511,8 +673,8 @@
                 </th>
                 <th>
                     <input type="text" id="address" value="{{ $details['ship_to_address'] }}" size="60"/>
-                    <input type="text" id="lat" value="{{ $details['lat'] }}" size="10" readonly=true/>
-                    <input type="text" id="long" value="{{ $details['long'] }}" size="10" readonly=true/>
+                    <input type="text" id="lat" value="{{ $details['lat'] }}" size="10" readonly=true />
+                    <input type="text" id="long" value="{{ $details['long'] }}" size="10" readonly=true />
                     <button id="select_address" class="btn btn-primary" style="width: auto">Select This Address
                     </button>
                 </th>

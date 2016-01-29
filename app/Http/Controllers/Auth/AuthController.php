@@ -147,7 +147,9 @@ class AuthController extends Controller
 //                $response['redirect'] = '/webApp';
 //            }else {
 
-            $redirect_to  = Session::get('redirectURL');
+            //$redirect_to  = Session::get('redirectURL');
+            $redirect_to  = "/";
+
             if($redirect_to == null)
                 $redirect_to = "/";
 

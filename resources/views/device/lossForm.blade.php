@@ -27,7 +27,11 @@
         $(function () {
 
             $("#device_id").autocomplete({
-                source: availableTags
+                source: availableTags,
+                minLength: 0,
+                scroll: true
+            }).focus(function() {
+                $(this).autocomplete("search", "");
             });
         });
 

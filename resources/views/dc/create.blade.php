@@ -10,16 +10,28 @@
             @endforeach
     ];
 
+
+
+
         $(function () {
 
             $("#so_number").autocomplete({
-                source: availableTags
-            });
+                source: function( request, response ) {
+                    var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i" );
+                    response($.grep(availableTags, function(value) {
+                        return matcher.test( value.toUpperCase() );
+                    }));
+                },
+                minLength: 0,
+                scroll: true
+            }).focus(function() {
+                $(this).autocomplete("search", "");
+            })
         });
 
 
         $('#so_entered').click(function () {
-            var so_number = $.trim($('#so_number').val());
+            var so_number = $.trim($('#so_number').val().toUpperCase());
             $.post("so/checkExistence", {so_number: so_number}, function (result) {
 //                alert(result);
                 if (result == 1) {
@@ -58,7 +70,7 @@
 <div id="enter_so">
     <div class="row">
 
-        <form class="form-horizontal" role="form">
+
             <div class="form-group">
                 <label class="control-label col-sm-2">SO Number:</label>
 
@@ -72,7 +84,7 @@
                     <button id="so_entered" class="btn btn-default">Start Assigning</button>
                 </div>
             </div>
-        </form>
+
     </div>
 </div>
 
