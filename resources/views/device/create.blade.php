@@ -216,10 +216,11 @@
 
 
 <h3 align="center"> Enter New Device information</h3>
+<hr>
 
 <div id="device_info">
 
-    <table class="table table-bordered">
+    <table class="table borderless">
         <tr>
             <th>
                 Device type
@@ -271,13 +272,16 @@
 
 
 
-        <tr>
-            <th colspan="4">
+        
+    </table>
+    <div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-2">
                 <button id="add_device" class="btn btn-primary">Add device to system</button>
                 <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
-            </th>
-        </tr>
-    </table>
+           </div>
+    <div class="col-md-5"></div>
+    </div>
 
 </div>
 

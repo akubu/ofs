@@ -11,7 +11,7 @@
                     });
                     $('#allocate_device').hide();
         });
-        $('#info_status').html('<center><h3>No Devices Vaccant, Please recover or add Device first</h3></center>');
+        $('#info_status').html('<center><h2 style="color:#0AB2F1; margin-top:30px;">No Devices Vaccant, Please recover or add Device first</h2></center>');
 @endif
 
  availableTags = [
@@ -193,23 +193,27 @@ $(function () {
 
 <div id="device_selector">
 
-
-    <table class="table table-bordered">
-        <tr>
-            <th>
-                Device ID :
-            </th>
-            <th>
-
-                    <input class="form-control ui-autocomplete-input" id="deviceToAllocate" placeholder="Enter Device ID" >
-
-            </th>
-            <th>
-                <button id="allocate_device" class="btn btn-primary">Allocate Device</button>
+  <table class="table table-striped">
+    <tr>
+    	<th>&nbsp;</th>
+    	<th>&nbsp;</th>
+        <th style="width: 146px;vertical-align: middle;">Device ID:</th>
+        <th>
+           
+                <input class="form-control ui-autocomplete-input" id="deviceToAllocate" placeholder="Enter Device ID" >
+          
+        </th>
+        <th>
+            <button id="allocate_device" class="btn btn-primary btn-sm">Allocate Device</button>
                 <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
-            </th>
-        </tr>
-    </table>
+        </th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+    </tr>
+</table>
+
+
+    
 
 
 </div>
@@ -227,23 +231,31 @@ $(function () {
 </div>
 
 
-<hr>
+
 
 
 <div id="runner_selection" hidden>
-
-    <table class="table-bordered table">
+<hr>
+<table class="table table-striped">
+    <tr>
+    	<th>&nbsp;</th>
+    	<th>&nbsp;</th>
+        <th style="width: 146px;vertical-align: middle;">Runner ID:</th>
         <th>
-            Runner ID
+           
+               <input type="text" class="form-control" id="runnerId" placeholder="Enter runner id">
+          
         </th>
         <th>
-            <input type="text" class="form-control" id="runnerId" placeholder="Enter runner id">
-        </th>
-        <th>
-            <button id="assign_device" class="btn btn-primary">Assign</button>
+            <button id="assign_device" class="btn btn-primary btn-sm">Assign</button>
             <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
         </th>
-    </table>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+    </tr>
+</table>
+
+    
 
 </div>
 </div>

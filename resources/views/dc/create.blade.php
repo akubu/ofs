@@ -78,7 +78,26 @@
 
 
 <div id="enter_so">
-    <div class="row">
+
+<table class="table table-striped">
+    <tr>
+    	<th>&nbsp;</th>
+    	<th>&nbsp;</th>
+        <th style="width: 146px;vertical-align: middle;">SO Number:</th>
+        <th>
+            <input type="text" class="form-control" id="so_number" size="40" placeholder="Enter So Number">
+        </th>
+        <th>
+         <button id="so_entered" class="btn btn-primary btn-sm">Start Assigning</button>
+         <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
+          
+        </th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+    </tr>
+</table>
+
+   <!-- <div class="row">
 
 
             <div class="form-group">
@@ -96,7 +115,7 @@
                 </div>
             </div>
 
-    </div>
+    </div>-->
 </div>
 
 <div id="so_details" class="row"></div>

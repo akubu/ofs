@@ -11,7 +11,7 @@
                     });
                     $('#allocate_device').hide();
                 });
-        $('#info_status').html('<center><h3>No untracked DC Registered yet</h3></center>');
+        $('#info_status').html('<center><h2 style="color:#0AB2F1; margin-top:30px;">No untracked DC Registered yet</h2></center>');
         @endif
 
 

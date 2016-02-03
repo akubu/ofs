@@ -42,30 +42,27 @@ $(document).ready(function(){
 });
 
 </script>
-
+ <center><h2>Have Questions ?</h2></center>
+ <hr>
 <center>
 
-    <table class="table table-bordered">
-        <tr>
-            <th>
-                <center>Question</center>
-            </th>
-        </tr>
+    <table class="table table-striped">
+        
         <tr>
             <th>
             <textarea id="question" rows="4" style="width: 100%; height: 110px;"/>
             </th>
 
         </tr>
-        <tr>
-            <th>
-                <button id="ask" class="btn btn-primary red">Ask this question</button>
-            </th>
-        </tr>
+      
     </table>
-
-    <br>
-    <hr>
+<div class="row">
+	<div class="col-md-5"></div>
+    <div class="col-md-2">
+    	<button id="ask" class="btn btn-primary red">Ask this question</button>
+    </div>
+    <div class="col-md-5"></div>
+</div>
     <p  > <h3 id="msg"></h3></p>
 
 </center>

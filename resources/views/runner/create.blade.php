@@ -277,20 +277,20 @@ errorFlag =0;
 <h3 align="center"> Enter Information of New Runner </h3>
 <hr>
 <div id="create_runner">
-    <table class="table table-bordered">
+    <table class="table borderless">
         <tr>
             <th>
                 <center> Runner Name</center>
             </th>
             <th>
-                <center><input type="text" id="runner_name" size="40" placeholder="Enter Runner Name"/>
+                <input class="form-control" type="text" id="runner_name" size="40" placeholder="Enter Runner Name"/>
                     <span class="help-block hide danger" id="runner_name_error"></span>
             </th>
             <th>
                 <center>Runner VTiger id</center>
             </th>
             <th>
-                <center><input type="txt" id="runner_vtiger_id" size="40" placeholder="Enter vTiger ID">
+                <input class="form-control" type="txt" id="runner_vtiger_id" size="40" placeholder="Enter vTiger ID">
                     <span class="help-block hide danger" id="runner_vtiger_id_error"></span>
             </th>
         </tr>
@@ -300,14 +300,14 @@ errorFlag =0;
                 <center>Runner Address
             </th>
             <th>
-                <center><input type="text" id="runner_address" size="40" placeholder="Enter Runner Address">
+                <input class="form-control" type="text" id="runner_address" size="40" placeholder="Enter Runner Address">
                     <span class="help-block hide danger" id="runner_address_error"></span>
             </th>
             <th>
                 <center>Runner office address
             </th>
             <th>
-                <center><input type="text" id="runner_station_address" size="40" placeholder="Enter Office Address">
+                <input class="form-control" type="text" id="runner_station_address" size="40" placeholder="Enter Office Address">
                     <span class="help-block hide danger" id="runner_station_address_error"></span>
             </th>
         </tr>
@@ -316,14 +316,14 @@ errorFlag =0;
                 <center>Runner CUG Contact Number 1
             </th>
             <th>
-                <center><input type="text" id="runner_contact_number_1" size="40" placeholder="Enter CUG Number">
+                <input class="form-control" type="text" id="runner_contact_number_1" size="40" placeholder="Enter CUG Number">
                     <span class="help-block hide danger" id="runner_contact_number_1_error"></span>
             </th>
             <th>
                 <center>Runner Contact Number 2
             </th>
             <th>
-                <center><input type="text" id="runner_contact_number_2" size="40"
+                <input class="form-control" type="text" id="runner_contact_number_2" size="40"
                                placeholder="Alternate Contact Number">
 
             </th>
@@ -335,14 +335,14 @@ errorFlag =0;
                 <center>Runner Reports to
             </th>
             <th>
-                <center><input type="text" id="runner_reports_to" size="40" placeholder="Runner Reports to">
+                <input class="form-control" type="text" id="runner_reports_to" size="40" placeholder="Runner Reports to">
                     <span class="help-block hide danger" id="runner_reports_to_error"></span>
             </th>
             <th>
                 <center>Reports to E-Mail
             </th>
             <th>
-                <center><input type="email" id="reports_to_mail" size="40" placeholder="Reports to E-Mail Address">
+                <input class="form-control" type="email" id="reports_to_mail" size="40" placeholder="Reports to E-Mail Address">
                     <span class="help-block hide danger" id="reports_to_mail_error"></span>
             </th>
         </tr>
@@ -351,20 +351,27 @@ errorFlag =0;
                 <center>Runner E-mail
             </th>
             <th>
-                <center><input type="text" id="runner_email" size="40" placeholder="Enter Runner's E-Mail Address">
+                <input class="form-control" type="text" id="runner_email" size="40" placeholder="Enter Runner's E-Mail Address">
                     <span class="help-block hide danger" id="runner_email_error"></span>
             </th>
             <th colspan="2"></th>
         </tr>
 
-        <tr>
-            <td colspan="4">
-                <button id="add_runner" class="btn btn-primary">Add Runner</button>
-                <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
-            </td>
-        </tr>
 
     </table>
+    
+    <div class="row">
+    <div class="col-md-12">
+    <div class="col-md-5"></div>
+    	<div class="col-md-2">
+    
+                <button id="add_runner" class="btn btn-primary">Add Runner</button>
+                <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
+        
+        </div>
+     <div class="col-md-5"></div>
+    </div>
+    </div>
 
 
 </div>

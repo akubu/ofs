@@ -23,25 +23,37 @@
 
 </script>
 
-<hr/>
-<div class="row">
-<div class="col-sm-2" align="right">
-    <h4>SO Number : </h4>
-</div>
-<div class="col-sm-3" align="left">
-    <h4><p id="so_number">{{ $so_details['so_number'] }}</p></h4>
-</div>
-    <div class="col-sm-7 " align="left">
-        <h4>{{ $so_details['customer_name'] }}</h4>
-    </div>
+<div class="table_titles filter_bar">
 
+			<div class="container-fluid">
+				
+				<div class="row">
+					
+					<div class="col-md-6 text-left">
+						SO Number :<strong id="so_number"> {{ $so_details['so_number'] }}</strong>
+					</div>
+
+					<div class="col-md-6 text-left">
+						<strong>{{ $so_details['customer_name'] }}</strong>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+<div class="row">
+<div class="col-md-12">
+   &nbsp;
+</div>
 </div>
 
 
 
 <div id="so_item_table" class="row">
     <div class="col-sm-12">
-        <table border="0" cellpadding="2" class="table table-bordered">
+        <table class="table table-striped">
 
             <tr>
                 <th>S.No.</th>
@@ -80,7 +92,8 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12 align-right">
+    <div class="col-md-5"></div>
+        <div class="col-md-2">
             <button type="button" class="btn btn-primary" id="register_new_dc">Register New DC</button>
             <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
 
