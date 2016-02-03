@@ -27,7 +27,7 @@
         <center><h3>Documents for  : {{ $dc_number }}</h3></center>
     </div>
 
-    <table class="table table-bordered">
+    <table class="table table-striped">
 
         <tr>
             <th>
@@ -37,10 +37,10 @@
                 Document Type
             </th>
             <th>
-                Upload File
+                &nbsp;
             </th>
             <th>
-                Download File
+                &nbsp;
             </th>
         </tr>
 
@@ -48,21 +48,34 @@
         @foreach( $response as $document)
 
             <tr>
-                <th>
+                <td>
                     {{ $document['sno'] }}
-                </th>
-                <th>
+                </td>
+                <td>
                     {{ $document['type'] }}
-                </th>
+                </td>
 
-                <th>
-                    <input class="selector_file" id="fileupload{{ $document['type_number'] }}" type="file" name="files[]" >
+                <td>
+                <div class="input-group" style="max-width:300px">
+                <span class="input-group-btn">
+                    <span class="btn btn-primary btn-file btn-sm">
+                        Browse… <input class="selector_file" id="fileupload{{ $document['type_number'] }}" type="file" name="files[]" >
+                    </span>
+                </span>
+                <input type="text" class="form-control" readonly="" placeholder="No file selected">
+                
+               
+            </div>
+                 <span><div class="progress-bar progress-bar-striped"></div></span>
+             
+                
+                    <!--<input class="selector_file" id="fileupload{{ $document['type_number'] }}" type="file" name="files[]" >-->
 
-                </th>
-                <th>
+                </td>
+                <td>
                     @if($document['file_name'] != '0') <a class="file_downloader" href=" {{ $document['id'] }}">
-                        Download File</a>  @else File Not Uploaded @endif
-                </th>
+                        <i class="fa fa-download"></i> Download File</a>  @else <i class="fa fa-times"></i> File Not Uploaded @endif
+                </td>
             </tr>
 
         @endforeach
@@ -73,7 +86,7 @@
 
     <!-- The global progress bar -->
     <div id="progress" class="progress">
-        <div class="progress-bar progress-bar-success"></div>
+        <div class="progress-bar progress-bar-striped"></div>
     </div>
     <!-- The container for the uploaded files -->
     <div id="files" class="files">
@@ -186,6 +199,7 @@
                         });
 
                         $('#file_uploaded').html($('#file_uploaded').html() + '<tr><td><font color="green"> File Uploaded at : ' + r +'</font></td></tr>');
+						
                     }
 
                 },

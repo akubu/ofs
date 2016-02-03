@@ -79,24 +79,28 @@
 </script>
 
 <div id="info_status">
-<table class="table table-bordered">
+<div class="table-responsive">
+<table class="table table-striped">
     <tr>
-        <th>
-            Enter DC Number :
-        </th>
+    	<th>&nbsp;</th>
+    	<th>&nbsp;</th>
+        <th style="width: 146px;vertical-align: middle;">Enter DC Number :</th>
         <th>
             <div class="ui-widget">
-                <input id="dcNumberSelect" placeholder="Enter DC Number">
+                <input class="form-control" id="dcNumberSelect" placeholder="Enter DC Number">
             </div>
         </th>
         <th>
-            <button id="dc_select" class="btn btn-primary"> Proceed </button>
+            <button id="dc_select" class="btn btn-primary btn-sm"> Proceed </button>
         </th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
     </tr>
 </table>
 
 <div id="upload_div">
 
+</div>
 </div>
 
 </div>
