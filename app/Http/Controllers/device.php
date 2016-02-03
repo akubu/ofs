@@ -219,7 +219,7 @@ class device extends Controller
     public function recoverform()
     {
         $devices = array();
-        $tmp = \App\device::where('sim_number', '!=', 'runner device')->get();
+        $tmp = \App\device::where('sim_number', '!=', 'runner device')->where('runner_id','!=', 0)->get();
         foreach($tmp as $device)
         {
             $devices[] = $device->id . "(" . $device->device_model . ")" . " " . $device->gsm_number;
@@ -232,6 +232,7 @@ class device extends Controller
     {
         $device = Input::get('device_id');
         $device_id = substr($device, 0, strpos($device, "("));
+        $device_id = str_replace("+","", $device_id);
         $device = \App\device::where('device_id','=', $device_id)->get()->first();
         $device->runner_id = 0;
 

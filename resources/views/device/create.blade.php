@@ -45,46 +45,62 @@
             errorFlag =0;
 
             var type = $('#type').val();
-            if (type == '' || type.length < 3 ) {
+            if (type == ''  ) {
 
                 $('#type').css('border-color', 'red');
+                $('#type_error').removeClass("hide");
+                $('#type_error').html("Please Enter Device Type");
                 ++errorFlag ;
             }
             else {
                 $('#type').css('border-color', 'green');
+                $('#type_error').addClass("hide");
+                $('#type_error').html("");
             }
 
 
             var model = $('#model').val();
-            if (model == '' || model.length < 3 ) {
+            if (model == ''  ) {
 
                 $('#model').css('border-color', 'red');
+                $('#model_error').removeClass("hide");
+                $('#model_error').html("Please Enter Device Model");
                 ++errorFlag ;
             }
             else {
                 $('#model').css('border-color', 'green');
+                $('#model_error').addClass("hide");
+                $('#model_error').html("");
             }
 
 
 
             var imei_number = $('#imei_number').val();
-            if (model == '' || model < 9999999999 ) {
+            if (imei_number == '' || imei_number < 999999999 ) {
 
                 $('#imei_number').css('border-color', 'red');
+                $('#imei_error').removeClass("hide");
+                $('#imei_error').html("Please Enter Correct IMEI Number");
                 ++errorFlag ;
             }
             else {
                 $('#imei_number').css('border-color', 'green');
+                $('#imei_error').addClass("hide");
+                $('#imei_error').html("");
             }
 
             var sim_number = $('#sim_number').val();
             if (sim_number == '' || sim_number < 9999999999 ) {
 
                 $('#sim_number').css('border-color', 'red');
+                $('#sim_error').removeClass("hide");
+                $('#sim_error').html("Please Enter Correct SIM Number")
                 ++errorFlag ;
             }
             else {
                 $('#sim_number').css('border-color', 'green');
+                $('#sim_error').addClass("hide");
+                $('#sim_error').html("")
             }
 
 
@@ -92,10 +108,14 @@
             if (gsm_number == '' || gsm_number < 7000000000 || gsm_number.length !=10 ) {
 
                 $('#gsm_number').css('border-color', 'red');
+                $('#gsm_error').removeClass("hide");
+                $('#gsm_error').html("Please Enter Correct CUG Number")
                 ++errorFlag ;
             }
             else {
                 $('#gsm_number').css('border-color', 'green');
+                $('#gsm_error').addClass("hide");
+                $('#gsm_error').html("")
             }
 
 
@@ -130,10 +150,10 @@
             } else {
 
 
-                if ($.isNumeric(imei_number) && imei_number.length > 10) {
-                    if ($.isNumeric(sim_number) && sim_number.length > 10) {
-                        if ($.isNumeric(gsm_number) && gsm_number.length > 9) {
-                            if (true) {
+
+                                $('#add_device').addClass("hide");
+                                $('#add_device').next().removeClass('hide');
+
                                 $.post("device/add", {
                                     type: type,
                                     model: model,
@@ -176,41 +196,14 @@
                                             size: 'large',
                                             duration: 10000
                                         });
+                                        $('#add_device').addClass("hide");
+                                        $('#add_device').next().removeClass('hide');
                                         $('#device_id').html(' ');
                                     }
 
                                 });
 
-                            } else {
 
-                                $.growl.error({
-                                    message: ' Please check Runner ID ',
-                                    size: 'large',
-                                    duration: 10000
-
-                                });
-                            }
-                        } else {
-                            $.growl.error({
-                                message: ' Please check GSM NUmber ',
-                                size: 'large',
-                                duration: 10000
-                            });
-                        }
-                    } else {
-                        $.growl.error({
-                            message: ' please check SIM number ',
-                            size: 'large',
-                            duration: 10000
-                        });
-                    }
-                } else {
-                    $.growl.error({
-                        message: ' Please check IMEI Number ',
-                        size: 'large',
-                        duration: 10000
-                    });
-                }
 
 
             }
@@ -222,7 +215,7 @@
 </script>
 
 
-<h3 align="center"> Enter Device information</h3>
+<h3 align="center"> Enter New Device information</h3>
 
 <div id="device_info">
 
@@ -233,12 +226,14 @@
             </th>
             <th>
                 <input type="text" class="form-control" id="type" placeholder="Enter Device type">
+                <span class="help-block hide danger" id="type_error"></span>
             </th>
             <th>
                 Device model
             </th>
             <th>
                 <input type="text" class="form-control" id="model" placeholder="Enter Device Model">
+                <span class="help-block hide danger" id="model_error"></span>
             </th>
         </tr>
         <tr>
@@ -247,12 +242,14 @@
             </th>
             <th>
                 <input type="text" class="form-control" id="imei_number" placeholder="Enter IMEI number">
+                <span class="help-block hide danger" id="imei_error"></span>
             </th>
             <th>
                 SIM Number
             </th>
             <th>
                 <input type="text" class="form-control" id="sim_number" placeholder="Enter SIM number">
+                <span class="help-block hide danger" id="sim_error"></span>
             </th>
         </tr>
 
@@ -262,6 +259,7 @@
             </th>
             <th>
                 <input type="text" class="form-control" id="gsm_number" placeholder="Enter GSM number">
+                <span class="help-block hide danger" id="gsm_error"></span>
             </th>
 
             <th>
@@ -276,6 +274,7 @@
         <tr>
             <th colspan="4">
                 <button id="add_device" class="btn btn-primary">Add device to system</button>
+                <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
             </th>
         </tr>
     </table>

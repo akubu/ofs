@@ -233,8 +233,11 @@ catch(Exception $e){
 
 
         try{
-            $device->delete();
+
             $runner->delete();
+
+            $device->delete();
+
             return 1;
         }
         catch(Exception $e){

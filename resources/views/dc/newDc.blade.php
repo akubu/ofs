@@ -47,7 +47,7 @@
                 minLength: 0,
                 scroll: true
             }).focus(function() {
-                $(this).autocomplete("search", $('#so_number').val());
+                $(this).autocomplete("search", $('#runner_assigned').val());
 
             });
         });
@@ -109,7 +109,7 @@
                 $('#select_address').hide();
             }
         });
-    });
+
 
 
     $('#tracking_status').change(function () {
@@ -124,15 +124,24 @@
 
     $('#register_dc').click(function () {
 
+
+
+
         errorFlag = 0;
 
         var dc_number = $('#dc_number').val();
+
         if (dc_number == ''  ) {
             $('#dc_number').css('border-color', 'red');
+            $('#dc_error').removeClass("hide");
+            $('#dc_error').html("Please Generate A DC Number");
+
             ++errorFlag ;
         }
         else {
             $('#dc_number').css('border-color', 'green');
+            $('#dc_error').addClass("hide");
+            $('#dc_error').html("");
         }
 
 
@@ -142,6 +151,8 @@
         if ($.inArray(runner_assigned, availableTags) == -1) {
 
                 $('#runner_assigned').css('border-color', 'red');
+            $('#runner_error').removeClass("hide");
+            $('#runner_error').html("Please Select A Runner");
                 ++errorFlag ;
 
 
@@ -149,6 +160,8 @@
 
         else{
             $('#runner_assigned').css('border-color', 'green');
+            $('#runner_error').addClass("hide");
+            $('#runner_error').html("");
         }
 
 
@@ -159,10 +172,14 @@
 
         if (driver_name == '' || driver_name.length <3 ) {
             $('#driver_name').css('border-color', 'red');
+            $('#driver_name_error').removeClass("hide");
+            $('#driver_name_error').html("Please Enter Driver Name");
            ++errorFlag ;
         }
         else {
             $('#driver_name').css('border-color', 'green');
+            $('#driver_name_error').addClass("hide");
+            $('#driver_name_error').html("");driver_contact_error
         }
 
         var driver_contact_number = $('#driver_contact_number').val();
@@ -170,10 +187,14 @@
 
         if (driver_contact_number == '' || driver_contact_number.length !=10 ||  driver_contact_number <7000000000 ) {
             $('#driver_contact_number').css('border-color', 'red');
+            $('#driver_contact_error').removeClass("hide");
+            $('#driver_contact_error').html("Please Enter Valid Mobile Number");
             ++errorFlag ;
         }
         else {
             $('#driver_contact_number').css('border-color', 'green');
+            $('#driver_contact_error').addClass("hide");
+            $('#driver_contact_error').html("");
         }
 
 
@@ -181,20 +202,28 @@
 
         if ( truck_number == '' || truck_number <5 || truck_number >13 ) {
             $('#truck_number').css('border-color', 'red');
+            $('#truck_number_error').removeClass("hide");
+            $('#truck_number_error').html("Please Enter A Proper Truck Number");
             ++errorFlag ;
         }
         else {
             $('#truck_number').css('border-color', 'green');
+            $('#truck_number_error').addClass("hide");
+            $('#truck_number_error').html("");
         }
 
         var truck_type = $('#truck_type').val();
 
         if ( truck_type == '' || truck_type <2 || truck_type.length >25 ) {
             $('#truck_type').css('border-color', 'red');
+            $('#truck_type_error').removeClass("hide");
+            $('#truck_type_error').html("Pleas Enter A Proper Truck Type");
             ++errorFlag ;
         }
         else {
             $('#truck_type').css('border-color', 'green');
+            $('#truck_type_error').addClass("hide");
+            $('#truck_type_error').html("");
         }
 
 
@@ -205,10 +234,14 @@
 
         if ( expected_delivery_date == ''  ) {
             $('#expected_delivery_date').css('border-color', 'red');
+            $('#delivery_date_error').removeClass("hide");
+            $('#delivery_date_error').html("Please Select Expected Delivery Date");
             ++errorFlag ;
         }
         else {
             $('#expected_delivery_date').css('border-color', 'green');
+            $('#delivery_date_error').addClass("hide");
+            $('#delivery_date_error').html("");
         }
 
         var expected_dispatch_date = $('#expected_dispatch_date').val();
@@ -216,10 +249,14 @@
 
         if ( expected_dispatch_date == ''  ) {
             $('#expected_dispatch_date').css('border-color', 'red');
+            $('#dispatch_date_error').removeClass("hide");
+            $('#dispatch_date_error').html("Please Enter Expected Dispatch Date");
             ++errorFlag ;
         }
         else {
             $('#expected_dispatch_date').css('border-color', 'green');
+            $('#dispatch_date_error').addClass("hide");
+            $('#dispatch_date_error').html("");
         }
 
 
@@ -227,10 +264,14 @@
 
         if ( address == '' ||  address <5  ) {
             $('#address').css('border-color', 'red');
+            $('#address_error').removeClass("hide");
+            $('#address_error').html("Please Enter An Address");
             ++errorFlag ;
         }
         else {
             $('#address').css('border-color', 'green');
+            $('#address_error').addClass("hide");
+            $('#address_error').html("");
         }
 
 
@@ -239,7 +280,7 @@
         if ( lat == '' || lat < 3  ) {
             $('#lat').css('border-color', 'red');
             $('#address').css('border-color', 'red');
-            ++errorFlag ;
+
         }
         else {
             $('#lat').css('border-color', 'green');
@@ -250,7 +291,7 @@
         if ( long == '' || long < 3  ) {
             $('#address').css('border-color', 'red');
             $('#long').css('border-color', 'red');
-            ++errorFlag ;
+
         }
         else {
             $('#long').css('border-color', 'green');
@@ -262,43 +303,43 @@
 
         if ( tracking_status == '-1'  ) {
             $('#tracking_status').css('border-color', 'red');
+            $('#tracking_status_error').removeClass("hide");
+            $('#tracking_status_error').html("Please Select A Tracking Status");
+
             ++errorFlag ;
         }
         else {
             $('#tracking_status').css('border-color', 'green');
-        }
+        $('#tracking_status_error').addClass("hide");
+        $('#tracking_status_error').html("");
+    }
+
 
         var no_tracking_reason = $('#no_tracking_reason').val();
 
 
         if (  no_tracking_reason == '' &&  tracking_status == '0' ) {
             $('#no_tracking_reason').css('border-color', 'red');
+            $('#reason_error').removeClass("hide");
+            $('#reason_error').html("Please Enter Reason For Not tracking This Shipment");
             ++errorFlag ;
         }
         else {
             $('#no_tracking_reason').css('border-color', 'green');
+            $('#reason_error').addClass("hide");
+            $('#reason_error').html("");
         }
 
         var so_number = $('#so_number').val();
 
 
 
-        if(lat == 0 || long == 0)
-        {
-            $.growl.error({
-                message: 'Please Change Address.',
-                size: 'large',
-                duration: 5000
-            });
-            $('#address').css('border-color', 'red');
-            $('#address').css('border-color', 'red');
-            $('#address').css('border-color', 'red');
-            return false;
-        }
+
 
 
         var is_a_quantity = 0; var qty_error = 0;
-        $(".sku_class").each(function () {
+
+    $(".sku_class").each(function () {
 
             if($.isNumeric($(this).val()))
             {
@@ -341,47 +382,29 @@
                 size: 'large',
                 duration: 5000
             });
+
             return false;
         }
 
         if (lat == 0 || long == 0) {
 
-            $.growl.error({
-                message: ' Please Update Address .',
-                size: 'large',
-                duration: 5000
-            });
-            return false;
+//            $.growl.error({
+//                message: ' Please Update Address .',
+//                size: 'large',
+//                duration: 5000
+//            });
+//            $('#register_dc').attr('disabled', false);
+//            return false;
         }
 
 
 
-
-        if (!(dc_number && runner_assigned && driver_contact_number && driver_name && truck_number && truck_type && expected_delivery_date && expected_dispatch_date && address && lat && long)) {
-            $.growl.error({
-                message: 'Please fill all information.',
-                size: 'large',
-                duration: 5000
-            });
-            return false;
-        } else {
-
-            if ($.isNumeric(driver_contact_number) && driver_contact_number.length > 9) {
-
-                if (dc_number.length > 5) {
-                    if (driver_name.length > 3) {
-
-                        if (tracking_status > -1) {
-
-                            if (( tracking_status == 0 && no_tracking_reason.length > 3) || tracking_status == 1) {
-
-                                ///////////////////  sender
+        $('#register_dc').addClass("hide");
+        $('#register_dc').next().removeClass('hide');
 
                                 $.get("runner/validate?runner=" + runner_assigned, function (data) {
                                     if (data == 1) {
 
-
-//                            jsonObj = [];
                                         item = {};
                                         item['dc_number'] = dc_number;
                                         item['runner_assigned'] = runner_assigned;
@@ -398,8 +421,6 @@
                                         item['no_tracking_reason'] = no_tracking_reason;
                                         item['so_number'] = so_number;
 
-//                            jsonObj.push(item);
-
                                         skuObj = [];
                                         $(".sku_class").each(function () {
                                             itemxx = {};
@@ -410,23 +431,8 @@
 
                                         item['sku_details'] = skuObj;
 
-//                            jsonObj.push(item);
-
                                         data = {json: JSON.stringify(item)};
-//                                console.log(JSON.stringify(item));
 
-//                            $.ajax
-//                            ({
-//                                type: "POST",
-//                                //the url where you want to sent the userName and password to
-//                                url: '/dc/create',
-//                                //json object to sent to the authentication url
-//                                data:'json='+jsonObj ,
-//                                success: function () {
-//
-//                                    alert("Thanks!");
-//                                }
-//                            })
 
                                         $.post("/dc/create", data, function (data, status) {
 
@@ -453,94 +459,22 @@
                                                     size: 'large',
                                                     duration: 5000
                                                 });
+                                                $('#register_dc').attr('disabled', false);
+                                                $('#register_dc').removeClass("hide");
+                                                $('#register_dc').next().addClass('hide');
                                             }
                                         });
 
 
                                     } else {
 
-                                        $.growl.error({
-                                            message: 'Please select runner from autocomplete',
-                                            size: 'large',
-                                            duration: 5000
-                                        });
+
+                                        $('#register_dc').attr('disabled', false);
+                                        $('#register_dc').removeClass("hide");
+                                        $('#register_dc').next().addClass('hide');
                                     }
                                 });
-
-
-                                /////////////////////   sender ends
-                            } else {
-                                $.growl.error({
-                                    message: 'Enter No tracking reason.',
-                                    size: 'large',
-                                    duration: 5000
-                                });
-                            }
-
-                        } else {
-                            $.growl.error({
-                                message: 'Enter correct Tracking Status.',
-                                size: 'large',
-                                duration: 5000
-                            });
-                        }
-                    } else {
-                        $.growl.error({
-                            message: 'Enter correct driver contact number.',
-                            size: 'large',
-                            duration: 5000
-                        });
-                    }
-                } else {
-                    $.growl.error({
-                        message: 'Enter correct DC number.',
-                        size: 'large',
-                        duration: 5000
-                    });
-                }
-
-            } else {
-                $.growl.error({
-                    message: 'Enter correct driver contact number.',
-                    size: 'large',
-                    duration: 5000
-                });
-            }
-        }
-
-
-//        jsonObj = [];
-//        item = {};
-//        item['dc_number'] = dc_number;
-//        item['runner_assigned'] = runner_assigned;
-//        item['driver_name'] = driver_name;
-//        item['driver_contact_number'] = driver_contact_number;
-//        item['truck_type'] = truck_type;
-//        item['truck_number'] = truck_number;
-//        item['expected_delivery_date'] = expected_delivery_date;
-//        item['expected_dispatch_date'] = expected_dispatch_date;
-//        item['address'] = address;
-//        item['lat'] = lat;
-//        item['long'] = long;
-//        item['tracking_status'] = tracking_status;
-//
-//        jsonObj.push(item);
-//
-//        skuObj = [];
-//        $(".sku_class").each(function () {
-//            item = {};
-//            item['sku'] = $(this).attr('sku');
-//            item['quantity'] = $(this).val();
-//            skuObj.push(item);
-//        });
-//
-//        item = {};
-//        item['sku_details'] = skuObj;
-//        jsonObj.push(item);
-
-
-//        console.log(JSON.stringify(jsonObj));
-
+            });
 
     });
 
@@ -557,7 +491,9 @@
                     <center>Dc number</center>
                 </th>
                 <td id="" colspan="2">
-                    <input type="text" size="40" id="dc_number" placeholder="Enter DC number" readonly="true"/> &nbsp;&nbsp;
+                    <input type="text" size="40" id="dc_number" placeholder="Enter DC number" readonly="true"/>
+                    <span class="help-block hide danger" id="dc_error"></span>
+                    &nbsp;&nbsp;
                     &nbsp;&nbsp;
                     <button id="generate_dc" class="btn btn-primary" style="width: auto">Generate DC Number</button>
                 </td>
@@ -567,7 +503,9 @@
                         <option value="-1">Select Tracking status</option>
                         <option value="1">This DC is Tracked</option>
                         <option value="0">This DC is Un-Tracked</option>
+
                     </select>
+                    <span class="help-block hide danger" id="tracking_status_error">Please Select a Tracking Status</span>
                 </td>
             </tr>
             <tr id="reason_row">
@@ -575,7 +513,7 @@
                     Reason for Not Tracking
                 </th>
                 <th colspan="3"><input type="text" placeholder="Enter Reason" id="no_tracking_reason"
-                                       class="form-control"/>
+                                       class="form-control"/><span class="help-block hide danger" id="reason_error">Please Enter A Reason For Not Tracking</span>
                 </th>
             </tr>
 
@@ -584,7 +522,7 @@
                     <center>Runner Assigned</center>
                 </th>
                 <td colspan="3">
-                    <input type="text" id="runner_assigned" size="40" placeholder="Select Runner"/>
+                    <input type="text" id="runner_assigned" size="40" placeholder="Select Runner"/><span class="help-block hide danger" id="runner_error">Please Select A Runner From DropDown</span>
                 </td>
             </tr>
 
@@ -593,14 +531,14 @@
                     <center>Driver Name</center>
                 </th>
                 <td>
-                    <input type="text" size="40" id="driver_name" placeholder="Enter Driver Name"/>
+                    <input type="text" size="40" id="driver_name" placeholder="Enter Driver Name"/><span class="help-block hide danger" id="driver_name_error"></span>
                 </td>
 
                 <th>
                     <center>Driver Contact Number</center>
                 </th>
                 <td>
-                    <input type="text" size="40" id="driver_contact_number" placeholder="Enter Driver Contact Number"/>
+                    <input type="text" size="40" id="driver_contact_number" placeholder="Enter Driver Contact Number"/><span class="help-block hide danger" id="driver_contact_error"></span>
                 </td>
             </tr>
             <tr>
@@ -608,13 +546,14 @@
                     <center>Truck Number</center>
                 </th>
                 <td>
-                    <input type="text" size="40" id="truck_number" placeholder="Enter Truck Number"/>
+                    <input type="text" size="40" id="truck_number" placeholder="Enter Truck Number"/><span class="help-block hide danger" id="truck_number_error">Error</span>
                 </td>
                 <th>
                     <center>Truck Type</center>
                 </th>
                 <td>
                     <input type="text" size="40" id="truck_type" placeholder="Enter Truck Type"/>
+                    <span class="help-block hide danger" id="truck_type_error"></span>
                 </td>
             </tr>
             <tr>
@@ -626,7 +565,7 @@
                 <td>
 
                     <input id="expected_dispatch_date" size="40" placeholder="Select Dispatch Date" type="text"
-                           value="" readonly="readonly">
+                           value="" readonly="readonly"><span class="help-block hide danger" id="dispatch_date_error">Error</span>
 
 
                 </td>
@@ -637,7 +576,7 @@
                 </th>
                 <td>
                     <input id="expected_delivery_date" type="text" size="40"
-                           placeholder="Select Expected Delivery Date" readonly="readonly"/>
+                           placeholder="Select Expected Delivery Date" readonly="readonly"/><span class="help-block hide danger" id="delivery_date_error">Error</span>
                 </td>
             </tr>
         </table>
@@ -674,6 +613,7 @@
                                placeholder="Enter Quantity">
 
                         {{ $detail['sku_units'] }}
+
                     </td>
                 </tr>
             @endforeach
@@ -686,12 +626,13 @@
                     Delivery Address
                 </th>
                 <th>
-                    <input type="text" id="address" value="{{ $details['ship_to_address'] }}" size="60"/>
-                    <input type="text" id="lat" value="{{ $details['lat'] }}" size="10" readonly=true />
-                    <input type="text" id="long" value="{{ $details['long'] }}" size="10" readonly=true />
+                    <input type="text" id="address" value="{{ $details['ship_to_address'] }}" size="60"/><span class="help-block hide danger" id="address_error">Error</span>
+                    <input type="text" id="lat" value="{{ $details['lat'] }}" size="10" readonly=true hidden />
+                    <input type="text" id="long" value="{{ $details['long'] }}" size="10" readonly=true hidden/>
+                   </th><th>
                     <button id="select_address" class="btn btn-primary" style="width: auto">Select This Address
                     </button>
-                </th>
+                    </th>
                 <th>
                     <button id="locate_on_map" class="btn btn-primary">Locate on map</button>
                 </th>
@@ -714,6 +655,7 @@
                     {{--</td>--}}
                     {{--<td>--}}
                     <button id="register_dc" class="btn btn-primary"> Register DC</button>
+                    <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
                 </td>
                 {{--<td>--}}
                 {{--<button id="add_device" class="btn btn-primary"> Save and Register New</button>--}}
@@ -722,6 +664,7 @@
         </table>
     </div>
 </div>
+
 
 
 

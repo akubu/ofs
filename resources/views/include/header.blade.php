@@ -33,7 +33,7 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Runner Central <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                       <li><a href="#" id="add_runner_nav">Add Runner</a></li>
-                      <li><a href="#" id="update_runner_nav">Update Runner</a></li>
+                      {{--<li><a href="#" id="update_runner_nav">Update Runner</a></li>--}}
                       <li><a href="#" id="delete_runner_nav">Delete Runner</a></li>
                       <li><a href="#" id="all_runner_nav">All Runners</a></li>
                   </ul>

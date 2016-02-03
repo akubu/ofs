@@ -350,8 +350,8 @@ class androidApi extends Controller
 
         $current = locations::where('device_id','=', $device_id)->where('created_at', '>=', $dc_track->shipment_start_dt)->orderBy('created_at', "DESC")->get()->first();
 
-        $current_lat = $start->lat;
-        $current_long = $start->long;
+        $current_lat = $current->lat;
+        $current_long = $current->long;
 
         $end = dc_track::where('dc_number', '=', $dc_number )->get()->first();
         $end_lat = $end->lat;
@@ -401,7 +401,8 @@ class androidApi extends Controller
 
             $orders = array();
             foreach ($all_so as $so) {
-                $dcs = dc::where('so_number', '=', $so->so_number)->get();
+                $tt = $so->so_number;
+                $dcs = dc::where('so_number', '=', $so->so_number)->where('is_tracked', '=', 3)->get();
 
                 if ($dcs) {
                     foreach($dcs as $dc)
@@ -438,7 +439,8 @@ class androidApi extends Controller
 
                 $count_invoice = 0;
 
-                foreach ($dcs as $dc) {
+                $dc = $order;
+                 {
 
 //               print_r($inv);echo "<hr>";
 
@@ -471,6 +473,7 @@ class androidApi extends Controller
                             ++$count;
                         }
                         $device = device::where('dc_number', '=', $dc->dc_number)->get()->first();
+
                         $addresses = $this->getLocationWithAddress($device->device_id);
 
                     $response['orders'][$count_order]['invoices'][$count_invoice]['current_address'] = $addresses['current_address'];

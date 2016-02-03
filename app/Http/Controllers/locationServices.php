@@ -62,6 +62,10 @@ class locationServices extends Controller
             $url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" . $lat . "," . $long . "&sensor=true";
             $location = $this->get_data($url);
             $json = json_decode($location, true);
+            if($json['status'] == "ZERO_RESULTS")
+            {
+                return "Unknown";
+            }
             $address = $json['results'][0]['formatted_address'];
             return $address;
         }

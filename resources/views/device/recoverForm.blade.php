@@ -58,6 +58,9 @@
 
             if ( device_id.length >2)
             {
+
+                $('#recover').addClass("hide");
+                $('#recover').next().removeClass('hide');
                 $.post("/device/recover", { device_id : device_id}, function(result) {
 
                    if(result == 1)
@@ -68,13 +71,23 @@
                            duration: 10000
                        });
 
+                       $.get("/device/recover", function (data, status) {
+                           if(data.auth_required == true)
+                           {
+                               window.location = "/auth/login";
+                               return false;
+                           }
+                           $('#body_div').html(data);
+                       });
+
                    }else{
                        $.growl.error({
                            message: 'Check device ID.',
                            size: 'large',
                            duration: 10000
                        });
-
+                       $('#recover').removeClass("hide");
+                       $('#recover').next().addClass('hide');
                    }
 
                 });
@@ -95,7 +108,7 @@
 
 <div id="info_status">
 
-    <center><h3>Recover A Device From a Runner</h3></center>
+    <center><h3>Recover Device From a Runner</h3></center>
 
     <table class="table-bordered table">
         <tr>
@@ -107,6 +120,7 @@
             </th>
             <th>
                 <button class="form-control btn-primary btn" id="recover" >Recover Device</button>
+                <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
             </th>
         </tr>
     </table>

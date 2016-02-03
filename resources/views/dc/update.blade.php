@@ -16,8 +16,20 @@
             var expected_dispatch_dt = $('#expected_dispatch_dt').val();
             var expected_delivery_dt = $('#expected_delivery_dt').val();
 
+            if(expected_delivery_dt < expected_dispatch_dt)
+            {
+                $.growl.error({
+                    message: 'Delivery Date Cannot Be Less Then Dispatch Date.',
+                    size: 'large',
+                    duration: 5000
+                });
+                return false;
+            }
+
 
             var dc_number = $('#dc_number').val();
+            $('#edit_dc').addClass("hide");
+            $('#edit_dc').next().removeClass('hide');
             $.post('/dc/update', {dc_number : dc_number,  expected_delivery_dt : expected_delivery_dt, expected_dispatch_dt : expected_dispatch_dt}, function(data){
 
                if(data == 1)
@@ -29,12 +41,15 @@
                        duration: 5000
                    });
 
+
                }else{
                    $.growl.error({
                        message: 'DC Cannot be updates.',
                        size: 'large',
                        duration: 5000
                    });
+                   $('#edit_dc').addClass("hide");
+                   $('#edit_dc').next().removeClass('hide');
                }
 
             });
@@ -124,6 +139,7 @@
         <tr>
             <td colspan="4">
                 <button class="btn btn-primary" id="edit_dc" > Update Dates</button>
+                <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
             </td>
         </tr>
     </table>

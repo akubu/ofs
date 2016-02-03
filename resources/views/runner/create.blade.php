@@ -51,29 +51,41 @@ errorFlag =0;
             var runner_name = $('#runner_name').val();
             if (runner_name == '' || runner_name.length <3 ) {
                 $('#runner_name').css('border-color', 'red');
+                $('#runner_name_error').removeClass("hide");
+                $('#runner_name_error').html("Please Enter Runner Name");
                 ++errorFlag ;
             }
             else {
                 $('#runner_name').css('border-color', 'green');
+                $('#runner_name_error').addClass("hide");
+                $('#runner_name_error').html("");
             }
 
             var vtiger_id = $('#runner_vtiger_id').val();
 
             if (vtiger_id == '' || vtiger_id.length <3 ) {
                 $('#runner_vtiger_id').css('border-color', 'red');
+                $('#runner_vtiger_id_error').removeClass("hide");
+                $('#runner_vtiger_id_error').html("Please Enter Correct ID");
                 ++errorFlag ;
             }
             else {
                 $('#runner_vtiger_id').css('border-color', 'green');
+                $('#runner_vtiger_id_error').addClass("hide");
+                $('#runner_vtiger_id_error').html("");
             }
 
             var runner_address = $('#runner_address').val();
             if (runner_address == '' || runner_address.length <3 ) {
                 $('#runner_address').css('border-color', 'red');
+                $('#runner_address_error').removeClass("hide");
+                $('#runner_address_error').html("Please Enter Correct Address");
                 ++errorFlag ;
             }
             else {
                 $('#runner_address').css('border-color', 'green');
+                $('#runner_address_error').addClass("hide");
+                $('#runner_address_error').html("Please Enter Correct Address");
             }
 
 
@@ -81,20 +93,28 @@ errorFlag =0;
 
             if (runner_station_address == '' || runner_station_address.length <3 ) {
                 $('#runner_station_address').css('border-color', 'red');
+                $('#runner_station_address_error').removeClass("hide");
+                $('#runner_station_address_error').html("Please Enter Correct Office Address");
                 ++errorFlag ;
             }
             else {
                 $('#runner_station_address').css('border-color', 'green');
+                $('#runner_station_address_error').addClass("hide");
+                $('#runner_station_address_error').html("");
             }
 
 
             var runner_contact_number_1 = $('#runner_contact_number_1').val();
-            if (runner_contact_number_1 == '' || runner_contact_number_1.length <3 ) {
+            if (runner_contact_number_1 == '' || runner_contact_number_1.length <3 || runner_contact_number_1 < 7000000000) {
                 $('#runner_contact_number_1').css('border-color', 'red');
+                $('#runner_contact_number_1_error').removeClass("hide");
+                $('#runner_contact_number_1_error').html("Please Enter Correct CUG Number");
                 ++errorFlag ;
             }
             else {
                 $('#runner_contact_number_1').css('border-color', 'green');
+                $('#runner_contact_number_1_error').addClass("hide");
+                $('#runner_contact_number_1_error').html("");
             }
 
 
@@ -104,10 +124,14 @@ errorFlag =0;
 
             if (reports_to_name == '' || reports_to_name.length <3 ) {
                 $('#runner_reports_to').css('border-color', 'red');
+                $('#runner_reports_to_error').removeClass("hide");
+                $('#runner_reports_to_error').html("Please Enter Reports to Name");
                 ++errorFlag ;
             }
             else {
                 $('#runner_reports_to').css('border-color', 'green');
+                $('#runner_reports_to_error').addClass("hide");
+                $('#runner_reports_to_error').html("");
             }
 
 
@@ -134,6 +158,9 @@ errorFlag =0;
                                 if (runner_email) {
                                     if (reports_to_name) {
                                         if (reports_to_email) {
+
+                                            $('#add_runner').addClass("hide");
+                                            $('#add_runner').next().removeClass('hide');
 
                                             $.post("runner/create", {
                                                 runner_name: runner_name,
@@ -167,7 +194,8 @@ errorFlag =0;
                                                         message: 'Runner Aready present. To edit please use appropriate menu',
                                                         size: 'large',
                                                         duration: 10000
-                                                    });
+                                                    });  $('#add_runner').removeClass("hide");
+                                                    $('#add_runner').next().addClass('hide');
                                                 }
                                                 else {
                                                     $.growl.error({
@@ -175,6 +203,9 @@ errorFlag =0;
                                                         size: 'large',
                                                         duration: 10000
                                                     });
+
+                                                $('#add_runner').removeClass("hide");
+                                                $('#add_runner').next().addClass('hide');
 
                                                 }
 
@@ -249,16 +280,18 @@ errorFlag =0;
     <table class="table table-bordered">
         <tr>
             <th>
-                <center> Runner Name
+                <center> Runner Name</center>
             </th>
             <th>
                 <center><input type="text" id="runner_name" size="40" placeholder="Enter Runner Name"/>
+                    <span class="help-block hide danger" id="runner_name_error"></span>
             </th>
             <th>
-                <center>Runner VTiger id
+                <center>Runner VTiger id</center>
             </th>
             <th>
                 <center><input type="txt" id="runner_vtiger_id" size="40" placeholder="Enter vTiger ID">
+                    <span class="help-block hide danger" id="runner_vtiger_id_error"></span>
             </th>
         </tr>
 
@@ -268,12 +301,14 @@ errorFlag =0;
             </th>
             <th>
                 <center><input type="text" id="runner_address" size="40" placeholder="Enter Runner Address">
+                    <span class="help-block hide danger" id="runner_address_error"></span>
             </th>
             <th>
                 <center>Runner office address
             </th>
             <th>
                 <center><input type="text" id="runner_station_address" size="40" placeholder="Enter Office Address">
+                    <span class="help-block hide danger" id="runner_station_address_error"></span>
             </th>
         </tr>
         <tr>
@@ -282,6 +317,7 @@ errorFlag =0;
             </th>
             <th>
                 <center><input type="text" id="runner_contact_number_1" size="40" placeholder="Enter CUG Number">
+                    <span class="help-block hide danger" id="runner_contact_number_1_error"></span>
             </th>
             <th>
                 <center>Runner Contact Number 2
@@ -289,6 +325,7 @@ errorFlag =0;
             <th>
                 <center><input type="text" id="runner_contact_number_2" size="40"
                                placeholder="Alternate Contact Number">
+
             </th>
         </tr>
 
@@ -299,12 +336,14 @@ errorFlag =0;
             </th>
             <th>
                 <center><input type="text" id="runner_reports_to" size="40" placeholder="Runner Reports to">
+                    <span class="help-block hide danger" id="runner_reports_to_error"></span>
             </th>
             <th>
                 <center>Reports to E-Mail
             </th>
             <th>
                 <center><input type="email" id="reports_to_mail" size="40" placeholder="Reports to E-Mail Address">
+                    <span class="help-block hide danger" id="reports_to_mail_error"></span>
             </th>
         </tr>
         <tr>
@@ -313,6 +352,7 @@ errorFlag =0;
             </th>
             <th>
                 <center><input type="text" id="runner_email" size="40" placeholder="Enter Runner's E-Mail Address">
+                    <span class="help-block hide danger" id="runner_email_error"></span>
             </th>
             <th colspan="2"></th>
         </tr>
@@ -320,6 +360,7 @@ errorFlag =0;
         <tr>
             <td colspan="4">
                 <button id="add_runner" class="btn btn-primary">Add Runner</button>
+                <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
             </td>
         </tr>
 

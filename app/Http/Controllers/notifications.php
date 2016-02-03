@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\customer_contact_master;
 
-use App\so;
+
 use App;
 use Illuminate\Http\Request;
 
@@ -116,10 +116,27 @@ class notifications extends Controller
 
     }
 
+    public function sendRunnerAssignmentNotification($dc_number)
+    {
+        $dc = App\dc::where('dc_number', '=', $dc_number)->get()->first();
+        $runner = App\runner::where('vtiger_id', '=', $dc->runner_id)->get()->first();
+
+        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>dc registered</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><name>" . $so->bill_to_name . "</name><so_number>" . $so_number . "</so_number><dc_number>" . $dc_number . "</dc_number></payload>");
+        $status = $this->sendNotification($data);
+        if ($status > 0) {
+
+
+            return $status;
+        } else {
+            return 0;
+        }
+    }
+
+
     public function sendLoadingStartedNotification($dc_number)
     {
         $so_number = \App\dc::where('dc_number', '=', $dc_number)->get()->first()->so_number;
-        $so = so::where('so_number', '=', $so_number)->get()->first();
+        $so = \App\so::where('so_number', '=', $so_number)->get()->first();
         $customer_number = $so->customer_number;
         $customer_name = $so->bill_to_name;
         $customer = customer_contact_master::where('customer_number', '=', $customer_number)->get()->first();

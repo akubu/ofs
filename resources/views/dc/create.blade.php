@@ -31,6 +31,10 @@
 
 
         $('#so_entered').click(function () {
+
+            $('#so_entered').addClass("hide");
+            $('#so_entered').next().removeClass('hide');
+
             var so_number = $.trim($('#so_number').val().toUpperCase()).replace("+","");
 
 
@@ -58,6 +62,9 @@
                         size: 'large',
                         duration: 10000
                     });
+
+                    $('#so_entered').removeClass("hide");
+                    $('#so_entered').next().addClass('hide');
                 }
             });
         });
@@ -85,6 +92,7 @@
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-3">
                     <button id="so_entered" class="btn btn-default">Start Assigning</button>
+                    <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
                 </div>
             </div>
 

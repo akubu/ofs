@@ -141,7 +141,10 @@
                     DC Number
                 </th>
                 <th>
-                    SO Number
+                    Expected Dispatch Date
+                </th>
+                <th>
+                    Expected Delivery Date
                 </th>
                 <th>
                     Customer
@@ -161,7 +164,10 @@
                         {{ $element['dc_info']['dc_number'] }}
                     </td>
                     <td class="born">
-                        {{ $element['dc_info']['so_number'] }}
+                        {{ $element['dc_info']['expected_dispatch_dt'] }}
+                    </td>
+                    <td class="born">
+                        {{ $element['dc_info']['expected_delivery_dt'] }}
                     </td>
                     <td>
                         {{ $element['so_info']['ship_to_name'] }}

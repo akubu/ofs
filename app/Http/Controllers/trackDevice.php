@@ -95,8 +95,14 @@ class trackDevice extends Controller
         $location = \App\locations::where('device_id','=', $device_id)->orderBy('created_at', "DESC")->get()->first();
         $response['current_lat'] = $location->lat ;
         $response['current_long'] = $location->long ;
+
+        if($response['current_lat'] == 0)
+        {
+            return "<center>Device Cannot be tracked</center>" ;
+        }
+
         $location_service = new locationServices();
-        $response['current_address'] = $location_service->getLocationFromLatLong($location->lat, $location->long); ;
+        $response['current_address'] = $location_service->getLocationFromLatLong($location->lat, $location->long);
 
         return view('map.singlePoint', compact('response'));
     }

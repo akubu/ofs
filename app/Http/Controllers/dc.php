@@ -135,8 +135,11 @@ class dc extends Controller
 
         $notifier = new notifications();
         $notif = $notifier->sendDcCreatedNotification($dc_number, $so_number);
+        Log::info("\n DC created  : " . $dc_number . " and : " . $notif . "\n");
 
-        Log::info("\n DC created  : " . $dc_number . " andd : " . $notif . "\n");
+        $notif = $notifier->sendDcCreatedNotification($dc_number, $so_number);
+        Log::info("\n DC created  : " . $dc_number . " and : " . $notif . "\n");
+
 
 
         return 1;
@@ -346,22 +349,17 @@ class dc extends Controller
             //upload an image to the /img/tmp directory and return the filepath.
             $file = Input::file('files')[0];
 
-
-
             if (filesize($file) > 10000000) {
                 return 0;
             }
 
 
-
             $tmpFilePath = '/uploads/' . $dc_number . '/';
-
             $name = $file->getClientOriginalName();
             $ext = end((explode(".", $name)));
 
             if (strpos($name, 'jpg') || strpos($name, 'jpeg') || strpos($name, 'pdf') || strpos($name, 'doc') || strpos($name, 'docx') || strpos($name, 'png') || strpos($name, 'odt') || strpos($name, 'jpg')
             ) {
-
                 $tmpFileName = $type_name . '-' . str_replace("/", "_", $dc_number) . "." . $ext;//$file->getClientOriginalName();
                 $file = $file->move(public_path() . "/" . $tmpFilePath, $tmpFileName);
                 $path = $tmpFilePath . $tmpFileName;
@@ -369,8 +367,8 @@ class dc extends Controller
                 $document = documents::where('dc_number', '=', $dc_number)->where('document_type', '=', $type)->get()->first();
                 $document->file_name = "/uploads/" . $dc_number . "/" . $tmpFileName;
                 $document->save();
-
                 return response()->json(array('path' => $path), 200);
+
             } else {
                 return 0;
             }
@@ -415,14 +413,9 @@ class dc extends Controller
 
         $dc_details = dc_details::where('dc_number', '=', $dc_number)->get();
 
-
-//dd($details);
         foreach ($dc_details as $dc_detail) {
-
             $ii = 0;
-
             foreach ($details['details'] as $detail) {
-
                 if ($detail['sku'] == $dc_detail->sku) {
                     $details['details'][$ii]['current_quantity'] = $dc_detail['sku_quantity'];
                 }
@@ -436,15 +429,11 @@ class dc extends Controller
             $response[] = $runner->runner_name . "(" . $runner->vtiger_id . ")";
         }
         $runner_names = $response;
-
-//        dd($details);
-
         return view('dc.update', compact('dc', 'runner_names', 'details'));
     }
 
     public function updateDCSelection()
     {
-
         $response = array();
         $dcs = \App\dc::where('is_delivered', '=', 0)->get();
         $ii = 0;
@@ -461,21 +450,16 @@ class dc extends Controller
 
         $file_id = Input::get('file_id');
         $file = documents::where('id', '=', $file_id)->get()->first()->file_name;
-
-
         $file_name = end((explode("/", $file)));
-
-
         $file_path = public_path() . $file;
         $rr = 0;
-
         return Response::download($file_path, $file_name);
+
     }
 
 
     public function markDeliveredSelection()
     {
-
         $dcs = \App\dc::where('is_tracked', '=', 0)->where('is_delivered', '=', 0)->get();
         $dc_numbers = array();
         foreach ($dcs as $dc) {
@@ -485,11 +469,11 @@ class dc extends Controller
         return view('dc.markDeliverySelection', compact('dc_numbers'));
     }
 
+
     public function markDeliveredForm()
     {
 
         $dc_number = Input::get('dc_number');
-
         return view('dc.markDelivered', compact('dc_number'));
 
     }

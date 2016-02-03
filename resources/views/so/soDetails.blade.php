@@ -2,14 +2,19 @@
     $(document).ready(function () {
         $('#register_new_dc').click(function () {
 
+            $('#register_new_dc').addClass("hide");
+            $('#register_new_dc').next().removeClass('hide');
+
             var so_number = $.trim($('#so_number').val().toUpperCase()).replace("+","");
 
-
-            $.post("dc/newDC", {so_number: so_number}, function (result) {
+        $.post("dc/newDC", {so_number: so_number}, function (result, status) {
 
                 $('#new_dc_form').html(result);
 
                 $('#register_new_dc').html(' Reset DC form ');
+
+            $('#register_new_dc').removeClass("hide");
+            $('#register_new_dc').next().addClass('hide');
 
             });
         });
@@ -77,7 +82,7 @@
     <div class="row">
         <div class="col-sm-12 align-right">
             <button type="button" class="btn btn-primary" id="register_new_dc">Register New DC</button>
-
+            <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
 
         </div>
     </div>

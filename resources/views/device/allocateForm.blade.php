@@ -85,6 +85,10 @@ $(function () {
             }
 
             if (device_id && device_id.length > 11) {
+
+                $('#allocate_device').addClass("hide");
+                $('#allocate_device').next().removeClass('hide');
+
                 $.get("device/show/" + device_id, function (result) {
 
                     if(result == 0){
@@ -100,6 +104,9 @@ $(function () {
                     $('#device_info').html(result);
 
                     $('#runner_selection').show();
+
+                    $('#allocate_device').removeClass("hide");
+                    $('#allocate_device').next().addClass('hide');
 
 
                 });
@@ -126,16 +133,40 @@ $(function () {
 
             if (runner.length > 3 && runner != 0 ) {
 
+
+                $('#assign_device').addClass("hide");
+                $('#assign_device').next().removeClass('hide');
+
                 $.post("device/allocate", {device_id : device_id, runner_id : runner}, function(result, status){
 
-                    $.growl.notice({
-                        message: 'Device Allocated to runner. ',
-                        size: 'large',
-                        duration: 10000
-                    });
 
-                    $('#runnerId').attr("readonly", "readonly");
+                    if(result !=0) {
+                        $.growl.notice({
+                            message: 'Device Allocated to runner. ',
+                            size: 'large',
+                            duration: 10000
+                        });
 
+                        $('#assign_device').addClass("hide");
+                        $('#assign_device').next().addClass('hide');
+
+                        $('#runnerId').attr("readonly", "readonly");
+
+                        $.get("/device/allocateForm", function (data, status) {
+                            if(data.auth_required == true)
+                            {
+                                window.location = "/auth/login";
+                                return false;
+                            }
+                            $('#body_div').html(data);
+                        });
+
+
+                    }
+                    else {
+
+
+                    }
                 });
 
             } else {
@@ -157,7 +188,7 @@ $(function () {
 
 
 
-<h3 align="center"> Allocate a Device to Runner </h3>
+<h3 align="center"> Allocate  Device to Runner </h3>
 <div id="info_status">
 
 <div id="device_selector">
@@ -175,6 +206,7 @@ $(function () {
             </th>
             <th>
                 <button id="allocate_device" class="btn btn-primary">Allocate Device</button>
+                <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
             </th>
         </tr>
     </table>
@@ -209,8 +241,11 @@ $(function () {
         </th>
         <th>
             <button id="assign_device" class="btn btn-primary">Assign</button>
+            <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
         </th>
     </table>
 
 </div>
 </div>
+
+<!-- Modal -->

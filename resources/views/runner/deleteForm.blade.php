@@ -41,6 +41,10 @@
 
         $('#delete_runner').click(function(){
 
+
+            $('#delete_runner').addClass("hide");
+            $('#delete_runner').next().removeClass('hide');
+
             var sure = confirm('Are you sure ? ');
 
 
@@ -59,7 +63,11 @@
                     return false;
                 }
 
+
+
             $.post("runner/delete", {runner_name : runner_name}, function(result) {
+
+
 
                 $('#delete_result').html(result);
 
@@ -85,7 +93,8 @@
                         duration: 10000
                     });
 
-
+                    $('#delete_runner').removeClass("hide");
+                    $('#delete_runner').next().addClass('hide');
 
                 }
 
