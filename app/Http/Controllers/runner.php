@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Mockery\CountValidator\Exception;
@@ -90,7 +91,8 @@ return $response;
             $tmp->save();
             $device->device_id = $device->id;
             $device->save();
-
+            $locationService = new locationServices();
+            $locationService->updateDeviceLocation($device->id);
             $runner->save();
 
             $locationservice = new locationServices();
@@ -151,6 +153,7 @@ return 0;
         {
             $response[$ii]['runner_info'] = $runner;
             $gsm_number = $runner->runner_contact_number_1;
+            $ii =0;
             $device_id = App\device::where('gsm_number', '=', $gsm_number)->get()->first()->device_id;
             $location = App\locations::where('device_id','=', $device_id)->orderBy('created_at', "DESC")->get()->first();
             $response[$ii]['current_lat'] = $location->lat ;

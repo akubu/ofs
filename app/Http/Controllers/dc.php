@@ -137,7 +137,7 @@ class dc extends Controller
         $notif = $notifier->sendDcCreatedNotification($dc_number, $so_number);
         Log::info("\n DC created  : " . $dc_number . " and : " . $notif . "\n");
 
-        $notif = $notifier->sendDcCreatedNotification($dc_number, $so_number);
+        $notif = $notifier->sendRunnerAssignmentNotification($dc_number);
         Log::info("\n DC created  : " . $dc_number . " and : " . $notif . "\n");
 
 

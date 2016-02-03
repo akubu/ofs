@@ -81,9 +81,17 @@ class locationPoll extends Command
             }
 
             $cord = $dec['Data'];
+            if( $cord[0]["long"] && $cord[0]["lat"]) {
+                $long = $cord[0]["long"];
+                $lat = $cord[0]["lat"];
+            }else{
 
-            $long = $cord[0]["long"];
-            $lat = $cord[0]["lat"];
+                $long = 0;
+                $lat = 0;
+
+            }
+
+
 
             $loc = new \App\locations();
             $loc->device_id = $d->device_id;

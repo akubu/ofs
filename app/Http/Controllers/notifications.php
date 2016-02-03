@@ -120,8 +120,9 @@ class notifications extends Controller
     {
         $dc = App\dc::where('dc_number', '=', $dc_number)->get()->first();
         $runner = App\runner::where('vtiger_id', '=', $dc->runner_id)->get()->first();
+        $dc_track = App\dc_track::where('dc_number', '=', $dc_number)->get()->first();
 
-        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>dc registered</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><name>" . $so->bill_to_name . "</name><so_number>" . $so_number . "</so_number><dc_number>" . $dc_number . "</dc_number></payload>");
+        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>runner alerts</event><object_id></object_id><runner><email_id>" . $runner->runner_email . "</email_id><mobile_no>" . $runner->runner_contact_number_1 . "</mobile_no></runner><name>" . $runner->runner_name . "</name><dc_number>" . $dc_number . "</dc_number><vehicle_number>" . $dc->truck_number . "</vehicle_number><shipment_address>" . $dc_track->address . "</shipment_address></payload>");
         $status = $this->sendNotification($data);
         if ($status > 0) {
 

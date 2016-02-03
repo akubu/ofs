@@ -305,8 +305,8 @@ class androidApi extends Controller
 
         $current = locations::where('device_id','=', $device_id)->where('created_at', '>=', $dc_track->shipment_start_dt)->orderBy('created_at', "DESC")->get()->first();
 
-        $current_lat = $start->lat;
-        $current_long = $start->long;
+        $current_lat = $current->lat;
+        $current_long = $current->long;
 
         $end = dc_track::where('dc_number', '=', $dc_number )->get()->first();
         $end_lat = $end->lat;
@@ -512,23 +512,32 @@ class androidApi extends Controller
     {
         $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" . $lat2 . "," . $long2 . "&destinations=" . $lat1 . "," . $long1 . "&mode=driving&language=pl-PL";
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        $response = curl_exec($ch);
-        curl_close($ch);
-        $response_a = json_decode($response, true);
+        if ( $lat1 == 0 || $lat2 == 0 || $long1 == 0 || $long2 == 0) {
 
-        $dist = $response_a['rows'][0]['elements'][0]['distance']['text'];
-        $time = $response_a['rows'][0]['elements'][0]['duration']['text'];
 
-        $dist = str_replace(",", ".", $dist);
-        $dist = str_replace("km", "kms", $dist);
+            $dist = 0;
+            $time = 0;
+        }else
+        {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+            $response = curl_exec($ch);
+            curl_close($ch);
+            $response_a = json_decode($response, true);
 
-        $time = str_replace("godz.", "hours", $time);
+            $dist = $response_a['rows'][0]['elements'][0]['distance']['text'];
+            $time = $response_a['rows'][0]['elements'][0]['duration']['text'];
+
+            $dist = str_replace(",", ".", $dist);
+            $dist = str_replace("km", "kms", $dist);
+
+            $time = str_replace("godz.", "hours", $time);
+
+        }
 
 
         return array('distance' => $dist, 'time' => $time);
