@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" id="home" href="/"><font color="blue">Tracking System</font></a>
+          <a class="navbar-brand" id="home" href="/"><font color="#FFFFFF" style="font-size: 22px;">Tracking System</font></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -72,11 +72,9 @@
 
                   </ul>
               </li>
-
-              <li>
-
-                  <div class="nav navbar-nav navbar-right">
-                  <?php
+				
+                 <li class="dropdown">
+                  <a> <?php
                         session_start();
                     if(isset($_SESSION["vt_user"]) ){
 
@@ -86,9 +84,10 @@
                                       die('<script type="text/javascript">window.location.href="/auth/login" </script>');
                           }
 
-                  ?>
-                  </div>
+                  ?></a>
+                
               </li>
+             
               <li>
               <div class="nav navbar-nav navbar-right">
                   <a href="/auth/logout" class="navbar-brand"><strong>Logout</strong></a>

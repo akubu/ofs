@@ -491,9 +491,13 @@
                     <center>Dc number</center>
                 </th>
                 <td id="" colspan="2">
+
                     <input type="text" size="40" id="dc_number" placeholder="Enter DC number" readonly="true"/>
                     <span class="help-block hide danger" id="dc_error"></span>
                     &nbsp;&nbsp;
+
+                    <input type="text" size="40" id="dc_number" placeholder="Enter DC number" readonly/> &nbsp;&nbsp;
+
                     &nbsp;&nbsp;
                     <button id="generate_dc" class="btn btn-primary" style="width: auto">Generate DC Number</button>
                 </td>
@@ -519,10 +523,14 @@
 
             <tr>
                 <th>
-                    <center>Runner Assigned</center>
+                    <center>Runner Assignedd</center>
                 </th>
                 <td colspan="3">
+
                     <input type="text" id="runner_assigned" size="40" placeholder="Select Runner"/><span class="help-block hide danger" id="runner_error">Please Select A Runner From DropDown</span>
+                    <input type="text" id="runner_assigned" size="40" placeholder="Select Runner"/>
+     				<span class="help-block danger">Error</span>
+
                 </td>
             </tr>
 
@@ -565,7 +573,11 @@
                 <td>
 
                     <input id="expected_dispatch_date" size="40" placeholder="Select Dispatch Date" type="text"
+
                            value="" readonly="readonly"><span class="help-block hide danger" id="dispatch_date_error">Error</span>
+
+
+
 
 
                 </td>
@@ -576,7 +588,9 @@
                 </th>
                 <td>
                     <input id="expected_delivery_date" type="text" size="40"
+
                            placeholder="Select Expected Delivery Date" readonly="readonly"/><span class="help-block hide danger" id="delivery_date_error">Error</span>
+
                 </td>
             </tr>
         </table>

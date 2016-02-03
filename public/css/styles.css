@@ -191,10 +191,10 @@ input[type="checkbox"] + label, input[type="radio"] + label {
     max-width: 500px !important;
 }
 .dropdown-menu>li {
-	width: 330px;	
+	width: auto;	
 }
 .dropdown-menu>li>a {
-	display: inline-block !important;	
+	/*display: inline-block !important;*/	
 }
 .dropdown-menu>li>span {
 	display: inline-block !important;

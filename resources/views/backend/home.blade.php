@@ -2,7 +2,7 @@
 
 
 
-<table class="table table-bordered" align="center">
+<table class="table table-striped" align="center">
 <tr>
     <th align="center">
         Total Undelivered SO :
