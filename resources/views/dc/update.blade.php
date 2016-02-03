@@ -61,17 +61,19 @@
 
 
 <div class="form-group">
-    <table class="table table-bordered">
+    <table class="table borderless">
         <tr>
             <th>
                 <center>Dc number</center>
             </th>
-            <td id="" colspan="2">
-                <input type="text" size="40" id="dc_number" value="{{ $dc['dc_number'] }}" placeholder="Enter DC number" readonly="true"/>
-            </td>
             <td>
-                <label for="sel1">Tracking status</label>
-                <input class="form-group" type="text" value=" @if ( $dc['is_tracked'] == 1 ) Tracked @else Un-Tracked @endif" readonly="true"/>
+                <input type="text" class="form-control" size="40" id="dc_number" value="{{ $dc['dc_number'] }}" placeholder="Enter DC number" readonly/>
+            </td>
+            <th>
+                <center>Tracking statu</center>
+            </th>
+            <td>
+               <input class="form-control" type="text" value=" @if ( $dc['is_tracked'] == 1 ) Tracked @else Un-Tracked @endif" readonly/>
             </td>
         </tr>
 
@@ -81,7 +83,7 @@
                 <center>Runner Assigned</center>
             </th>
             <td colspan="3">
-                <input type="text" id="runner_assigned" size="40" placeholder="Runner Assigned" value="{{ $dc['runner_id'] }}" readonly="true"/>
+                <input type="text" class="form-control" id="runner_assigned" size="40" placeholder="Runner Assigned" value="{{ $dc['runner_id'] }}" readonly/>
             </td>
         </tr>
 
@@ -90,14 +92,14 @@
                 <center>Driver Name</center>
             </th>
             <td>
-                <input type="text" size="40" id="driver_name" placeholder="Enter Driver Name" value="{{ $dc['driver_id'] }}" readonly="true"/>
+                <input type="text" class="form-control" size="40" id="driver_name" placeholder="Enter Driver Name" value="{{ $dc['driver_id'] }}" readonly/>
             </td>
 
             <th>
                 <center>Driver Contact Number</center>
             </th>
             <td>
-                <input type="text" size="40" id="driver_contact_number" value="{{ $dc['driver_contact_number'] }}" placeholder="Enter Driver Contact Number" readonly="true" />
+                <input type="text" class="form-control" size="40" id="driver_contact_number" value="{{ $dc['driver_contact_number'] }}" placeholder="Enter Driver Contact Number" readonly />
             </td>
         </tr>
         <tr>
@@ -105,42 +107,46 @@
                 <center>Truck Number</center>
             </th>
             <td>
-                <input type="text" size="40" id="truck_number" value="{{ $dc['truck_number'] }}" placeholder="Enter Truck Number" readonly="true" />
+                <input type="text" class="form-control" size="40" id="truck_number" value="{{ $dc['truck_number'] }}" placeholder="Enter Truck Number" readonly />
             </td>
             <th>
                 <center>Truck Type</center>
             </th>
             <td>
-                <input type="text" size="40" id="truck_type" value="{{ $dc['truck_type'] }}" placeholder="Enter Truck Type" readonly="true" />
+                <input type="text" class="form-control" size="40" id="truck_type" value="{{ $dc['truck_type'] }}" placeholder="Enter Truck Type" readonly />
             </td>
         </tr>
         <tr>
-            <th style="background-color: #b2dba1">
+            <th style="background-color: #ADD2E0">
                 <center>
                     Expected dispatch Date
                 </center>
             </th>
-            <td style="background-color: #b2dba1">
+            <td style="background-color: #ADD2E0">
 
-                <input id="expected_dispatch_dt" size="40" value="{{ $dc['expected_dispatch_dt'] }}"  type="text" value="" readonly="readonly">
+                <input class="form-control" id="expected_dispatch_dt" size="40" value="{{ $dc['expected_dispatch_dt'] }}"  type="text" value="" readonly="readonly">
 
 
             </td>
-            <th style="background-color: #b2dba1">
+            <th style="background-color: #ADD2E0">
                 <center>
                     Expected Delivery Date
                 </center>
             </th>
-            <td style="background-color: #b2dba1">
-                <input id="expected_delivery_dt" type="datetime" size="40" value="{{ $dc['expected_delivery_dt'] }}"
-                       placeholder="Select Expected Delivery Date" readonly="readonly"/>
+            <td style="background-color: #ADD2E0">
+                <input class="form-control" id="expected_delivery_dt" type="datetime" size="40" value="{{ $dc['expected_delivery_dt'] }}"
+                       placeholder="Select Expected Delivery Date" readonly/>
             </td>
         </tr>
-        <tr>
-            <td colspan="4">
+        
+    </table>
+    
+		<div class="row">
+        	<div class="col-md-5"></div>
+            	<div class="col-md-2">
                 <button class="btn btn-primary" id="edit_dc" > Update Dates</button>
                 <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
-            </td>
-        </tr>
-    </table>
+              </div>
+            <div class="col-md-5"></div>
+		</div>
 </div>

@@ -113,27 +113,29 @@
 
 
 </script>
+  <h3 align="center"> Select Runner to Delete</h3>
 <div id="info_status">
 <div id="runner_selector" >
 
-    <h3 align="center"> Select Runner to Delete</h3>
+<table class="table table-striped">
+    <tr>
+    	<th>&nbsp;</th>
+    	<th>&nbsp;</th>
+        <th style="width: 146px;vertical-align: middle;">Runner To Delete :</th>
+        <th>
+            <div class="ui-widget">
+                <input class="form-control" id="runnerToDelete" placeholder="Enter runner to Delete">
+            </div>
+        </th>
+        <th>
+            <button  id="delete_runner" class="btn btn-primary btn-sm">Delete Runner</button>
+        </th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+    </tr>
+</table>
 
-
-    <table class="table table-bordered">
-        <tr>
-            <th>
-                Runner To Delete :
-            </th>
-            <th>
-                <div class="ui-widget">
-                    <input id="runnerToDelete" placeholder="Enter runner to Delete ">
-                </div>
-            </th>
-            <th>
-                <button  id="delete_runner" class="btn btn-primary">Delete Runner</button>
-            </th>
-        </tr>
-    </table>
+ 
 
 
 </div>

@@ -12,7 +12,7 @@
                     });
                     $('#allocate_device').hide();
                 });
-        $('#info_status').html('<center><h3>No Devices Allocated to Runners</h3></center>');
+        $('#info_status').html('<center><h2 style="color:#0AB2F1; margin-top:30px;">No Devices Allocated to Runners</h2></center>');
         @endif
 
 
@@ -105,23 +105,29 @@
     });
 
 </script>
-
+<center><h3>Recover Device From a Runner</h3></center>
 <div id="info_status">
 
-    <center><h3>Recover Device From a Runner</h3></center>
-
-    <table class="table-bordered table">
-        <tr>
-            <th>
-                Device ID
-            </th>
-            <th>
-                <input class="form-control" type="text" name="device_id" id="device_id" placeholder="Enter Device ID"/>
-            </th>
-            <th>
-                <button class="form-control btn-primary btn" id="recover" >Recover Device</button>
+    
+    
+    <table class="table table-striped">
+    <tr>
+    	<th>&nbsp;</th>
+    	<th>&nbsp;</th>
+        <th style="width: 146px;vertical-align: middle;">Device ID:</th>
+        <th>
+           
+                <input class="form-control" type="text" id="device_id" name="device_id" placeholder="Enter Device ID">
+          
+        </th>
+        <th>
+            <button class="form-control btn-primary btn btn-sm" id="recover" >Recover Device</button>
                 <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
-            </th>
-        </tr>
-    </table>
+        </th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+    </tr>
+</table>
+
+ 
 </div>

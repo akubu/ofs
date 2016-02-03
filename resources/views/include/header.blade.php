@@ -74,7 +74,7 @@
               </li>
 				
                  <li class="dropdown">
-                  <a> <?php
+                  <a style="padding:15px 22px;"><i class="fa fa-user"></i> <?php
                         session_start();
                     if(isset($_SESSION["vt_user"]) ){
 
@@ -88,10 +88,11 @@
                 
               </li>
              
-              <li>
-              <div class="nav navbar-nav navbar-right">
-                  <a href="/auth/logout" class="navbar-brand"><strong>Logout</strong></a>
-              </div>
+              <li class="dropdown" style="border:1px solid #FFFFFF; border-radius:3px; margin-top: 8px;">
+            
+                  <a href="/auth/logout" style="padding-top: 5px;
+    padding-bottom: 5px;" class=""><i class="fa fa-power-off"></i> <strong>Logout</strong></a>
+              
               </li>
 
 

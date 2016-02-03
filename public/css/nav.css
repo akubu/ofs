@@ -46,3 +46,37 @@ body {
 }
 
 .table-striped>tbody>tr>td{vertical-align: middle !important;}
+.table_titles {
+    padding: 15px 0;
+    font-size: 15px;
+}
+.filter_bar {
+    background: #f4f4f4;
+    padding: 1s5px 0;
+}
+
+.table_titles strong {
+    color: #0ab2f1;
+}
+
+.col-xs-15, .col-sm-15, .col-md-15, .col-lg-15 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.danger{color:red;}
+.borderless{
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+}
+.borderless>tbody>tr>th, .borderless>tbody>tr>td { border: 0px !important; vertical-align:middle}
+input { font-weight:normal !important; }
+@media (min-width: 992px){
+.col-md-15 {
+    width: 20%;
+    float: left;
+}
+}

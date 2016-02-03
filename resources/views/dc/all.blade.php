@@ -46,41 +46,17 @@
 
 <style>
 
-    .list {
-        font-family:sans-serif;
-    }
-    td {
-        padding:10px;
-        border:solid 1px #eee;
-    }
-
-    input {
-        border:solid 1px #ccc;
-        border-radius: 5px;
-        padding:7px 14px;
-        margin-bottom:10px
-    }
-    input:focus {
-        outline:none;
-        border-color:#aaa;
-    }
+  
+   
     .sort {
-        padding:8px 30px;
-        border-radius: 6px;
-        border:none;
-        display:inline-block;
-        color:#fff;
-        text-decoration: none;
-        background-color: #28a8e0;
-        height:30px;
+        padding:6px 25px;
+        border-radius: 5px;
+        border:1px solid #28a8e0;       
+        color:#28a8e0;
+		vertical-align: sub;
     }
-    .sort:hover {
-        text-decoration: none;
-        background-color:#1b8aba;
-    }
-    .sort:focus {
-        outline:none;
-    }
+  
+   
     .sort:after {
         display:inline-block;
         width: 0;
@@ -125,13 +101,37 @@
 <div id="info_status">
 <div >
     <div id="users">
-        <input class="search" placeholder="Search" />
-        <button class="sort" data-sort="name">
-            Sort by Dc Number
-        </button>
+    
+    
+    <div class="table_titles filter_bar">
 
-     <div height="200px" style="overflow-y: scroll; height:200px;">
-        <table class="table table-bordered">
+			<div class="container-fluid">
+				
+				<div class="row">
+					
+					<div class="col-md-6 text-left">
+						<input class="form-control search" placeholder="Search" />
+					</div>
+
+					<div class="col-md-6 text-right">
+						<span class="sort" data-sort="name">
+            Sort by Dc Number <i class="fa fa-sort-amount-desc"></i>
+        </span>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+    
+    <div class="row">
+ 
+   
+    <div class="col-md-12">&nbsp;</div>
+	</div>
+     <div style="overflow-y: scroll; height:200px;">
+        <table class="table table-striped">
             <tbody class="list">
 
 
@@ -200,7 +200,7 @@
 
 </div>
 
-<hr>
+
 <p><h3 id="info"></h3></p>
 <br>
 

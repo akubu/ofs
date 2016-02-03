@@ -492,11 +492,9 @@
                 </th>
                 <td id="" colspan="2">
 
-                    <input type="text" size="40" id="dc_number" placeholder="Enter DC number" readonly="true"/>
+                    <input type="text" size="40" id="dc_number" placeholder="Enter DC number" readonly/>
                     <span class="help-block hide danger" id="dc_error"></span>
                     &nbsp;&nbsp;
-
-                    <input type="text" size="40" id="dc_number" placeholder="Enter DC number" readonly/> &nbsp;&nbsp;
 
                     &nbsp;&nbsp;
                     <button id="generate_dc" class="btn btn-primary" style="width: auto">Generate DC Number</button>
@@ -574,7 +572,7 @@
 
                     <input id="expected_dispatch_date" size="40" placeholder="Select Dispatch Date" type="text"
 
-                           value="" readonly="readonly"><span class="help-block hide danger" id="dispatch_date_error">Error</span>
+                           value="" readonly><span class="help-block hide danger" id="dispatch_date_error">Error</span>
 
 
 
@@ -589,7 +587,7 @@
                 <td>
                     <input id="expected_delivery_date" type="text" size="40"
 
-                           placeholder="Select Expected Delivery Date" readonly="readonly"/><span class="help-block hide danger" id="delivery_date_error">Error</span>
+                           placeholder="Select Expected Delivery Date" readonly/><span class="help-block hide danger" id="delivery_date_error">Error</span>
 
                 </td>
             </tr>

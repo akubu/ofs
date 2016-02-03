@@ -12,7 +12,7 @@
                     });
                     $('#allocate_device').hide();
                 });
-        $('#info_status').html('<center><h3>No Devices Registered in system.</h3></center>');
+        $('#info_status').html('<center><h2 style="color:#0AB2F1; margin-top:30px;">No Devices Registered in system.</h2></center>');
         @endif
 
 
@@ -95,13 +95,14 @@
     });
 
 </script>
-
-<div id="info_status">
 <center><h3>Register A Device Loss</h3></center>
-    <table class="table table-bordered">
+<hr>
+<div id="info_status">
+
+    <table class="table borderless">
         <tr>
-            <th>
-                Device ID
+            <th style="width:200px;">
+                Enter Device ID
             </th>
             <th>
                 <div class="ui-widget">
@@ -120,9 +121,15 @@
             </tr>
 
         </tr>
-        <tr>
-            <th colspan="2"><button  id="register_loss" class="btn btn-primary">Register Loss</button></th>
-        </tr>
+       
     </table>
+    
+    <div class="row">
+	<div class="col-md-5"></div>
+    <div class="col-md-2">
+    	<button  id="register_loss" class="btn btn-primary">Register Loss</button>
+    </div>
+    <div class="col-md-5"></div>
+</div>
 
 </div>
