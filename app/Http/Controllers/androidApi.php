@@ -282,6 +282,10 @@ class androidApi extends Controller
             $response['status'] = "1";
             $dc_track->shipment_start_dt = \Carbon\Carbon::now();
             $dc_track->save();
+
+            $notifications = new notifications();
+            $notifications->sendDispatchNotification($dc_number);
+
             return $response;
         }else{
             $response['status'] = "0";

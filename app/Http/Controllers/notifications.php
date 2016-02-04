@@ -153,6 +153,7 @@ class notifications extends Controller
     {
         $dc = dc::where('dc_number', '=', $dc_number)->get()->first();
         $so = so::where('so_number', '=', $dc->so_number)->get()->first();
+        $customer = customer_contact_master::where('customer_number','=', $so->customer_number)->get()->first();
 
         $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>dispatch</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><name>" . $so->bill_to_name . "</name><dc_no>" . $dc_number . "</dc_no></payload>");
         return $this->sendNotification($data);

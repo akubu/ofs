@@ -526,8 +526,8 @@
                 <td colspan="3">
 
                     <input type="text" id="runner_assigned" size="40" placeholder="Select Runner"/><span class="help-block hide danger" id="runner_error">Please Select A Runner From DropDown</span>
-                    <input type="text" id="runner_assigned" size="40" placeholder="Select Runner"/>
-     				<span class="help-block danger">Error</span>
+
+     				<span class="help-block hide danger"></span>
 
                 </td>
             </tr>
@@ -572,7 +572,7 @@
 
                     <input id="expected_dispatch_date" size="40" placeholder="Select Dispatch Date" type="text"
 
-                           value="" readonly><span class="help-block hide danger" id="dispatch_date_error">Error</span>
+                           value="" readonly><span class="help-block hide danger" id="dispatch_date_error"></span>
 
 
 

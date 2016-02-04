@@ -62,7 +62,7 @@
                         Browse… <input class="selector_file" id="fileupload{{ $document['type_number'] }}" type="file" name="files[]" >
                     </span>
                 </span>
-                <input type="text" class="form-control" readonly="" placeholder="No file selected">
+                <input type="text" class="form-control" id="fileupload{{ $document['type_number'] }}_name" readonly="" placeholder=" @if($document['file_name'] != '0') Replace Current File @else Upload File @endif">
                 
                
             </div>
@@ -74,7 +74,8 @@
                 </td>
                 <td>
                     @if($document['file_name'] != '0') <a class="file_downloader" href=" {{ $document['id'] }}">
-                        <i class="fa fa-download"></i> Download File</a>  @else <i class="fa fa-times"></i> File Not Uploaded @endif
+                        <i class="fa fa-download"></i> Download File</a>  @else <i class="fa fa-times"></i> File Not Uploaded
+                    @endif
                 </td>
             </tr>
 
@@ -89,19 +90,7 @@
         <div class="progress-bar progress-bar-striped"></div>
     </div>
     <!-- The container for the uploaded files -->
-    <div id="files" class="files">
-        <table class="table table-bordered" >
-            <div id="file_uploaded">
-            <tr>
-                <td>
-                  <font color="">
 
-                  </font>
-                </td>
-            </tr>
-            </div>
-        </table>
-    </div>
     <br>
 
 
@@ -121,16 +110,8 @@
 
 
         r = '';
+
         $(function () {
-
-
-            $('#myFile').bind('change', function() {
-
-                //this.files[0].size gets the size of your file.
-                alert(this.files[0].size);
-
-            });
-
 
             'use strict';
             // Change this to the location of your server-side upload handler:
@@ -203,8 +184,11 @@
                     }
 
                 },
-            }).prop('disabled', !$.support.fileInput)
-                    .parent().addClass($.support.fileInput ? undefined : 'disabled');
+            }).on('fileuploadadd', function (e, data) {
+
+                $("#fileupload{{ $document['type_number'] }}_name").val(data.files[0].name);
+
+            }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
 
             @endforeach
 
