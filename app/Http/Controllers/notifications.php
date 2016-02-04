@@ -99,7 +99,7 @@ class notifications extends Controller
         } else {
             $customer_number = $so->customer_number;
         }
-        $customer = customer_contact_master::where('customer_number', '=', $customer_number)->get()->first();
+        $customer = \App\customer_contact_master::where('customer_number', '=', $customer_number)->get()->first();
 
         $customer_email = $customer->customer_email;
         $customer_phone = $customer->customr_contact_number;
@@ -151,8 +151,8 @@ class notifications extends Controller
 
     public function sendDispatchNotification($dc_number)
     {
-        $dc = dc::where('dc_number', '=', $dc_number)->get()->first();
-        $so = so::where('so_number', '=', $dc->so_number)->get()->first();
+        $dc = \App\dc::where('dc_number', '=', $dc_number)->get()->first();
+        $so = \App\so::where('so_number', '=', $dc->so_number)->get()->first();
         $customer = customer_contact_master::where('customer_number','=', $so->customer_number)->get()->first();
 
         $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>dispatch</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><name>" . $so->bill_to_name . "</name><dc_no>" . $dc_number . "</dc_no></payload>");
@@ -164,7 +164,7 @@ class notifications extends Controller
         $ir = 0;
 
         $so_number = \App\dc::where('dc_number', '=', $dc_number)->get()->first()->so_number;
-        $so = so::where('so_number', '=', $so_number)->get()->first();
+        $so = \App\so::where('so_number', '=', $so_number)->get()->first();
         $customer_number = $so->customer_number;
         $customer_name = $so->bill_to_name;
         $customer = customer_contact_master::where('customer_number', '=', $customer_number)->get()->first();

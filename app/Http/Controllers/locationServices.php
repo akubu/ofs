@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\device;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -66,6 +66,8 @@ class locationServices extends Controller
             {
                 return "Unknown";
             }
+
+
             $address = $json['results'][0]['formatted_address'];
             return $address;
         }
@@ -90,7 +92,7 @@ class locationServices extends Controller
         Log::useDailyFiles(storage_path() . '/logs/cron-poll.log');
 
 
-        $number = device::where('device_id','=', $device_id)->get()->first()->gsm_number;
+        $number = \App\device::where('device_id','=', $device_id)->get()->first()->gsm_number;
 
         $dc_number = 0;
         $dc = \App\dc_track::where('device_id', '=', $device_id)->get()->first();

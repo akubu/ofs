@@ -5,7 +5,7 @@
         @if( !count($device_ids))
         $(function(){
                     $.growl.error({
-                        message: 'No Devices Vaccant, Please recover first. ',
+                        message: 'No Devices Vacant, Please recover first. ',
                         size: 'large',
                         duration: 10000
                     });

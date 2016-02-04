@@ -49,7 +49,7 @@ errorFlag =0;
             }
 
             var runner_name = $('#runner_name').val();
-            if (runner_name == '' || runner_name.length <3 ) {
+            if (runner_name == '' || runner_name.length <2 ) {
                 $('#runner_name').css('border-color', 'red');
                 $('#runner_name_error').removeClass("hide");
                 $('#runner_name_error').html("Please Enter Runner Name");
@@ -150,7 +150,7 @@ errorFlag =0;
 
 
 
-            if (runner_name.length > 3) {
+            if (runner_name.length > 2) {
                 if (vtiger_id.length == 7) {
                     if (runner_address.length > 5) {
                         if ($.isNumeric(runner_contact_number_1) && runner_contact_number_1.length > 9) {
@@ -304,7 +304,7 @@ errorFlag =0;
                     <span class="help-block hide danger" id="runner_address_error"></span>
             </th>
             <th>
-                <center>Runner office address
+                <center>Runner office address</center>
             </th>
             <th>
                 <input class="form-control" type="text" id="runner_station_address" size="40" placeholder="Enter Office Address">
@@ -313,14 +313,14 @@ errorFlag =0;
         </tr>
         <tr>
             <th>
-                <center>Runner CUG Contact Number 1
+                <center>Runner CUG Contact Number</center>
             </th>
             <th>
                 <input class="form-control" type="text" id="runner_contact_number_1" size="40" placeholder="Enter CUG Number">
                     <span class="help-block hide danger" id="runner_contact_number_1_error"></span>
             </th>
             <th>
-                <center>Runner Contact Number 2
+                <center>Runner Contact Number
             </th>
             <th>
                 <input class="form-control" type="text" id="runner_contact_number_2" size="40"

@@ -45,15 +45,15 @@
             <th><input type="text" class="form-control" id="scm_id"  value="{{ $device['scm_id'] }}" placeholder="Enter SCM id" readonly></th>
         </tr>
 
-        <tr>
-            <th>
-                Runner Id
-            </th>
-            <th>
-                <input type="text" class="form-control" id="runner_id" value="{{ $device['runner_id'] }}" value="0" placeholder="Enter runner id" readonly="readonly">
-            </th>
+        {{--<tr>--}}
+            {{--<th>--}}
+                {{--Runner Id--}}
+            {{--</th>--}}
+            {{--<th>--}}
+                {{--<input type="text" class="form-control" id="runner_id" value="{{ $device['runner_id'] }}" value="0" placeholder="Enter runner id" readonly="readonly">--}}
+            {{--</th>--}}
 
-        </tr>
+        {{--</tr>--}}
 
 
     </table>

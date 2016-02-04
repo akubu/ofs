@@ -5,7 +5,7 @@
         @if( !count($dc_numbers))
           $(function(){
                     $.growl.error({
-                        message: 'No Untracked DC registered Yet,. ',
+                        message: 'No Untracked DC registered In System. ',
                         size: 'large',
                         duration: 10000
                     });

@@ -5,15 +5,14 @@
         @if( !count($dc_numbers))
    $(function(){
                     $.growl.error({
-                        message: 'No Devices Registered in system. ',
+                        message: 'No DC Registered In System. ',
                         size: 'large',
                         duration: 10000
                     });
                     $('#allocate_device').hide();
                 });
-        $('#info_status').html('<center><h3>No Devices Registered in system.</h3></center>');
+        $('#info_status').html('<center><h3>No DC Registered In System.</h3></center>');
         @endif
-
 
   availableTags = [
             @foreach( $dc_numbers as $dc_number)
@@ -45,7 +44,7 @@
             {
 
                 $.growl.error({
-                    message: 'Select Device ID from dropdown. ',
+                    message: 'Select DC  from dropdown. ',
                     size: 'large',
                     duration: 10000
                 });

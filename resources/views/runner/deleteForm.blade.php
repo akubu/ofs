@@ -45,7 +45,7 @@
             $('#delete_runner').addClass("hide");
             $('#delete_runner').next().removeClass('hide');
 
-            var sure = confirm('Are you sure ? ');
+            var sure = confirm('Are You Sure You Want Delete The Selected Runner ? ');
 
 
             if (sure == true) {

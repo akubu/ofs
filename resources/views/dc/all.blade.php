@@ -4,13 +4,13 @@
     @if( !count($response))
         $(function(){
                 $.growl.error({
-                    message: 'No DC registered Yet,. ',
+                    message: 'No DC registered In System. ',
                     size: 'large',
                     duration: 10000
                 });
                 $('#allocate_device').hide();
             });
-    $('#info_status').html('<center><h3>NO DC Registered yet</h3></center>');
+    $('#info_status').html('<center><h3 style="color:#0AB2F1; margin-top:30px;">NO DC Registered yet</h3></center>');
             @endif
 
 

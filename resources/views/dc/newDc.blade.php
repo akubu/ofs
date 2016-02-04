@@ -18,13 +18,13 @@
         @if( !count($runner_names))
          $(function () {
                     $.growl.error({
-                        message: 'No Runner registered Yet,. ',
+                        message: 'No Runner registered In System. ',
                         size: 'large',
                         duration: 10000
                     });
                     $('#allocate_device').hide();
                 });
-        $('#info_status').html('<center><h3>Please add a runner first</h3></center>');
+        $('#info_status').html('<center><h3 style="color:#0AB2F1; margin-top:30px;">Please add a runner first</h3></center>');
         @endif
 
 

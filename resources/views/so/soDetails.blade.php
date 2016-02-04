@@ -67,7 +67,7 @@
 
                 <tr>
                     <td>
-                        {{ $detail['count'] }}
+                        {{ $detail['count'] + 1 }}
                     </td>
                     <td title="{{ $detail['sku'] }}">
                         {{ $detail['description'] }}

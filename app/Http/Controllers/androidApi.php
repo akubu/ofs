@@ -100,6 +100,8 @@ class androidApi extends Controller
 
     public function getRunnerAllocations($runner_id){
 
+        $runner_id = strtoupper($runner_id);
+
         $response = array();
 
         $runner_alocation = \App\dc::where('runner_id','=', $runner_id)->where('is_delivered','=',0)->where('is_tracked', '=', 1)->get();
@@ -139,6 +141,7 @@ class androidApi extends Controller
     public function getAttachedDevices($runner_id)
     {
         $response = array();
+        $runner_id = strtoupper($runner_id);
 
         $dcs = dc::where('runner_id', '=', $runner_id)->where('is_delivered','=',0)->where('is_tracked','=',2)->get();
 
@@ -260,6 +263,9 @@ class androidApi extends Controller
 
 
     public function startTracking($id1, $id2, $id3, $id4, $device_id, $runner_id){
+
+
+        $runner_id = strtoupper($runner_id);
 
         $response = array();
         $dc_number = $id1 . "/" . $id2 ."/". $id3 . "/" . $id4 ;
@@ -599,6 +605,60 @@ class androidApi extends Controller
 
 
     }
+
+    public function runnerLocationSink(Request $request)
+    {
+        $response = array();
+        $count = "0";
+
+        try {
+            $entries = $request->all();
+
+
+                foreach($entries['Data'] as $data) {
+                    $runner_id = $data['runner_id'];
+                    $current_lat = $data['current_lat'];
+                    $current_long = $data['current_long'];
+                    $timestamp = $data['timestamp'];
+
+                    $runner_sink = new \App\runner_sink();
+
+                    $runner_sink->runner_id = $runner_id;
+                    $runner_sink->current_lat = $current_lat;
+                    $runner_sink->current_long = $current_long;
+                    $runner_sink->timestamp = $timestamp;
+
+                    $runner_sink->save();
+                    ++$count;
+                }
+
+                $response["Message"] = "Success";
+                $response["ErrorCode"] = 0;
+                $response["TotalRecords"] = 0;
+                $cc['object_type_id'] = 0;
+                $cc['posted_count'] = $count;
+                $response["Data"] = $cc;
+
+
+
+
+        } catch (Exception $e) {
+
+            $response["Message"] = "Something wrong has Happened at server!! please report...";
+            $response["ErrorCode"] = 1001;
+            $response["TotalRecords"] = 0;
+            $cc['object_type_id'] = 0;
+            $response["Data"] = $cc;
+
+        }
+
+        return $response;
+
+
+    }
+
+
+
 
 
 }
