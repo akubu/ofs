@@ -114,7 +114,7 @@ class androidApi extends Controller
         if($count == 0)
         {
 
-
+            $response['count'] = 0;
             $response[$ii]['vehicle_number'] = "not available";
             $response[$ii]['invocie_number'] = "not available";
 
