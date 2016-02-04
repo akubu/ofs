@@ -103,6 +103,7 @@
         <tr>
             <th style="width:200px;">
                 Enter Device ID
+                <Span class="danger">*</Span>
             </th>
             <th>
                 <div class="ui-widget">
@@ -114,6 +115,7 @@
             <tr>
             <th>
                  Reason
+                <Span class="danger">*</Span>
             </th>
             <th>
                 <input type="text" id="reason" class="form-control" placeholder="Enter Reason for loss" size="150">

@@ -197,7 +197,7 @@ $(function () {
     <tr>
     	<th>&nbsp;</th>
     	<th>&nbsp;</th>
-        <th style="width: 146px;vertical-align: middle;">Device ID:</th>
+        <th style="width: 146px;vertical-align: middle;">Device ID:<Span class="danger">*</Span></th>
         <th>
            
                 <input class="form-control ui-autocomplete-input" id="deviceToAllocate" placeholder="Enter Device ID" >

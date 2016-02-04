@@ -119,7 +119,7 @@
         <tr>
             <th style="background-color: #ADD2E0">
                 <center>
-                    Expected dispatch Date
+                    Expected dispatch Date<Span class="danger">*</Span>
                 </center>
             </th>
             <td style="background-color: #ADD2E0">
@@ -130,7 +130,7 @@
             </td>
             <th style="background-color: #ADD2E0">
                 <center>
-                    Expected Delivery Date
+                    Expected Delivery Date<Span class="danger">*</Span>
                 </center>
             </th>
             <td style="background-color: #ADD2E0">

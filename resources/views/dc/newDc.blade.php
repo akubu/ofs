@@ -131,13 +131,15 @@
 
         errorFlag = 0;
 
+        which =0;
+
         var dc_number = $('#dc_number').val();
 
         if (dc_number == ''  ) {
             $('#dc_number').css('border-color', 'red');
             $('#dc_error').removeClass("hide");
             $('#dc_error').html("Please Generate A DC Number");
-
+which =1;
             ++errorFlag ;
         }
         else {
@@ -151,7 +153,7 @@
 
 
         if ($.inArray(runner_assigned, availableTags) == -1) {
-
+            which =2;
                 $('#runner_assigned').css('border-color', 'red');
             $('#runner_error').removeClass("hide");
             $('#runner_error').html("Please Select A Runner");
@@ -171,7 +173,7 @@
 
         var driver_name = $('#driver_name').val();
 
-
+        which =3;
         if (driver_name == '' || driver_name.length <3 ) {
             $('#driver_name').css('border-color', 'red');
             $('#driver_name_error').removeClass("hide");
@@ -188,6 +190,7 @@
 
 
         if (driver_contact_number == '' || driver_contact_number.length !=10 ||  driver_contact_number <7000000000 ) {
+            which =4;
             $('#driver_contact_number').css('border-color', 'red');
             $('#driver_contact_error').removeClass("hide");
             $('#driver_contact_error').html("Please Enter Valid Mobile Number");
@@ -203,6 +206,7 @@
         var truck_number = $('#truck_number').val();
 
         if ( truck_number == '' || truck_number <5 || truck_number >13 ) {
+            which =5;
             $('#truck_number').css('border-color', 'red');
             $('#truck_number_error').removeClass("hide");
             $('#truck_number_error').html("Please Enter A Proper Truck Number");
@@ -217,6 +221,8 @@
         var truck_type = $('#truck_type').val();
 
         if ( truck_type == '' || truck_type <2 || truck_type.length >25 ) {
+
+            which =6;
             $('#truck_type').css('border-color', 'red');
             $('#truck_type_error').removeClass("hide");
             $('#truck_type_error').html("Pleas Enter A Proper Truck Type");
@@ -235,6 +241,8 @@
 
 
         if ( expected_delivery_date == ''  ) {
+
+            which =7;
             $('#expected_delivery_date').css('border-color', 'red');
             $('#delivery_date_error').removeClass("hide");
             $('#delivery_date_error').html("Please Select Expected Delivery Date");
@@ -250,6 +258,7 @@
 //        var expected_dispatch_date = $('#expected_dispatch_date').datepicker('getDate');
 
         if ( expected_dispatch_date == ''  ) {
+            which =8;
             $('#expected_dispatch_date').css('border-color', 'red');
             $('#dispatch_date_error').removeClass("hide");
             $('#dispatch_date_error').html("Please Enter Expected Dispatch Date");
@@ -265,6 +274,7 @@
         var address = $('#address').val();
 
         if ( address == '' ||  address <5  ) {
+            which =9;
             $('#address').css('border-color', 'red');
             $('#address_error').removeClass("hide");
             $('#address_error').html("Please Enter An Address");
@@ -282,7 +292,7 @@
         if ( lat == '' || lat < 3  ) {
             $('#lat').css('border-color', 'red');
             $('#address').css('border-color', 'red');
-
+            which =10;
         }
         else {
             $('#lat').css('border-color', 'green');
@@ -293,7 +303,7 @@
         if ( long == '' || long < 3  ) {
             $('#address').css('border-color', 'red');
             $('#long').css('border-color', 'red');
-
+            which =11;
         }
         else {
             $('#long').css('border-color', 'green');
@@ -307,7 +317,7 @@
             $('#tracking_status').css('border-color', 'red');
             $('#tracking_status_error').removeClass("hide");
             $('#tracking_status_error').html("Please Select A Tracking Status");
-
+            which =12;
             ++errorFlag ;
         }
         else {
@@ -325,6 +335,7 @@
             $('#reason_error').removeClass("hide");
             $('#reason_error').html("Please Enter Reason For Not tracking This Shipment");
             ++errorFlag ;
+            which =13;
         }
         else {
             $('#no_tracking_reason').css('border-color', 'green');
@@ -350,6 +361,7 @@
             }else{
                 $(this).css('border-color', 'red');
                 qty_error = 1;
+                which =19;
             }
 
 
@@ -358,8 +370,8 @@
         if (is_a_quantity == 0 || is_a_quantity == 0.0 ) {
 
             $('.sku_class').css('border-color', 'red');
-            ++errorFlag ;
 
+            which =21;
         }
         else{
             $('.sku_class').css('border-color', 'green');
@@ -372,6 +384,7 @@
                 size: 'large',
                 duration: 5000
             });
+
 
             return false;
 
@@ -490,7 +503,8 @@
 <table class="table table-striped">
     <tr>
     	
-        <th style="width: 210px;vertical-align: middle; text-align:center">Dc number:</th>
+        <th style="width: 210px;vertical-align: middle; text-align:center">Dc number:<Span class="danger">*</Span></th>
+
         <th>
           <input type="text" class="form-control" size="40" id="dc_number" placeholder="Enter DC number" readonly/>
                     <span class="help-block hide danger" id="dc_error"></span>
@@ -510,18 +524,12 @@
     <div class="form-group">
         <table class="table borderless">
            
-            <tr id="reason_row">
-                <th colspan="1">
-                    Reason for Not Tracking
-                </th>
-                <th colspan="3"><input type="text" placeholder="Enter Reason" id="no_tracking_reason"
-                                       class="form-control"/><span class="help-block hide danger" id="reason_error">Please Enter A Reason For Not Tracking</span>
-                </th>
-            </tr>
+
 
             <tr>
                 <th>
-                    <center>Runner Assigned</center>
+                    <center>Runner Assigned <Span class="danger">*</Span></center>
+
                 </th>
                 <td>
 
@@ -531,7 +539,8 @@
 
                 </td>
                  <th>
-                    <center>Select Status:</center>
+                    <center>Select Status:<Span class="danger">*</Span></center>
+
                 </th>
                 <td>
                   <select class="form-control" id="tracking_status">
@@ -544,16 +553,28 @@
                 </td>
             </tr>
 
+            <tr id="reason_row">
+                <th colspan="1">
+                    Reason for Not Tracking
+                    <Span class="danger">*</Span>
+                </th>
+                <th colspan="3"><input type="text" placeholder="Enter Reason" id="no_tracking_reason"
+                                       class="form-control"/><span class="help-block hide danger" id="reason_error">Please Enter A Reason For Not Tracking</span>
+                </th>
+            </tr>
+
             <tr>
                 <th>
-                    <center>Driver Name</center>
+                    <center>Driver Name
+                        <Span class="danger">*</Span></center>
                 </th>
                 <td>
                     <input type="text" class="form-control" size="40" id="driver_name" placeholder="Enter Driver Name"/><span class="help-block hide danger" id="driver_name_error"></span>
                 </td>
 
                 <th>
-                    <center>Driver Contact Number</center>
+                    <center>Driver Contact Number
+                        <Span class="danger">*</Span></center>
                 </th>
                 <td>
                     <input type="text" class="form-control" size="40" id="driver_contact_number" placeholder="Enter Driver Contact Number"/><span class="help-block hide danger" id="driver_contact_error"></span>
@@ -561,13 +582,15 @@
             </tr>
             <tr>
                 <th>
-                    <center>Truck Number</center>
+                    <center>Truck Number
+                        <Span class="danger">*</Span></center>
                 </th>
                 <td>
                     <input type="text" class="form-control" size="40" id="truck_number" placeholder="Enter Truck Number"/><span class="help-block hide danger" id="truck_number_error">Error</span>
                 </td>
                 <th>
-                    <center>Truck Type</center>
+                    <center>Truck Type
+                        <Span class="danger">*</Span></center>
                 </th>
                 <td>
                     <input type="text" class="form-control" size="40" id="truck_type" placeholder="Enter Truck Type"/>
@@ -578,6 +601,7 @@
                 <th>
                     <center>
                         Expected dispatch Date
+                        <Span class="danger">*</Span>
                     </center>
                 </th>
                 <td>
@@ -594,6 +618,7 @@
                 <th>
                     <center>
                         Expected Delivery Date
+                        <Span class="danger">*</Span>
                     </center>
                 </th>
                 <td>
@@ -653,7 +678,8 @@
     <tr>
     	<th>&nbsp;</th>
     	<th>&nbsp;</th>
-        <th style="width: 210px;vertical-align: middle; text-align:center">Delivery Address:</th>
+        <th style="width: 210px;vertical-align: middle; text-align:center">Delivery Address:
+            <Span class="danger">*</Span></th>
         <th>
           <input type="text" class="form-control" id="address" value="{{ $details['ship_to_address'] }}" size="60"/><span class="help-block hide danger" id="address_error">Error</span>
                     <input type="text" id="lat" value="{{ $details['lat'] }}" size="10" readonly=true hidden />

@@ -84,7 +84,8 @@
 
                         $('#body_div').html(data);
                     });
-
+                    $('#delete_runner').removeClass("hide");
+                    $('#delete_runner').next().addClass('hide');
 
                 }else{
                     $.growl.error({
@@ -101,7 +102,9 @@
             });
 
             } else {
-                txt = "You pressed Cancel!";
+
+                $('#delete_runner').removeClass("hide");
+                $('#delete_runner').next().addClass('hide');
             }
 
         });
@@ -121,7 +124,7 @@
     <tr>
     	<th>&nbsp;</th>
     	<th>&nbsp;</th>
-        <th style="width: 146px;vertical-align: middle;">Runner To Delete :</th>
+        <th style="width: 246px;vertical-align: middle;">Select Runner To Delete<Span class="danger">*</Span></th>
         <th>
             <div class="ui-widget">
                 <input class="form-control" id="runnerToDelete" placeholder="Enter runner to Delete">

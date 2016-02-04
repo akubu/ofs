@@ -152,7 +152,7 @@ class dc extends Controller
      */
     public function createForm()
     {
-        $sos = so::where('is_delivered', '=', 0)->get();
+        $sos = so::where('is_delivered', '=', 0)->where('posting_date', 'LIKE', '%2016%')->get();
         $so_numbers = array();
 
         foreach ($sos as $so) {

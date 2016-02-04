@@ -42,6 +42,14 @@ class device extends Controller
         $scm_id = Input::get('scm_id');
         $runner_id = Input::get('runner_id');
 
+        $already_registered = \App\device::where('gsm_number', '=', $gsm_number)->get()->first();
+
+        if($already_registered)
+        {
+            return 0;
+        }
+
+
         $device = new \App\device();
 
         $device->device_type = $type;

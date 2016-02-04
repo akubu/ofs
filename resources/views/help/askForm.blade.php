@@ -16,17 +16,21 @@ $(document).ready(function(){
         });
         return false;
     }
+        $('#ask').addClass("hide");
+        $('#ask').next().removeClass('hide');
+
         $.get("/help/question?question="+question, function (data) {
 
             if(data == 1){
                 $.growl.notice({
-                    message: 'Question received, We will get back to you !',
+                    message: 'Question received, We will get back to you .',
                     size: 'large',
                     duration: 5000
                 });
 
             $('#msg').html("We Willl get back to you soon, with reply to your Question.<br>Q: <font color='blue'> " + question +"</font>");
-
+                $('#ask').removeClass("hide");
+                $('#ask').next().addClass('hide');
             }else {
 
                 $.growl.error({
@@ -34,6 +38,10 @@ $(document).ready(function(){
                     size: 'large',
                     duration: 5000
                 });
+
+                $('#ask').removeClass("hide");
+                $('#ask').next().addClass('hide');
+
             }
 
         });
@@ -60,6 +68,7 @@ $(document).ready(function(){
 	<div class="col-md-5"></div>
     <div class="col-md-2">
     	<button id="ask" class="btn btn-primary red">Ask this question</button>
+        <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
     </div>
     <div class="col-md-5"></div>
 </div>

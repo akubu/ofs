@@ -192,11 +192,11 @@
 
                                     else {
                                         $.growl.error({
-                                            message: 'Device cannot be added. Check information provided. ',
+                                            message: 'Device cannot be added. Check information provided. Make sure the device is not already Registered ',
                                             size: 'large',
                                             duration: 10000
                                         });
-                                        $('#add_device').addClass("hide");
+                                        $('#add_device').removeClass("hide");
                                         $('#add_device').next().removeClass('hide');
                                         $('#device_id').html(' ');
                                     }
@@ -224,6 +224,7 @@
         <tr>
             <th>
                 Device type
+                <Span class="danger">*</Span>
             </th>
             <th>
                 <input type="text" class="form-control" id="type" placeholder="Enter Device type">
@@ -231,6 +232,7 @@
             </th>
             <th>
                 Device model
+                <Span class="danger">*</Span>
             </th>
             <th>
                 <input type="text" class="form-control" id="model" placeholder="Enter Device Model">
@@ -240,6 +242,7 @@
         <tr>
             <th>
                 IMEI Number :
+                <Span class="danger">*</Span>
             </th>
             <th>
                 <input type="text" class="form-control" id="imei_number" placeholder="Enter IMEI number">
@@ -247,6 +250,7 @@
             </th>
             <th>
                 SIM Number
+                <Span class="danger">*</Span>
             </th>
             <th>
                 <input type="text" class="form-control" id="sim_number" placeholder="Enter SIM number">
@@ -257,6 +261,7 @@
         <tr>
             <th>
                 Gsm Number
+                <Span class="danger">*</Span>
             </th>
             <th>
                 <input type="text" class="form-control" id="gsm_number" placeholder="Enter GSM number">

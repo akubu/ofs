@@ -3,15 +3,7 @@
 
 
 <table class="table table-striped" align="center">
-<tr>
-    <th align="center">
-        Total Undelivered SO :
-    </th>
-    <th align="center">
-        {{ $response['so_undelivered_count'] }}
-    </th>
 
-</tr>
 
 <tr>
     <th align="center">

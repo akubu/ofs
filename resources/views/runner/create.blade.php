@@ -280,14 +280,16 @@ errorFlag =0;
     <table class="table borderless">
         <tr>
             <th>
-                <center> Runner Name</center>
+                <center> Runner Name
+                    <Span class="danger">*</Span></center>
             </th>
             <th>
                 <input class="form-control" type="text" id="runner_name" size="40" placeholder="Enter Runner Name"/>
                     <span class="help-block hide danger" id="runner_name_error"></span>
             </th>
             <th>
-                <center>Runner VTiger id</center>
+                <center>Runner VTiger id
+                    <Span class="danger">*</Span></center>
             </th>
             <th>
                 <input class="form-control" type="txt" id="runner_vtiger_id" size="40" placeholder="Enter vTiger ID">
@@ -298,13 +300,15 @@ errorFlag =0;
         <tr>
             <th>
                 <center>Runner Address
+                    <Span class="danger">*</Span>
             </th>
             <th>
                 <input class="form-control" type="text" id="runner_address" size="40" placeholder="Enter Runner Address">
                     <span class="help-block hide danger" id="runner_address_error"></span>
             </th>
             <th>
-                <center>Runner office address</center>
+                <center>Runner office address
+                    <Span class="danger">*</Span></center>
             </th>
             <th>
                 <input class="form-control" type="text" id="runner_station_address" size="40" placeholder="Enter Office Address">
@@ -313,14 +317,16 @@ errorFlag =0;
         </tr>
         <tr>
             <th>
-                <center>Runner CUG Contact Number</center>
+                <center>Runner CUG Contact Number
+                    <Span class="danger">*</Span></center>
             </th>
             <th>
                 <input class="form-control" type="text" id="runner_contact_number_1" size="40" placeholder="Enter CUG Number">
                     <span class="help-block hide danger" id="runner_contact_number_1_error"></span>
             </th>
             <th>
-                <center>Runner Contact Number
+                <center>Runner's Alternate Contact Number
+
             </th>
             <th>
                 <input class="form-control" type="text" id="runner_contact_number_2" size="40"
@@ -333,6 +339,8 @@ errorFlag =0;
         <tr>
             <th>
                 <center>Runner Reports to
+                    <Span class="danger">*</Span>
+                    </center>
             </th>
             <th>
                 <input class="form-control" type="text" id="runner_reports_to" size="40" placeholder="Runner Reports to">
@@ -340,6 +348,8 @@ errorFlag =0;
             </th>
             <th>
                 <center>Reports to E-Mail
+                    <Span class="danger">*</Span>
+                </center>
             </th>
             <th>
                 <input class="form-control" type="email" id="reports_to_mail" size="40" placeholder="Reports to E-Mail Address">
@@ -349,6 +359,9 @@ errorFlag =0;
         <tr>
             <th>
                 <center>Runner E-mail
+                    <Span class="danger">*</Span>
+                </center>
+
             </th>
             <th>
                 <input class="form-control" type="text" id="runner_email" size="40" placeholder="Enter Runner's E-Mail Address">

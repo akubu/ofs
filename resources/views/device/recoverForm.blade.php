@@ -114,7 +114,8 @@
     <tr>
     	<th>&nbsp;</th>
     	<th>&nbsp;</th>
-        <th style="width: 146px;vertical-align: middle;">Device ID:</th>
+        <th style="width: 146px;vertical-align: middle;">Device ID:
+            <Span class="danger">*</Span></th>
         <th>
            
                 <input class="form-control" type="text" id="device_id" name="device_id" placeholder="Enter Device ID">

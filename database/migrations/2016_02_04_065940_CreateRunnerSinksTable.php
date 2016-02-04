@@ -16,6 +16,10 @@ class CreateRunnerSinksTable extends Migration
         Schema::create('runner_sink', function(Blueprint $table)
         {
             $table->increments('id');
+            $table->string("current_lat");
+            $table->string("current_long");
+            $table->string("runner_id");
+            $table->string("timestamp");
             $table->timestamps();
         });
     }
