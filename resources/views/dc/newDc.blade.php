@@ -24,7 +24,9 @@
                     });
                     $('#allocate_device').hide();
                 });
+
         $('#info_status').html('<center><h3 style="color:#0AB2F1; margin-top:30px;">Please add a runner first</h3></center>');
+
         @endif
 
 
@@ -484,32 +486,30 @@
 
 <hr>
 <div class="row" id="info_status">
-    <div class="form-group">
-        <table class="table table-bordered">
-            <tr>
-                <th>
-                    <center>Dc number</center>
-                </th>
-                <td id="" colspan="2">
 
-                    <input type="text" size="40" id="dc_number" placeholder="Enter DC number" readonly/>
+<table class="table table-striped">
+    <tr>
+    	
+        <th style="width: 210px;vertical-align: middle; text-align:center">Dc number:</th>
+        <th>
+          <input type="text" class="form-control" size="40" id="dc_number" placeholder="Enter DC number" readonly/>
                     <span class="help-block hide danger" id="dc_error"></span>
-                    &nbsp;&nbsp;
+        </th>
+        <th>
+            <button id="generate_dc" class="btn btn-primary btn-sm" style="width: auto">Generate DC Number</button>
+        </th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+    	<th>&nbsp;</th>
+        
+    </tr>
+</table>
 
-                    &nbsp;&nbsp;
-                    <button id="generate_dc" class="btn btn-primary" style="width: auto">Generate DC Number</button>
-                </td>
-                <td>
-                    {{--<label for="sel1">Select list:</label>--}}
-                    <select class="form-control" id="tracking_status">
-                        <option value="-1">Select Tracking status</option>
-                        <option value="1">This DC is Tracked</option>
-                        <option value="0">This DC is Un-Tracked</option>
-
-                    </select>
-                    <span class="help-block hide danger" id="tracking_status_error">Please Select a Tracking Status</span>
-                </td>
-            </tr>
+    <div class="form-group">
+        <table class="table borderless">
+           
             <tr id="reason_row">
                 <th colspan="1">
                     Reason for Not Tracking
@@ -521,14 +521,26 @@
 
             <tr>
                 <th>
-                    <center>Runner Assignedd</center>
+                    <center>Runner Assigned</center>
                 </th>
-                <td colspan="3">
+                <td>
 
-                    <input type="text" id="runner_assigned" size="40" placeholder="Select Runner"/><span class="help-block hide danger" id="runner_error">Please Select A Runner From DropDown</span>
+                    <input type="text" class="form-control" id="runner_assigned" size="40" placeholder="Select Runner"/><span class="help-block hide danger" id="runner_error">Please Select A Runner From DropDown</span>
 
      				<span class="help-block hide danger"></span>
 
+                </td>
+                 <th>
+                    <center>Select Status:</center>
+                </th>
+                <td>
+                  <select class="form-control" id="tracking_status">
+                        <option value="-1">Select Tracking status</option>
+                        <option value="1">This DC is Tracked</option>
+                        <option value="0">This DC is Un-Tracked</option>
+
+                    </select>
+                    <span class="help-block hide danger" id="tracking_status_error">Please Select a Tracking Status</span>
                 </td>
             </tr>
 
@@ -537,14 +549,14 @@
                     <center>Driver Name</center>
                 </th>
                 <td>
-                    <input type="text" size="40" id="driver_name" placeholder="Enter Driver Name"/><span class="help-block hide danger" id="driver_name_error"></span>
+                    <input type="text" class="form-control" size="40" id="driver_name" placeholder="Enter Driver Name"/><span class="help-block hide danger" id="driver_name_error"></span>
                 </td>
 
                 <th>
                     <center>Driver Contact Number</center>
                 </th>
                 <td>
-                    <input type="text" size="40" id="driver_contact_number" placeholder="Enter Driver Contact Number"/><span class="help-block hide danger" id="driver_contact_error"></span>
+                    <input type="text" class="form-control" size="40" id="driver_contact_number" placeholder="Enter Driver Contact Number"/><span class="help-block hide danger" id="driver_contact_error"></span>
                 </td>
             </tr>
             <tr>
@@ -552,13 +564,13 @@
                     <center>Truck Number</center>
                 </th>
                 <td>
-                    <input type="text" size="40" id="truck_number" placeholder="Enter Truck Number"/><span class="help-block hide danger" id="truck_number_error">Error</span>
+                    <input type="text" class="form-control" size="40" id="truck_number" placeholder="Enter Truck Number"/><span class="help-block hide danger" id="truck_number_error">Error</span>
                 </td>
                 <th>
                     <center>Truck Type</center>
                 </th>
                 <td>
-                    <input type="text" size="40" id="truck_type" placeholder="Enter Truck Type"/>
+                    <input type="text" class="form-control" size="40" id="truck_type" placeholder="Enter Truck Type"/>
                     <span class="help-block hide danger" id="truck_type_error"></span>
                 </td>
             </tr>
@@ -570,7 +582,7 @@
                 </th>
                 <td>
 
-                    <input id="expected_dispatch_date" size="40" placeholder="Select Dispatch Date" type="text"
+                    <input id="expected_dispatch_date" class="form-control" size="40" placeholder="Select Dispatch Date" type="text"
 
                            value="" readonly><span class="help-block hide danger" id="dispatch_date_error"></span>
 
@@ -585,7 +597,7 @@
                     </center>
                 </th>
                 <td>
-                    <input id="expected_delivery_date" type="text" size="40"
+                    <input id="expected_delivery_date" class="form-control" type="text" size="40"
 
                            placeholder="Select Expected Delivery Date" readonly/><span class="help-block hide danger" id="delivery_date_error">Error</span>
 
@@ -596,9 +608,9 @@
 
     <!----------- enter info into dc --------------->
 
-
-    <div class="row">
-        <table class="table table-bordered">
+<br><br>
+    
+        <table class="table table-striped">
             <tr>
                 <th>
                     SKU
@@ -609,7 +621,9 @@
                 <th>
                     Quantity
                 </th>
-
+				<th>
+                	SKU Units
+                </th>
             </tr>
 
             @foreach($details['details'] as $detail)
@@ -621,36 +635,42 @@
                         {{ $detail['sku_description'] }}
                     </td>
                     <td>
-                        <input type="text" value="0" class="sku_class" sku="{{ $detail['sku'] }}" size="40"
+                        <input type="text" class="form-control" value="0" class="sku_class" sku="{{ $detail['sku'] }}" size="40"
                                placeholder="Enter Quantity">
 
-                        {{ $detail['sku_units'] }}
+                        
 
+                    </td>
+                    <td>
+                    {{ $detail['sku_units'] }}
                     </td>
                 </tr>
             @endforeach
 
         </table>
-
-        <table class="table table-bordered">
-            <tr>
-                <th>
-                    Delivery Address
-                </th>
-                <th>
-                    <input type="text" id="address" value="{{ $details['ship_to_address'] }}" size="60"/><span class="help-block hide danger" id="address_error">Error</span>
+        
+        <table class="table table-striped">
+    <tr>
+    	<th>&nbsp;</th>
+    	<th>&nbsp;</th>
+        <th style="width: 210px;vertical-align: middle; text-align:center">Delivery Address:</th>
+        <th>
+          <input type="text" class="form-control" id="address" value="{{ $details['ship_to_address'] }}" size="60"/><span class="help-block hide danger" id="address_error">Error</span>
                     <input type="text" id="lat" value="{{ $details['lat'] }}" size="10" readonly=true hidden />
                     <input type="text" id="long" value="{{ $details['long'] }}" size="10" readonly=true hidden/>
-                   </th><th>
-                    <button id="select_address" class="btn btn-primary" style="width: auto">Select This Address
-                    </button>
-                    </th>
-                <th>
-                    <button id="locate_on_map" class="btn btn-primary">Locate on map</button>
-                </th>
-            </tr>
-        </table>
-        <div class="row" id="map_sellector">
+        </th>
+        <th>
+           <button id="select_address" class="btn btn-primary btn-sm">Select This Address</button>
+        </th>
+        <th>  <button id="locate_on_map" class="btn btn-primary btn-sm">Locate on map</button></th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+              
+        
+    </tr>
+</table>
+
+       <div class="row" id="map_sellector">
 
             <div class="form-horizontal" style="width: 80%">
 
@@ -661,20 +681,17 @@
             </div>
 
         </div>
-        <table class="table table-bordered">
-            <tr>
-                <td colspan="3">
-                    {{--</td>--}}
-                    {{--<td>--}}
-                    <button id="register_dc" class="btn btn-primary"> Register DC</button>
-                    <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
-                </td>
-                {{--<td>--}}
-                {{--<button id="add_device" class="btn btn-primary"> Save and Register New</button>--}}
-                {{--</td>--}}
-            </tr>
-        </table>
-    </div>
+        
+        <div class="col-md-12">
+        <div class="col-md-5"></div>
+        	<div class="col-md-2">
+        		<button id="register_dc" class="btn btn-primary"> Register DC</button>
+         		<div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
+            </div>
+        <div class="col-md-5"></div>
+        </div>
+   
+  
 </div>
 
 

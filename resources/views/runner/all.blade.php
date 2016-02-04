@@ -39,41 +39,16 @@
 
 <style>
 
-    .list {
-        font-family:sans-serif;
-    }
-    td {
-        padding:10px;
-        border:solid 1px #eee;
-    }
-
-    input {
-        border:solid 1px #ccc;
+  
+   .sort {
+        padding:6px 25px;
         border-radius: 5px;
-        padding:7px 14px;
-        margin-bottom:10px
+        border:1px solid #28a8e0;       
+        color:#28a8e0;
+		vertical-align: sub;
     }
-    input:focus {
-        outline:none;
-        border-color:#aaa;
-    }
-    .sort {
-        padding:8px 30px;
-        border-radius: 6px;
-        border:none;
-        display:inline-block;
-        color:#fff;
-        text-decoration: none;
-        background-color: #28a8e0;
-        height:30px;
-    }
-    .sort:hover {
-        text-decoration: none;
-        background-color:#1b8aba;
-    }
-    .sort:focus {
-        outline:none;
-    }
+  
+   
     .sort:after {
         display:inline-block;
         width: 0;
@@ -117,12 +92,35 @@
 <div id="info_status">
 <div>
     <div id="users">
-        <input class="search" placeholder="Search" />
-        <button class="sort" data-sort="name">
-            Sort by name
-        </button>
+    
+     <div class="table_titles filter_bar">
+
+			<div class="container-fluid">
+				
+				<div class="row">
+					
+					<div class="col-md-6 text-left">
+						<input class="form-control search" placeholder="Search" />
+					</div>
+
+					<div class="col-md-6 text-right">
+						<span class="sort" data-sort="name">
+            Sort by name <i class="fa fa-sort-amount-desc"></i>
+        </span>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+    
+    <div class="row">   
+    <div class="col-md-12">&nbsp;</div>
+	</div>    
+    
         <div height="200px" style="overflow-y: scroll; height:200px;">
-    <table class="table table-bordered">
+    <table class="table table-striped">
         <tbody class="list">
 
         @foreach($response as $runner)
@@ -143,7 +141,7 @@
                     {{ $runner['current_address'] }}
                 </td>
                 <th>
-                    <button class="track_runner_button" runner_name="{{ $runner['runner_info']['runner_name'] }} - {{ $runner['runner_info']['vtiger_id'] }}" target="/track/currentDeviceLocation?gsm_number={{ $runner['runner_info']['runner_contact_number_1'] }}" class="btn btn-primary">Track</button>
+                    <button class="btn btn-primary btn-sm track_runner_button" runner_name="{{ $runner['runner_info']['runner_name'] }} - {{ $runner['runner_info']['vtiger_id'] }}" target="/track/currentDeviceLocation?gsm_number={{ $runner['runner_info']['runner_contact_number_1'] }}">Track</button>
                 </th>
             </tr>
         @endforeach
