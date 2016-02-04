@@ -453,9 +453,9 @@ which =1;
 
                                             if (data == 1) {
                                                 $.growl.notice({
-                                                    message: 'DC Registered.',
+                                                    message: 'DC Registered. DC Number: '+$('#dc_number').val(),
                                                     size: 'large',
-                                                    duration: 5000
+                                                    duration: 10000
                                                 });
 
                                                 $('#new_dc_form').html(" ");
