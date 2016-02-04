@@ -19,6 +19,7 @@ Route::group(array('prefix' => '/webApp'), function () {
     Route::get('/deliver', 'webApp@deliver');
     Route::get('/track', 'webApp@track');
 
+
 });
 });
 
@@ -39,6 +40,8 @@ Route::group(array('prefix' => 'api/v1'), function () {
         Route::get('getLocation/{device_id}', "androidApi@getLocation");
         Route::get('getTrackingStatus', 'androidApi@getTrackingStatus');
         Route::get('getOrderLocation', 'androidApi@getOrderLocation');
+
+    Route::post('runnerLocationSink', 'androidApi@runnerLocationSink');
 
     });
 
