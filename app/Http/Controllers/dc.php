@@ -36,6 +36,13 @@ class dc extends Controller
         //
     }
 
+    function clean($string) {
+        $string = str_replace(' ', '', $string);
+        $string = str_replace('-', '', $string);
+
+        return preg_replace('/[^A-Za-z0-9\-]/', '', $string);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -69,6 +76,8 @@ class dc extends Controller
         $no_tracking_reason = trim($decoded['no_tracking_reason']);
         $so_number = trim($decoded['so_number']);
 
+        $truck_number =$this->clean($truck_number);
+
 
         $sku_details = $decoded['sku_details'];
 
@@ -100,7 +109,7 @@ class dc extends Controller
 
         $dc->save();
 
-        foreach ($decoded['sku_details'] as $sku_detail) {
+        foreach ($sku_details as $sku_detail) {
             $dc_detail = new dc_details();
             $dc_detail->dc_number = $dc_number;
             $dc_detail->sku = $sku_detail['sku'];

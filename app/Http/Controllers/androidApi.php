@@ -597,15 +597,15 @@ class androidApi extends Controller
 
 
 
-            $dev = \App\device::where('dc_number', '=', $inv)->get()->first();
+            $device = \App\device::where('dc_number', '=', $inv)->get()->first();
 
 
-            if (!$dev) {
+            if (!$device) {
                 $response['error'] = "1";
                 $response['error_message'] = "please enter valid invoice number";
                 return $response;
             }
-            $device = $dev->device_id;
+            $device = $device->device_id;
             $response['error'] = "0";
             $response['error_message'] = "0";
 
