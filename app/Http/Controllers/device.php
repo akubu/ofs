@@ -58,6 +58,7 @@ class device extends Controller
         $device->sim_number = $sim_number;
         $device->gsm_number = $gsm_number;
         $device->scm_id = $scm_id;
+        $device->dc_number = "0";
         $device->runner_id = $runner_id;
 
         try {
@@ -278,6 +279,12 @@ class device extends Controller
         $device_id = substr($device, 0, strpos($device, "("));
         $reason = Input::get('reason');
         $device = \App\device::where('device_id','=', $device_id)->get()->first();
+
+        if($device->dc_number == "0")
+        {
+            return 0;
+        }
+
         $device_fault = new device_faults();
 
         $device_fault->device_id = $device_id;

@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Artisan;
 
 class androidApi extends Controller
 {
@@ -290,6 +291,8 @@ class androidApi extends Controller
 
             $notifications = new notifications();
             $notifications->sendDispatchNotification($dc_number);
+
+            Artisan::call('cron:all');
 
             return $response;
         }else{
