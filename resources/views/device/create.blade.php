@@ -105,7 +105,7 @@
 
 
             var gsm_number = $('#gsm_number').val();
-            if (gsm_number == '' || gsm_number < 7000000000 || gsm_number.length !=10 ) {
+            if (gsm_number == '' || gsm_number < 7000000000 || gsm_number > 9999999999 || !$.isNumeric(gsm_number ) {
 
                 $('#gsm_number').css('border-color', 'red');
                 $('#gsm_error').removeClass("hide");

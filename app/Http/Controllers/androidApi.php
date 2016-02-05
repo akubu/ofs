@@ -216,17 +216,16 @@ class androidApi extends Controller
 
     }
 
-    //////// TODO
+
 
     public function attach($truck_number, $device_id)
     {
 
         $response = array();
 
-
-
         $device = device::where('device_id', '=', $device_id)->get()->first();
         $dc = dc::where('truck_number', '=', $truck_number)->where('is_tracked', '=', 1)->where('is_delivered','=', 0)->get()->first();
+
 
         if ($device && $dc) {
 
@@ -304,11 +303,42 @@ class androidApi extends Controller
 
         $response = array();
         $device = device::where('device_id', '=', $device_id)->get()->first();
+
+        if(!$device)
+        {
+            $response['startLat'] = "0";
+            $response['startLong'] = "0";
+            $response['currLat'] = "0";
+            $response['currLong'] = "0";
+            $response['endLat'] = "0";
+            $response['endLong'] = "0";
+            return $response;
+        }
+
         $dc_number = $device->dc_number;
 
         $dc_track = dc_track::where('dc_number', '=', $dc_number)->get()->first();
 
+        if(!$dc_track)
+        {
+            $start = locations::where('device_id','=', $device_id)->orderBy('created_at', "ASC")->get()->first();
+
+            $response['startLat'] = $start->lat;
+            $response['startLong'] = $start->long;
+            $response['currLat'] = $start->lat;
+            $response['currLong'] = $start->long;
+            $response['endLat'] = $start->lat;
+            $response['endLong'] = $start->long;
+            return $response;
+        }
+
         $start = locations::where('device_id','=', $device_id)->where('created_at', '>=', $dc_track->shipment_start_dt)->orderBy('created_at', "ASC")->get()->first();
+//
+//        if()
+//        {
+//
+//        }
+///////////////// TODO
 
         $start_lat = $start->lat;
         $start_long = $start->long;

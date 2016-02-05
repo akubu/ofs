@@ -42,11 +42,10 @@
 
 
 
-        $('#register_loss').click(function(){
+        $('#register_loss').click(function() {
 
             var device_id = $('#device_id').val();
-            if($.inArray(device_id, availableTags) == -1)
-            {
+            if ($.inArray(device_id, availableTags) == -1) {
 
                 $.growl.error({
                     message: 'Select Device ID from dropdown. ',
@@ -57,23 +56,43 @@
             }
             var reason = $('#reason').val();
 
-            if (device_id.length >2 && reason && reason.length > 10)
-            {
-                $.post("/device/loss", { device_id : device_id, reason : reason}, function(result) {
 
-                    if(result == 1)
-                    {
+            var r = confirm("Report device " + device_id + " as lost? ");
+            if (r == false) {
+                return false;
+            } else {
+
+
+
+
+            if (device_id.length > 2 && reason && reason.length > 10) {
+                $('#add_runner').addClass("hide");
+                $('#add_runner').next().removeClass('hide');
+
+                $.post("/device/loss", {device_id: device_id, reason: reason}, function (result) {
+
+                    if (result == 1) {
                         $.growl.notice({
-                            message: ' device loss registered.',
+                            message: ' Device Loss registered.',
                             size: 'large',
                             duration: 10000
                         });
+                        $.get("/device/loss", function (data, status) {
+                            if (data.auth_required == true) {
+                                window.location = "/auth/login";
+                                return false;
+                            }
+                            $('#body_div').html(data);
+                        });
                         $('#device_id').val("");
                         $('#reason').val("");
+                        $('#add_runner').removeClass("hide");
+                        $('#add_runner').next().addClass('hide');
 
-                    }else{
+
+                    } else {
                         $.growl.error({
-                            message: 'Check device ID.',
+                            message: 'Reason should be more then 10 characters long.',
                             size: 'large',
                             duration: 10000
                         });
@@ -82,13 +101,15 @@
 
                 });
 
-            }else{
+            } else {
                 $.growl.error({
                     message: 'Enter proper information.',
                     size: 'large',
                     duration: 10000
                 });
             }
+
+        }
 
         });
 
@@ -130,6 +151,7 @@
 	<div class="col-md-5"></div>
     <div class="col-md-2">
     	<button  id="register_loss" class="btn btn-primary">Register Loss</button>
+        <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
     </div>
     <div class="col-md-5"></div>
 </div>

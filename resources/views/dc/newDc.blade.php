@@ -183,13 +183,13 @@ which =1;
         else {
             $('#driver_name').css('border-color', 'green');
             $('#driver_name_error').addClass("hide");
-            $('#driver_name_error').html("");driver_contact_error
+            $('#driver_name_error').html("");
         }
 
         var driver_contact_number = $('#driver_contact_number').val();
 
 
-        if (driver_contact_number == '' || driver_contact_number.length !=10 ||  driver_contact_number <7000000000 ) {
+        if (driver_contact_number == '' ||  driver_contact_number <7000000000 || driver_contact_number > 9999999999 || !$.isNumeric(driver_contact_number)) {
             which =4;
             $('#driver_contact_number').css('border-color', 'red');
             $('#driver_contact_error').removeClass("hide");
@@ -225,7 +225,7 @@ which =1;
             which =6;
             $('#truck_type').css('border-color', 'red');
             $('#truck_type_error').removeClass("hide");
-            $('#truck_type_error').html("Pleas Enter A Proper Truck Type");
+            $('#truck_type_error').html("Please Enter A Proper Truck Type");
             ++errorFlag ;
         }
         else {
@@ -367,7 +367,7 @@ which =1;
 
         });
 
-        if (is_a_quantity == 0 || is_a_quantity == 0.0 ) {
+        if (is_a_quantity == 0 || is_a_quantity == 0.0 || qty_error > 0) {
 
             $('.sku_class').css('border-color', 'red');
 
@@ -593,7 +593,7 @@ which =1;
                         <Span class="danger">*</Span></center>
                 </th>
                 <td>
-                    <input type="text" class="form-control" size="40" id="truck_type" placeholder="Enter Truck Type"/>
+                    <input type="text" class="form-control" size="40" id="truck_type" placeholder="Enter Truck Type (Load Capacity)"/>
                     <span class="help-block hide danger" id="truck_type_error"></span>
                 </td>
             </tr>

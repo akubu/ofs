@@ -85,7 +85,7 @@
     	<th>&nbsp;</th>
         <th style="width: 146px;vertical-align: middle;">SO Number:</th>
         <th>
-            <input type="text" class="form-control" id="so_number" size="40" placeholder="Enter So Number">
+            <input type="text" class="form-control" id="so_number" size="40" placeholder="Enter SO Number">
         </th>
         <th>
          <button id="so_entered" class="btn btn-primary btn-sm">Start Assigning</button>

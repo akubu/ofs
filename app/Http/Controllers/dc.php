@@ -156,7 +156,11 @@ class dc extends Controller
         $so_numbers = array();
 
         foreach ($sos as $so) {
-            $so_numbers[] = $so->so_number;
+            if(strpos($so->so_number, 'SO') !== false)
+            {
+                $so_numbers[] = $so->so_number;
+            }
+
         }
 
         return view('dc.create', compact('so_numbers'));

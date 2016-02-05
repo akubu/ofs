@@ -39,11 +39,22 @@ errorFlag =0;
 
             if( !validateEmail(runner_email) || !validateEmail(reports_to_email)){
                 $.growl.error({
-                    message: 'Enter proper E-mail Address.',
+                    message: 'Enter Proper E-mail Address.',
                     size: 'large',
                     duration: 10000
                 });
-                $('#runner_email').css('border-color', 'red');
+               if(!validateEmail(runner_email))
+               {
+                   $('#runner_email').css('border-color', 'red');
+               }else{
+                   $('#runner_email').css('border-color', 'green');
+               }
+                if(!validateEmail(runner_email))
+                {
+                    $('#reports_to_email').css('border-color', 'red');
+                }else{
+                    $('#reports_to_email').css('border-color', 'green');
+                }
 
 
             }
@@ -105,7 +116,7 @@ errorFlag =0;
 
 
             var runner_contact_number_1 = $('#runner_contact_number_1').val();
-            if (runner_contact_number_1 == '' || runner_contact_number_1.length <3 || runner_contact_number_1 < 7000000000) {
+            if (runner_contact_number_1 == ''  || runner_contact_number_1 < 7000000000 || runner_contact_number_1 > 9999999999 || !$.isNumeric(runner_contact_number_1)) {
                 $('#runner_contact_number_1').css('border-color', 'red');
                 $('#runner_contact_number_1_error').removeClass("hide");
                 $('#runner_contact_number_1_error').html("Please Enter Correct CUG Number");
@@ -119,6 +130,20 @@ errorFlag =0;
 
 
             var runner_contact_number_2 = $('#runner_contact_number_2').val();
+
+            if(!runner_contact_number_2.length<1){
+                if (runner_contact_number_2 == ''  || runner_contact_number_2 < 7000000000 || runner_contact_number_2 > 9999999999 || !$.isNumeric(runner_contact_number_2) ){
+                    $('#runner_contact_number_1').css('border-color', 'red');
+                    $('#runner_contact_number_1_error').removeClass("hide");
+                    $('#runner_contact_number_1_error').html("Please Enter Correct CUG Number");
+                    ++errorFlag ;
+                }
+                else {
+                    $('#runner_contact_number_1').css('border-color', 'green');
+                    $('#runner_contact_number_1_error').addClass("hide");
+                    $('#runner_contact_number_1_error').html("");
+                }
+            }
 
             var reports_to_name = $('#runner_reports_to').val();
 
@@ -180,7 +205,7 @@ errorFlag =0;
                                                     $.growl.notice({
                                                         message: 'Runner created.',
                                                         size: 'large',
-                                                        duration: 10000
+                                                        duration: 5500
                                                     });
 
                                                  $('#create_runner').html('<center><h3>Runner "'+ runner_name + '" Created</h3></center>')
@@ -193,7 +218,7 @@ errorFlag =0;
                                                     $.growl.error({
                                                         message: 'Runner Aready present. To edit please use appropriate menu',
                                                         size: 'large',
-                                                        duration: 10000
+                                                        duration: 5500
                                                     });  $('#add_runner').removeClass("hide");
                                                     $('#add_runner').next().addClass('hide');
                                                 }
@@ -201,7 +226,7 @@ errorFlag =0;
                                                     $.growl.error({
                                                         message: 'Incorrect information. Runner Cannot be created.',
                                                         size: 'large',
-                                                        duration: 10000
+                                                        duration: 5500
                                                     });
 
                                                 $('#add_runner').removeClass("hide");
@@ -216,21 +241,21 @@ errorFlag =0;
                                             $.growl.error({
                                                 message: 'Check Reports to E-Mail.',
                                                 size: 'large',
-                                                duration: 10000
+                                                duration: 5500
                                             });
                                         }
                                     } else {
                                         $.growl.error({
                                             message: 'Check Reports to Name.',
                                             size: 'large',
-                                            duration: 10000
+                                            duration: 5500
                                         });
                                     }
                                 } else {
                                     $.growl.error({
                                         message: 'Check Runner E-Mail.',
                                         size: 'large',
-                                        duration: 10000
+                                        duration: 5500
                                     });
                                 }
                             } else {
@@ -240,28 +265,28 @@ errorFlag =0;
                             $.growl.error({
                                 message: 'Check Runner CUG Number .',
                                 size: 'large',
-                                duration: 10000
+                                duration: 5500
                             });
                         }
                     } else {
                         $.growl.error({
                             message: 'Check Runner Address.',
                             size: 'large',
-                            duration: 10000
+                            duration: 5500
                         });
                     }
                 } else {
                     $.growl.error({
                         message: 'Check vTiger ID.',
                         size: 'large',
-                        duration: 10000
+                        duration: 5500
                     });
                 }
             } else {
                 $.growl.error({
                     message: 'Check Runner Name.',
                     size: 'large',
-                    duration: 10000
+                    duration: 5500
                 });
 
             }
