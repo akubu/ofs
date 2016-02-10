@@ -184,7 +184,7 @@ class dc extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -252,9 +252,7 @@ class dc extends Controller
             $runner_names[] = $runner->runner_name . "(" . $runner->vtiger_id . ")";
         }
 
-//dd($details);
         return view('dc.newDc', compact('details', 'runner_names'));
-
     }
 
     public function generateDCNumber()
@@ -280,7 +278,7 @@ class dc extends Controller
 //        $dc = \App\dc::where('dc_number','=',$dc_number)->get()->first();
 //        if($dc)
 //        {
-//            TODO
+//
 //        }
 
         return $dc_number;

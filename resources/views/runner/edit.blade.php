@@ -12,7 +12,7 @@
                     });
                     $('#allocate_device').hide();
                 });
-        $('#info_status').html('<center><h3>NO RunnerRegistered yet</h3></center>');
+        $('#info_status').html('<center><h3>No RunnerRegistered yet</h3></center>');
         @endif
 
 

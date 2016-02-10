@@ -75,7 +75,7 @@
                         $.growl.notice({
                             message: ' Device Loss registered.',
                             size: 'large',
-                            duration: 10000
+                            duration: 5000
                         });
                         $.get("/device/loss", function (data, status) {
                             if (data.auth_required == true) {
@@ -90,12 +90,24 @@
                         $('#add_runner').next().addClass('hide');
 
 
-                    } else {
+                    }
+                    else if(result == -1){
+                        $.growl.error({
+                            message: 'Device is currently assigned for tracking, please finish delivery first.',
+                            size: 'large',
+                            duration: 5000
+                        });
+                        $('#add_runner').removeClass("hide");
+                        $('#add_runner').next().addClass('hide');
+                    }
+                    else {
                         $.growl.error({
                             message: 'Reason should be more then 10 characters long.',
                             size: 'large',
-                            duration: 10000
+                            duration: 5000
                         });
+                        $('#add_runner').removeClass("hide");
+                        $('#add_runner').next().addClass('hide');
 
                     }
 
@@ -105,7 +117,7 @@
                 $.growl.error({
                     message: 'Enter proper information.',
                     size: 'large',
-                    duration: 10000
+                    duration: 5000
                 });
             }
 

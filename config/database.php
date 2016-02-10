@@ -89,10 +89,10 @@ return [
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
-            'host' => '103.25.172.167:1433',
+            'host' => '192.168.1.46:49272',
             'database' => 'Bebb New',
             'username' => 'trackingsystem',
-            'password' => 'admin@123',
+            'password' => 'Admin@123',
             'prefix' => '',
         ],
 

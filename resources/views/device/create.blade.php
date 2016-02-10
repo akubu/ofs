@@ -105,7 +105,7 @@
 
 
             var gsm_number = $('#gsm_number').val();
-            if (gsm_number == '' || gsm_number < 7000000000 || gsm_number > 9999999999 || !$.isNumeric(gsm_number ) {
+            if (gsm_number == '' || gsm_number < 7000000000 || gsm_number > 9999999999 || !$.isNumeric(gsm_number )) {
 
                 $('#gsm_number').css('border-color', 'red');
                 $('#gsm_error').removeClass("hide");
@@ -197,14 +197,11 @@
                                             duration: 10000
                                         });
                                         $('#add_device').removeClass("hide");
-                                        $('#add_device').next().removeClass('hide');
+                                        $('#add_device').next().addClass('hide');
                                         $('#device_id').html(' ');
                                     }
 
                                 });
-
-
-
 
             }
 

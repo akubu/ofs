@@ -280,6 +280,13 @@ class device extends Controller
         $reason = Input::get('reason');
         $device = \App\device::where('device_id','=', $device_id)->get()->first();
 
+        if($device->dc_number !=0 || $device->dc_number != "")
+        {
+
+            return -1;
+        }
+
+
         if($device->dc_number == "0")
         {
             return 0;

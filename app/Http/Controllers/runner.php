@@ -234,6 +234,14 @@ catch(Exception $e){
         $runner = App\runner::where('vtiger_id','=',$vtiger_id)->get()->first();
         $device = App\device::where('gsm_number','=', $runner->runner_contact_number_1)->get()->first();
 
+        $runner_dc = App\dc::where('runner_id', '=', $vtiger_id)->where('is_delivered', '=', 0)->get()->first();
+
+
+        if($runner_dc)
+        {
+            return -1;
+        }
+
 
         try{
 

@@ -203,7 +203,6 @@ class androidApi extends Controller
             $device->save();
             $dc->save();
 
-
             $notifier = new notifications();
             $notifier->sendDeliveredNotification($dc_number);
 
@@ -336,12 +335,6 @@ class androidApi extends Controller
         }
 
         $start = locations::where('device_id','=', $device_id)->where('created_at', '>=', $dc_track->shipment_start_dt)->orderBy('created_at', "ASC")->get()->first();
-//
-//        if()
-//        {
-//
-//        }
-///////////////// TODO
 
         $start_lat = $start->lat;
         $start_long = $start->long;
@@ -351,15 +344,18 @@ class androidApi extends Controller
         $current_lat = $current->lat;
         $current_long = $current->long;
 
-        $end = dc_track::where('dc_number', '=', $dc_number )->get()->first();
-        $end_lat = $end->lat;
-        $end_long = $end->long;
+
+
+
+
+        $end_lat = $dc_track->lat;
+        $end_long = $dc_track->long;
 
         $locationService = new locationServices();
 
         $start_address = $locationService->getLocationFromLatLong($start_lat, $start_long);
         $current_address = $locationService->getLocationFromLatLong($current_lat, $current_long);
-        $end_address = $locationService->getLocationFromLatLong($end_lat, $end_long);
+        $end_address = $dc_track->address;
 
         //{"startLat":"28.47814","startLong":"77.13025","endLat":"28.8054651","endLong":"77.0463008","currLat":"28.47814","currLong":"77.13025"}
 

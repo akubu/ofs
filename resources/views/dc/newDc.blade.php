@@ -416,6 +416,7 @@ which =1;
 
         $('#register_dc').addClass("hide");
         $('#register_dc').next().removeClass('hide');
+        $('input').attr('readonly', true);
 
                                 $.get("runner/validate?runner=" + runner_assigned, function (data) {
                                     if (data == 1) {
@@ -475,6 +476,7 @@ which =1;
                                                     duration: 5000
                                                 });
                                                 $('#register_dc').attr('disabled', false);
+                                                $('input').attr('readonly', false);
                                                 $('#register_dc').removeClass("hide");
                                                 $('#register_dc').next().addClass('hide');
                                             }
@@ -483,7 +485,7 @@ which =1;
 
                                     } else {
 
-
+                                        $('input').attr('readonly', false);
                                         $('#register_dc').attr('disabled', false);
                                         $('#register_dc').removeClass("hide");
                                         $('#register_dc').next().addClass('hide');

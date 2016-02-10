@@ -8,11 +8,11 @@
                     $.growl.error({
                         message: 'No Runner registered Yet,. ',
                         size: 'large',
-                        duration: 10000
+                        duration: 5000
                     });
                     $('#allocate_device').hide();
                 });
-        $('#info_status').html('<center><h3>NO Runner Registered yet</h3></center>');
+        $('#info_status').html('<center><h3>No Runner Registered yet</h3></center>');
         @endif
 
 
@@ -45,7 +45,7 @@
             $('#delete_runner').addClass("hide");
             $('#delete_runner').next().removeClass('hide');
 
-            var sure = confirm('Are You Sure You Want Delete The Selected Runner ? ');
+            var sure = confirm('Are you sure you want to delete the selected runner ? ');
 
 
             if (sure == true) {
@@ -58,7 +58,7 @@
                     $.growl.error({
                         message: 'Select Runner Number from dropdown. ',
                         size: 'large',
-                        duration: 10000
+                        duration: 5000
                     });
                     return false;
                 }
@@ -69,7 +69,7 @@
 
 
 
-                $('#delete_result').html(result);
+
 
                 if (result == 1)
                 {
@@ -77,7 +77,7 @@
                     $.growl.notice({
                         message: 'Runned Deleted .',
                         size: 'large',
-                        duration: 10000
+                        duration: 5000
                     });
 
                     $.get("/runner/delete", function (data, status) {
@@ -87,11 +87,23 @@
                     $('#delete_runner').removeClass("hide");
                     $('#delete_runner').next().addClass('hide');
 
-                }else{
+                }
+                else if (result == -1)
+                {
+                    $.growl.error({
+                        message: 'Runner have undelivered DCs assigned. Please finish current deliveries first',
+                        size: 'large',
+                        duration: 5000
+                    });
+
+                    $('#delete_runner').removeClass("hide");
+                    $('#delete_runner').next().addClass('hide');
+                }
+                else{
                     $.growl.error({
                         message: 'Cannot delete runner Please Contact Support. ',
                         size: 'large',
-                        duration: 10000
+                        duration: 5000
                     });
 
                     $('#delete_runner').removeClass("hide");

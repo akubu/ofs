@@ -46,7 +46,14 @@ Route::group(array('prefix' => 'api/v1'), function () {
     });
 
 
-$router->group(['middleware' => ['auth']], function () {   ///'actionLog'
+$router->group(['middleware' => []], function () {
+
+
+    Route::post('dc/documentUpload', 'dc@documentUpload');
+
+});
+
+$router->group(['middleware' => [ ]], function () {   ///'actionLog'
 
 
     $base_url = config('app.rewrite_base');
@@ -105,7 +112,7 @@ $router->group(['middleware' => ['auth']], function () {   ///'actionLog'
     Route::post('dc/create', 'dc@create');
     Route::get('dc/uploadDocuments', 'dc@uploadDocumentsSelectDC');
     Route::get('dc/documentsForDC', 'dc@documentsForDC');
-    Route::post('dc/documentUpload', 'dc@documentUpload');
+
     Route::get('dc/manageDC', 'dc@manageDC');
     Route::get('dc/updateForm', 'dc@updateForm');
     Route::get('dc/updateDCSelection', 'dc@updateDCSelection');

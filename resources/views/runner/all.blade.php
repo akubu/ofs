@@ -11,7 +11,7 @@
                 });
                 $('#allocate_device').hide();
             });
-    $('#info_status').html('<center><h2 style="color:#0AB2F1; margin-top:30px;">NO Runner Registered yet</h2></center>');
+    $('#info_status').html('<center><h2 style="color:#0AB2F1; margin-top:30px;">No Runner Registered yet</h2></center>');
             @endif
 
     var options = {
