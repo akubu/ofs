@@ -23,15 +23,14 @@ class runner extends Controller
     {
         $response = array();
         $runners = App\runner::all();
-        $ii =0;
-        foreach($runners as $runner)
-        {
+        $ii = 0;
+        foreach ($runners as $runner) {
 //            $response[] = $runner->runner_name;
 
             $response[$ii]['name'] = $runner->runner_name;
             $response[$ii]['vtiger_id'] = $runner->vtiger_id;
         }
-return $response;
+        return $response;
 //        return response()->json($response);
     }
 
@@ -46,16 +45,16 @@ return $response;
 
         $runner_name = Input::get('runner_name');
         $vtiger_id = strtoupper(Input::get('vtiger_id'));
-        $runner_address =Input::get('runner_address');
+        $runner_address = Input::get('runner_address');
         $runner_station_address = Input::get('runner_station_address');
-        $runner_contact_number_1 =Input::get('runner_contact_number_1');
+        $runner_contact_number_1 = Input::get('runner_contact_number_1');
         $runner_contact_number_2 = Input::get('runner_contact_number_2');
         $runner_email = Input::get('runner_email');
         $reports_to_name = Input::get('reports_to_name');
         $reports_to_email = Input::get('reports_to_email');
 
         $runner = App\runner::where('vtiger_id', '=', $vtiger_id)->get();
-        if($runner->count() > 0){
+        if ($runner->count() > 0) {
             return -1;
         }
 
@@ -86,7 +85,7 @@ return $response;
         try {
             $device->save();
 
-            $tmp = \App\device::where('id','=',$device->id)->get()->first();
+            $tmp = \App\device::where('id', '=', $device->id)->get()->first();
             $tmp->device_id = $device->id;
             $tmp->save();
             $device->device_id = $device->id;
@@ -98,14 +97,14 @@ return $response;
             $locationservice = new locationServices();
             $locationservice->updateDeviceLocation($device->id);
 
-                return 1;
+            return 1;
 
 
-        }catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Illuminate\Database\QueryException $e) {
 
 //            var_dump($e->errorInfo );
 //                $response = array();
-return 0;
+            return 0;
 
         }
 
@@ -115,7 +114,7 @@ return 0;
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      * @return Response
      */
     public function store(Request $request)
@@ -124,11 +123,10 @@ return 0;
     }
 
 
-
     /**
      * tracking page for a runner
      *
-     * @param  Request  $request
+     * @param  Request $request
      * @return Response
      */
     public function track(Request $request)
@@ -141,25 +139,30 @@ return 0;
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function showAll()
     {
         $response = array();
         $runners = App\runner::all();
-        $ii =0;
-        foreach($runners as $runner)
-        {
+        $ii = 0;
+        foreach ($runners as $runner) {
             $response[$ii]['runner_info'] = $runner;
             $gsm_number = $runner->runner_contact_number_1;
-            $ii =0;
+
             $device_id = App\device::where('gsm_number', '=', $gsm_number)->get()->first()->device_id;
-            $location = App\locations::where('device_id','=', $device_id)->orderBy('created_at', "DESC")->get()->first();
-            $response[$ii]['current_lat'] = $location->lat ;
-            $response[$ii]['current_long'] = $location->long ;
+            $location = App\locations::where('device_id', '=', $device_id)->orderBy('created_at', "DESC")->get()->first();
+            $response[$ii]['current_lat'] = $location->lat;
+            $response[$ii]['current_long'] = $location->long;
             $location_service = new locationServices();
-            $response[$ii]['current_address'] = $location_service->getLocationFromLatLong($location->lat, $location->long); ;
+            if ($location->lat > 0 && $location->long > 0) {
+
+                $response[$ii]['current_address'] = $location_service->getLocationFromLatLong($location->lat, $location->long);
+            } else {
+                $response[$ii]['current_address'] = "Unknown";
+            }
+
             ++$ii;
         }
 
@@ -169,7 +172,7 @@ return 0;
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function edit($id)
@@ -180,8 +183,8 @@ return 0;
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  int  $id
+     * @param  Request $request
+     * @param  int $id
      * @return Response
      */
     public function update(Request $request)
@@ -191,15 +194,15 @@ return 0;
 
 
         $vtiger_id = Input::get('vtiger_id');
-        $runner_address =Input::get('runner_address');
+        $runner_address = Input::get('runner_address');
         $runner_station_address = Input::get('runner_station_address');
-        $runner_contact_number_1 =Input::get('runner_contact_number_1');
+        $runner_contact_number_1 = Input::get('runner_contact_number_1');
         $runner_contact_number_2 = Input::get('runner_contact_number_2');
         $runner_email = Input::get('runner_email');
         $reports_to_name = Input::get('reports_to_name');
         $reports_to_email = Input::get('reports_to_email');
 
-        $runner = App\runner::where('vtiger_id','=', $vtiger_id)->get()->first();
+        $runner = App\runner::where('vtiger_id', '=', $vtiger_id)->get()->first();
 
         $runner->runner_address = $runner_address;
         $runner->runner_station_address = $runner_station_address;
@@ -209,14 +212,13 @@ return 0;
         $runner->reports_to_email = $reports_to_email;
         $runner->reports_to_name = $reports_to_name;
         $runner->reports_to_name = $reports_to_name;
-try{
-        $runner->save();
-    }
-catch(Exception $e){
-    $x = $e;
-        return e;
-    }
-        return "<h3> Info for Runner : \" ". $runner_name ." \" Modified</h3>";
+        try {
+            $runner->save();
+        } catch (Exception $e) {
+            $x = $e;
+            return e;
+        }
+        return "<h3> Info for Runner : \" " . $runner_name . " \" Modified</h3>";
 
 
     }
@@ -224,34 +226,32 @@ catch(Exception $e){
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function destroy(Request $request)
     {
         $runner_name = Input::get('runner_name');
-        $vtiger_id = substr($runner_name, strpos( $runner_name, "(")+1, -1);
-        $runner = App\runner::where('vtiger_id','=',$vtiger_id)->get()->first();
-        $device = App\device::where('gsm_number','=', $runner->runner_contact_number_1)->get()->first();
+        $vtiger_id = substr($runner_name, strpos($runner_name, "(") + 1, -1);
+        $runner = App\runner::where('vtiger_id', '=', $vtiger_id)->get()->first();
+        $device = App\device::where('gsm_number', '=', $runner->runner_contact_number_1)->get()->first();
 
         $runner_dc = App\dc::where('runner_id', '=', $vtiger_id)->where('is_delivered', '=', 0)->get()->first();
 
 
-        if($runner_dc)
-        {
+        if ($runner_dc) {
             return -1;
         }
 
 
-        try{
+        try {
 
             $runner->delete();
 
             $device->delete();
 
             return 1;
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             $x = $e;
             return 0;
         }
@@ -259,17 +259,17 @@ catch(Exception $e){
         return 1;
     }
 
-    public  function  createForm()
+    public function  createForm()
     {
         return view('runner.create');
     }
 
-    public function deleteForm(){
+    public function deleteForm()
+    {
 
         $runners = App\runner::all();
         $response = array();
-        foreach($runners as $runner)
-        {
+        foreach ($runners as $runner) {
             $response[] = $runner->runner_name . "(" . $runner->vtiger_id . ")";
         }
         $runner_names = $response;
@@ -283,23 +283,20 @@ catch(Exception $e){
         $runner_name = Input::get('runner_name');
 
 
-        if($runner_name ){
+        if ($runner_name) {
 
-            $vtiger_id = substr($runner_name, strpos( $runner_name, "(")+1, -1);
-            $runner = App\runner::where('vtiger_id','=',$vtiger_id)->get()->first();
-            if(!$runner)
-            {
+            $vtiger_id = substr($runner_name, strpos($runner_name, "(") + 1, -1);
+            $runner = App\runner::where('vtiger_id', '=', $vtiger_id)->get()->first();
+            if (!$runner) {
                 return $vtiger_id;
             }
 //            dd($runner);
             return view('runner.editForm', compact('runner'));
-        }
-        else
-        {   $response = array();
+        } else {
+            $response = array();
 
             $runners = App\runner::all();
-            foreach($runners as $runner)
-            {
+            foreach ($runners as $runner) {
                 $response[] = $runner->runner_name . "(" . $runner->vtiger_id . ")";
             }
             $runner_names = $response;
@@ -308,16 +305,17 @@ catch(Exception $e){
         }
     }
 
-    public function validateRunner(){
+    public function validateRunner()
+    {
 
 
         $runner_name = Input::get('runner');
-        $vtiger_id = substr($runner_name, strpos( $runner_name, "(")+1, -1);
-        $runner = App\runner::where('vtiger_id','=',$vtiger_id)->get();
+        $vtiger_id = substr($runner_name, strpos($runner_name, "(") + 1, -1);
+        $runner = App\runner::where('vtiger_id', '=', $vtiger_id)->get();
 
-        if($runner->count()){
+        if ($runner->count()) {
             return 1;
-        }else{
+        } else {
             return 0;
         }
 

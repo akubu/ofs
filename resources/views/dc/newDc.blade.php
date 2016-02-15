@@ -275,23 +275,23 @@ which =1;
 
         if ( address == '' ||  address <5  ) {
             which =9;
-            $('#address').css('border-color', 'red');
-            $('#address_error').removeClass("hide");
-            $('#address_error').html("Please Enter An Address");
-            ++errorFlag ;
+//            $('#address').css('border-color', 'red');
+//            $('#address_error').removeClass("hide");
+//            $('#address_error').html("Please Enter An Address");
+//            ++errorFlag ;
         }
         else {
-            $('#address').css('border-color', 'green');
-            $('#address_error').addClass("hide");
-            $('#address_error').html("");
+//            $('#address').css('border-color', 'green');
+//            $('#address_error').addClass("hide");
+//            $('#address_error').html("");
         }
 
 
         var lat = $('#lat').val();
 
         if ( lat == '' || lat < 3  ) {
-            $('#lat').css('border-color', 'red');
-            $('#address').css('border-color', 'red');
+//            $('#lat').css('border-color', 'red');
+//            $('#address').css('border-color', 'red');
             which =10;
         }
         else {
@@ -301,8 +301,8 @@ which =1;
         var long = $('#long').val();
 
         if ( long == '' || long < 3  ) {
-            $('#address').css('border-color', 'red');
-            $('#long').css('border-color', 'red');
+//            $('#address').css('border-color', 'red');
+//            $('#long').css('border-color', 'red');
             which =11;
         }
         else {
@@ -367,11 +367,12 @@ which =1;
 
         });
 
-        if (is_a_quantity == 0 || is_a_quantity == 0.0 || qty_error > 0) {
+        if (is_a_quantity == 0 || is_a_quantity == 0.0 || qty_error < 0) {
 
             $('.sku_class').css('border-color', 'red');
 
             which =21;
+            ++errorFlag;
         }
         else{
             $('.sku_class').css('border-color', 'green');
@@ -379,11 +380,25 @@ which =1;
 
         if(errorFlag > 0){
 
-            $.growl.error({
-                message: 'Please correct all fields marked in Red .',
-                size: 'large',
-                duration: 5000
-            });
+            if(which == 21)
+            {
+                $.growl.error({
+                    message: 'Quantity for at-least one sku should be Grreater than 0.',
+                    size: 'large',
+                    duration: 5000
+                });
+
+            }
+            {
+
+                $.growl.error({
+                    message: 'Please correct all fields marked in Red .',
+                    size: 'large',
+                    duration: 5000
+                });
+            }
+
+        which =0;
 
 
             return false;
@@ -417,6 +432,7 @@ which =1;
         $('#register_dc').addClass("hide");
         $('#register_dc').next().removeClass('hide');
         $('input').attr('readonly', true);
+
 
                                 $.get("runner/validate?runner=" + runner_assigned, function (data) {
                                     if (data == 1) {
@@ -535,7 +551,7 @@ which =1;
                 </th>
                 <td>
 
-                    <input type="text" class="form-control" id="runner_assigned" size="40" placeholder="Select Runner"/><span class="help-block hide danger" id="runner_error">Please Select A Runner From DropDown</span>
+                    <input type="text" class="form-control" id="runner_assigned" size="40" placeholder="Enter Runner Name"/><span class="help-block hide danger" id="runner_error">Please Select A Runner From DropDown</span>
 
      				<span class="help-block hide danger"></span>
 
@@ -590,12 +606,12 @@ which =1;
                 <td>
                     <input type="text" class="form-control" size="40" id="truck_number" placeholder="Enter Truck Number"/><span class="help-block hide danger" id="truck_number_error">Error</span>
                 </td>
-                <th>
-                    <center>Truck Type
-                        <Span class="danger">*</Span></center>
-                </th>
+                {{--<th>--}}
+                    {{--<center>Truck Type--}}
+                        {{--<Span class="danger">*</Span></center>--}}
+                {{--</th>--}}
                 <td>
-                    <input type="text" class="form-control" size="40" id="truck_type" placeholder="Enter Truck Type (Load Capacity)"/>
+                    <input type="text"  size="40" id="truck_type" value="field disabled" placeholder="Enter Truck Type (Load Capacity)" hidden/>
                     <span class="help-block hide danger" id="truck_type_error"></span>
                 </td>
             </tr>
@@ -662,7 +678,7 @@ which =1;
                         {{ $detail['sku_description'] }}
                     </td>
                     <td>
-                        <input type="text" class="form-control" value="0" class="sku_class" sku="{{ $detail['sku'] }}" size="40"
+                        <input type="text" class="form-control sku_class" value="0"  sku="{{ $detail['sku'] }}" size="40"
                                placeholder="Enter Quantity">
 
                         

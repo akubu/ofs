@@ -16,23 +16,10 @@
 errorFlag =0;
             var runner_email = $('#runner_email').val();
 
-            if (runner_email == '' || runner_email.length <3 ) {
-                $('#runner_email').css('border-color', 'red');
-                ++errorFlag ;
-            }
-            else {
-                $('#runner_email').css('border-color', 'green');
-            }
+
             var reports_to_email = $('#reports_to_mail').val();
 
 
-            if (reports_to_email == '' || reports_to_email.length <3 ) {
-                $('#reports_to_mail').css('border-color', 'red');
-                ++errorFlag ;
-            }
-            else {
-                $('#reports_to_mail').css('border-color', 'green');
-            }
 
            // var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
 //            return pattern.test(emailAddress);
@@ -49,13 +36,14 @@ errorFlag =0;
                }else{
                    $('#runner_email').css('border-color', 'green');
                }
-                if(!validateEmail(runner_email))
+                if(!validateEmail(reports_to_email))
                 {
-                    $('#reports_to_email').css('border-color', 'red');
-                }else{
-                    $('#reports_to_email').css('border-color', 'green');
-                }
 
+                    $('#reports_to_mail').css('border-color', 'red');
+                }else{
+                    $('#reports_to_mail').css('border-color', 'green');
+                }
+            ++errorFlag;
 
             }
 
@@ -74,7 +62,7 @@ errorFlag =0;
 
             var vtiger_id = $('#runner_vtiger_id').val();
 
-            if (vtiger_id == '' || vtiger_id.length <3 ) {
+            if (vtiger_id == '' || vtiger_id.length <3 || vtiger_id.length > 7) {
                 $('#runner_vtiger_id').css('border-color', 'red');
                 $('#runner_vtiger_id_error').removeClass("hide");
                 $('#runner_vtiger_id_error').html("Please Enter Correct ID");
@@ -133,15 +121,15 @@ errorFlag =0;
 
             if(!runner_contact_number_2.length<1){
                 if (runner_contact_number_2 == ''  || runner_contact_number_2 < 7000000000 || runner_contact_number_2 > 9999999999 || !$.isNumeric(runner_contact_number_2) ){
-                    $('#runner_contact_number_1').css('border-color', 'red');
-                    $('#runner_contact_number_1_error').removeClass("hide");
-                    $('#runner_contact_number_1_error').html("Please Enter Correct CUG Number");
+                    $('#runner_contact_number_2').css('border-color', 'red');
+                    $('#runner_contact_number_2_error').removeClass("hide");
+                    $('#runner_contact_number_2_error').html("Please Enter Correct CUG Number");
                     ++errorFlag ;
                 }
                 else {
-                    $('#runner_contact_number_1').css('border-color', 'green');
-                    $('#runner_contact_number_1_error').addClass("hide");
-                    $('#runner_contact_number_1_error').html("");
+                    $('#runner_contact_number_2').css('border-color', 'green');
+                    $('#runner_contact_number_2_error').addClass("hide");
+                    $('#runner_contact_number_2_error').html("");
                 }
             }
 

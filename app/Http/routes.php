@@ -46,14 +46,14 @@ Route::group(array('prefix' => 'api/v1'), function () {
     });
 
 
-$router->group(['middleware' => []], function () {
+$router->group(['middleware' => ['auth']], function () {
 
 
     Route::post('dc/documentUpload', 'dc@documentUpload');
 
 });
 
-$router->group(['middleware' => [ ]], function () {   ///'actionLog'
+$router->group(['middleware' => [ 'auth', 'actionLog']], function () {   ///'actionLog'
 
 
     $base_url = config('app.rewrite_base');

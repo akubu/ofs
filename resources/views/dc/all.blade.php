@@ -178,7 +178,7 @@
                     <td>
                             @if(  $element['device_gsm_number']  != 0 )
 
-                                <button class="track_runner_button" dc_number=" {{ $element['dc_info']['dc_number'] }}" target="/track/currentDeviceLocation?gsm_number={{ $element['device_gsm_number'] }}" class="btn btn-primary">Track</button>
+                                <button class="btn btn-primary track_runner_button" dc_number=" {{ $element['dc_info']['dc_number'] }}" target="/track/currentDeviceLocation?gsm_number={{ $element['device_gsm_number'] }}" >Track</button>
                         @elseif( $element['dc_info']['is_tracked']  == 0)
 
                                 This DC is not tracked

@@ -130,27 +130,7 @@
 
 
 
-        <tr>
-            <th>
-                Device ID
-            </th>
-            <th>
-                Device Model
-            </th>
-            <th>
-                Device Type
-            </th>
 
-            <th>
-                GSM Number
-            </th>
-            <th>
-                Runner Alloted
-            </th>
-            <th>
-                Track
-            </th>
-        </tr>
         @foreach($devices as $device)
             <tr>
                 <td class="name">
