@@ -38,7 +38,7 @@ class androidApi extends Controller
         $response['error'] = "0";
 
         $runner = \App\runner::where('vtiger_id', '=', $id)->get()->first();
-        $dc = \App\dc::where('runner_id', '=', $id)->where('is_delivered', '=', 0)->where('is_tracked', '>', 0)->get();
+        $dc = \App\dc::where('runner_id', '=', $id)->where('is_delivered', '=', 0)->where('is_tracked', '=', 3)->get();
 
         $response['name'] = $runner->runner_name;
         $response['id'] = $runner->vtiger_id;

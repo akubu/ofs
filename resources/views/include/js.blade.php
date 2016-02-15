@@ -18,6 +18,10 @@
 <script src="js/jquery.iframe-transport.js"></script>
 <script src="js/jquery.fileupload.js"></script>
 
+
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXxkYt5TxoLuIxJZSDjSd0v--rrbC-b3s&signed_in=true&libraries=places"></script>
 <script src="js/locationpicker.jquery.js"></script>
+
+
+<script src="js/json3.min.js"></script>

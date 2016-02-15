@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
 <script type="application/javascript">
     $(document).ready(function () {
 
@@ -437,21 +440,25 @@ which =1;
                                 $.get("runner/validate?runner=" + runner_assigned, function (data) {
                                     if (data == 1) {
 
-                                        item = {};
-                                        item['dc_number'] = dc_number;
-                                        item['runner_assigned'] = runner_assigned;
-                                        item['driver_name'] = driver_name;
-                                        item['driver_contact_number'] = driver_contact_number;
-                                        item['truck_type'] = truck_type;
-                                        item['truck_number'] = truck_number;
-                                        item['expected_delivery_date'] = expected_delivery_date;
-                                        item['expected_dispatch_date'] = expected_dispatch_date;
-                                        item['address'] = address;
-                                        item['lat'] = lat;
-                                        item['long'] = long;
-                                        item['tracking_status'] = tracking_status;
-                                        item['no_tracking_reason'] = no_tracking_reason;
-                                        item['so_number'] = so_number;
+
+                                        var JavaScriptObjectLiteral = {
+                                        dc_number : dc_number,
+                                        runner_assigned : runner_assigned,
+                                        driver_name : driver_name,
+                                        driver_contact_number : driver_contact_number,
+                                        truck_type : truck_type,
+                                        truck_number : truck_number,
+                                        expected_delivery_date : expected_delivery_date,
+                                        expected_dispatch_date : expected_dispatch_date,
+                                        address : address,
+                                        lat : lat,
+                                        long : long,
+                                        tracking_status : tracking_status,
+                                        no_tracking_reason : no_tracking_reason,
+                                        so_number : so_number,
+
+                                        }
+
 
                                         skuObj = [];
                                         $(".sku_class").each(function () {
@@ -461,12 +468,53 @@ which =1;
                                             skuObj.push(itemxx);
                                         });
 
-                                        item['sku_details'] = skuObj;
+                                        JavaScriptObjectLiteral['sku_details'] = skuObj;
+                                        alert( JSON.stringify(JavaScriptObjectLiteral) );
 
-                                        data = {json: JSON.stringify(item)};
+                                        theJ = { json: JSON.stringify(JavaScriptObjectLiteral) };
+
+//                                        $('input').attr('readonly', false);
+//                                        $('#register_dc').attr('disabled', false);
+//                                        $('#register_dc').removeClass("hide");
+//                                        $('#register_dc').next().addClass('hide');
+//
+//
+//                                        item = {};
+//                                        item['dc_number'] = dc_number;
+//                                        item['runner_assigned'] = runner_assigned;
+//                                        item['driver_name'] = driver_name;
+//                                        item['driver_contact_number'] = driver_contact_number;
+//                                        item['truck_type'] = truck_type;
+//                                        item['truck_number'] = truck_number;
+//                                        item['expected_delivery_date'] = expected_delivery_date;
+//                                        item['expected_dispatch_date'] = expected_dispatch_date;
+//                                        item['address'] = address;
+//                                        item['lat'] = lat;
+//                                        item['long'] = long;
+//                                        item['tracking_status'] = tracking_status;
+//                                        item['no_tracking_reason'] = no_tracking_reason;
+//                                        item['so_number'] = so_number;
+//
+//                                        skuObj = [];
+//                                        $(".sku_class").each(function () {
+//                                            itemxx = {};
+//                                            itemxx['sku'] = $(this).attr('sku');
+//                                            itemxx['sku_quantity'] = $(this).val();
+//                                            skuObj.push(itemxx);
+//                                        });
+//
+//                                        item['sku_details'] = skuObj;
+//
+//                                        console.log(item);
+//
+//                                        console.log()
+//
+//                                        data = {json: JSON.stringify(item)};
+//
+//console.log(data);
 
 
-                                        $.post("/dc/create", data, function (data, status) {
+                                        $.post("/dc/create", theJ, function (data, status) {
 
                                             if (data == 1) {
                                                 $.growl.notice({
