@@ -274,7 +274,9 @@ class androidApi extends Controller
 
 
         if( is_null($device) || is_null($runner)){
-            $response['status'] = "0";
+            $response['msg'] = "error";
+            $response['invoice'] = "0";
+            $response['device'] = "0";
             return $response;
         }
 
@@ -284,7 +286,9 @@ class androidApi extends Controller
         $dc->save();
 
         if ($dc_track){
-            $response['status'] = "1";
+            $response['msg'] = "success";
+            $response['invoice'] = "1";
+            $response['device'] = "1";
             $dc_track->shipment_start_dt = \Carbon\Carbon::now();
             $dc_track->save();
 
@@ -295,7 +299,9 @@ class androidApi extends Controller
 
             return $response;
         }else{
-            $response['status'] = "0";
+            $response['msg'] = "error";
+            $response['invoice'] = "0";
+            $response['device'] = "0";
             return $response;
         }
 

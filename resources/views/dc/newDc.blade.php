@@ -469,49 +469,10 @@ which =1;
                                         });
 
                                         JavaScriptObjectLiteral['sku_details'] = skuObj;
-                                        alert( JSON.stringify(JavaScriptObjectLiteral) );
+
 
                                         theJ = { json: JSON.stringify(JavaScriptObjectLiteral) };
 
-//                                        $('input').attr('readonly', false);
-//                                        $('#register_dc').attr('disabled', false);
-//                                        $('#register_dc').removeClass("hide");
-//                                        $('#register_dc').next().addClass('hide');
-//
-//
-//                                        item = {};
-//                                        item['dc_number'] = dc_number;
-//                                        item['runner_assigned'] = runner_assigned;
-//                                        item['driver_name'] = driver_name;
-//                                        item['driver_contact_number'] = driver_contact_number;
-//                                        item['truck_type'] = truck_type;
-//                                        item['truck_number'] = truck_number;
-//                                        item['expected_delivery_date'] = expected_delivery_date;
-//                                        item['expected_dispatch_date'] = expected_dispatch_date;
-//                                        item['address'] = address;
-//                                        item['lat'] = lat;
-//                                        item['long'] = long;
-//                                        item['tracking_status'] = tracking_status;
-//                                        item['no_tracking_reason'] = no_tracking_reason;
-//                                        item['so_number'] = so_number;
-//
-//                                        skuObj = [];
-//                                        $(".sku_class").each(function () {
-//                                            itemxx = {};
-//                                            itemxx['sku'] = $(this).attr('sku');
-//                                            itemxx['sku_quantity'] = $(this).val();
-//                                            skuObj.push(itemxx);
-//                                        });
-//
-//                                        item['sku_details'] = skuObj;
-//
-//                                        console.log(item);
-//
-//                                        console.log()
-//
-//                                        data = {json: JSON.stringify(item)};
-//
-//console.log(data);
 
 
                                         $.post("/dc/create", theJ, function (data, status) {
