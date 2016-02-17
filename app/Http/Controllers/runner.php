@@ -80,6 +80,7 @@ class runner extends Controller
         $device->gsm_number = $runner_contact_number_1;
         $device->scm_id = Session::get('vt_user');;
         $device->runner_id = $vtiger_id;
+        $device->dc_number = "0";
 
 
         try {

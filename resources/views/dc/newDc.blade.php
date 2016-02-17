@@ -386,7 +386,7 @@ which =1;
             if(which == 21)
             {
                 $.growl.error({
-                    message: 'Quantity for at-least one sku should be Grreater than 0.',
+                    message: 'Quantity for at-least one sku should be Greater than 0.',
                     size: 'large',
                     duration: 5000
                 });

@@ -161,8 +161,6 @@ class notifications extends Controller
 
     public function sendDeliveredNotification($dc_number)
     {
-        $ir = 0;
-
         $so_number = \App\dc::where('dc_number', '=', $dc_number)->get()->first()->so_number;
         $so = \App\so::where('so_number', '=', $so_number)->get()->first();
         $customer_number = $so->customer_number;
