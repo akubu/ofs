@@ -56,25 +56,14 @@ return [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', '127.0.0.1'),
             'database'  => env('DB_DATABASE', 'new_tracking'),
-            'username'  => env('DB_USERNAME', 'root'),
-            'password'  => env('DB_PASSWORD', 'toor'),
+            'username'  => env('DB_USERNAME', 'trackingsystem'),
+            'password'  => env('DB_PASSWORD', 'tr@ckingsystem'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
             'strict'    => false,
         ],
 
-        'mysql_cscart' => [
-            'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'localhost'),
-            'database'  => env('DB_DATABASE', 'bazaar'),
-            'username'  => env('DB_USERNAME', 'bazaar'),
-            'password'  => env('DB_PASSWORD', 'b@z@@r@321'),
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => 'cscart_',
-            'strict'    => false,
-        ],
 
         'pgsql' => [
             'driver'   => 'pgsql',

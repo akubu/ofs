@@ -51,8 +51,8 @@ class locationPoll extends Command
         foreach ($dev as $d) {
             $number = $d->gsm_number;
             $dc_number = 0;
-             $dc = App\dc_track::where('device_id', '=', $d->device_id)->get()->first();
-            if($dc){
+            $dc = App\dc_track::where('device_id', '=', $d->device_id)->get()->first();
+            if ($dc) {
                 $dc_number = $dc->dc_number;
             }
             $url = "http://power2sme.com/p2sapi/ws/v3/orderLocation?deviceId=" . $number;
@@ -81,17 +81,20 @@ class locationPoll extends Command
             }
 
             $cord = $dec['Data'];
-            if( $cord[0]["long"] && $cord[0]["lat"]) {
-                $long = $cord[0]["long"];
-                $lat = $cord[0]["lat"];
-            }else{
+            if ($cord) {
 
-                $long = 0;
-                $lat = 0;
+
+                if ($cord[0]["long"] && $cord[0]["lat"]) {
+                    $long = $cord[0]["long"];
+                    $lat = $cord[0]["lat"];
+                } else {
+
+                    $long = 0;
+                    $lat = 0;
+
+                }
 
             }
-
-
 
             $loc = new \App\locations();
             $loc->device_id = $d->device_id;

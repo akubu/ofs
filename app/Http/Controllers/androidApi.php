@@ -65,8 +65,7 @@ class androidApi extends Controller
                     foreach ($dc_details as $dc_detail) {
                         $sku = so_details::where('so_number', '=', $inv->so_number)->where('sku', '=', $dc_detail->sku)->get()->first();
 
-                        if($dc_detail->sku_quantity > 0)
-                        {
+                        if ($dc_detail->sku_quantity > 0) {
                             $detail .= $sku->sku_description . " " . $dc_detail->sku_quantity . " " . $sku->sku_units . ";";
                         }
 
@@ -292,7 +291,8 @@ class androidApi extends Controller
             $notifications = new notifications();
             $notifications->sendDispatchNotification($dc_number);
 
-            Artisan::call('cron:all');
+            $location_service = new locationServices();
+            $location_service->updateDeviceLocation($device_id);
 
             return $response;
         } else {
@@ -397,9 +397,28 @@ class androidApi extends Controller
 
         $locationService = new locationServices();
 
-        $start_address = $locationService->getLocationFromLatLong($start_lat, $start_long);
-        $current_address = $locationService->getLocationFromLatLong($current_lat, $current_long);
-        $end_address = $locationService->getLocationFromLatLong($end_lat, $end_long);
+        $start_address = "Cannot determine address";
+        $end_address = "Cannot determine address";
+        $current_address = "Cannot determine address";
+
+
+        if ($start_lat == 0) {
+
+        } else {
+            $start_address = $locationService->getLocationFromLatLong($start_lat, $start_long);
+        }
+
+        if ($end_lat == 0) {
+
+        } else {
+            $end_address = $locationService->getLocationFromLatLong($end_lat, $end_long);
+        }
+        if ($current_lat == 0) {
+
+        } else {
+            $current_address = $locationService->getLocationFromLatLong($current_lat, $current_long);
+        }
+
 
         //{"startLat":"28.47814","startLong":"77.13025","endLat":"28.8054651","endLong":"77.0463008","currLat":"28.47814","currLong":"77.13025"}
 
@@ -422,8 +441,6 @@ class androidApi extends Controller
 
     public function  getTrackingStatus(Request $request)
     {
-
-
         $response = array();
 
         if ($request->input('sme_id')) {
@@ -434,7 +451,7 @@ class androidApi extends Controller
 
             $orders = array();
             foreach ($all_so as $so) {
-                $tt = $so->so_number;
+
                 $dcs = dc::where('so_number', '=', $so->so_number)->where('is_tracked', '=', 3)->get();
 
                 if ($dcs) {
@@ -465,16 +482,11 @@ class androidApi extends Controller
                     return $response;
                 }
 
-
                 $response['orders'][$count_order]['order_number'] = $order->so_number;
-
                 $count_invoice = 0;
-
                 $dc = $order;
                 {
-
                     $detailsRaw = \App\dc_details::where('dc_number', '=', $dc->dc_number)->get();
-
                     $details = array();
                     if (!empty($detailsRaw)) {
                         $counter = 0;

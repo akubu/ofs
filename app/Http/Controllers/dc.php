@@ -54,7 +54,6 @@ class dc extends Controller
         $response['error'] = '200';
         $response['message'] = 'DC Created';
 
-
         $jsonInput = Input::get('json');
         $decoded = json_decode($jsonInput, true);
 
@@ -78,8 +77,8 @@ class dc extends Controller
 
         $truck_number =$this->clean($truck_number);
 
-
         $sku_details = $decoded['sku_details'];
+
 
         //  validate dc_number //
 
@@ -275,11 +274,6 @@ class dc extends Controller
                 $test = true;
             }
         }
-//        $dc = \App\dc::where('dc_number','=',$dc_number)->get()->first();
-//        if($dc)
-//        {
-//
-//        }
 
         return $dc_number;
     }

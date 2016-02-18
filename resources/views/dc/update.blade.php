@@ -64,13 +64,13 @@
     <table class="table borderless">
         <tr>
             <th>
-                <center>Dc number</center>
+                <center>DC Number</center>
             </th>
             <td>
                 <input type="text" class="form-control" size="40" id="dc_number" value="{{ $dc['dc_number'] }}" placeholder="Enter DC number" readonly/>
             </td>
             <th>
-                <center>Tracking statu</center>
+                <center>Tracking status</center>
             </th>
             <td>
                <input class="form-control" type="text" value=" @if ( $dc['is_tracked'] == 1 ) Tracked @else Un-Tracked @endif" readonly/>
