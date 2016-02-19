@@ -350,18 +350,11 @@ class androidApi extends Controller
         $end_lat = $dc_track->lat;
         $end_long = $dc_track->long;
 
-        $locationService = new locationServices();
-
 
         if( $start_lat == 0 || $start_long || $end_lat == 0 || $end_long == 0 || $current_lat == 0 || $current_long == 0 )
         {
-            // 7001 = Bad co-ordinates
-
-            $response['status'] = "7001";
+            $response['error'] = "7001";
         }
-
-
-        //{"startLat":"28.47814","startLong":"77.13025","endLat":"28.8054651","endLong":"77.0463008","currLat":"28.47814","currLong":"77.13025"}
 
         $response['startLat'] = $start_lat;
         $response['startLong'] = $start_long;
@@ -369,10 +362,8 @@ class androidApi extends Controller
         $response['currLong'] = $current_long;
         $response['endLat'] = $end_lat;
         $response['endLong'] = $end_long;
-        $response['status'] = "7001";
 
         return $response;
-
 
     }
 
