@@ -310,6 +310,8 @@ class androidApi extends Controller
         $response = array();
         $device = device::where('device_id', '=', $device_id)->get()->first();
 
+        $response['error'] = "0";
+
         if (!$device) {
             $response['startLat'] = "0.0";
             $response['startLong'] = "0.0";
@@ -317,6 +319,7 @@ class androidApi extends Controller
             $response['currLong'] = "0.0";
             $response['endLat'] = "0.0";
             $response['endLong'] = "0.0";
+            $response['error'] = "7001";
             return $response;
         }
 
@@ -333,6 +336,7 @@ class androidApi extends Controller
             $response['currLong'] = $start->long;
             $response['endLat'] = $start->lat;
             $response['endLong'] = $start->long;
+            $response['error'] = "7001";
             return $response;
         }
 
@@ -513,7 +517,12 @@ class androidApi extends Controller
 
                     $addresses = $this->getLocationWithAddress($device->device_id);
 
-                    $response['orders'][$count_order]['invoices'][$count_invoice]['current_address'] = $addresses['current_address'];
+                    if(!$addresses['current_address'])
+                    {
+                        $response['orders'][$count_order]['invoices'][$count_invoice]['current_address'] = "Cannot be determined";
+                    }else{
+                        $response['orders'][$count_order]['invoices'][$count_invoice]['current_address'] = $addresses['current_address'];
+                    }
 
 
                     $endLat = $addresses['endLat'];

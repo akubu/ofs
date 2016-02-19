@@ -158,7 +158,7 @@ class notifications extends Controller
         $customer_email = $customer->customer_email;
         $customer_phone = $customer->customr_contact_number;
 
-        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>dispatch</event><object_id></object_id><customer><email_id>" . $customer_email . "</email_id><mobile_no>" . $customer_phone . "</mobile_no></customer><name>" . $so->bill_to_name . "</name><dc_no>" . $dc_number . "</dc_no></payload>");
+        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>dispatch</event><object_id></object_id><customer><email_id>" . $customer_email . "</email_id><mobile_no>" . $customer_phone . "</mobile_no></customer><name>" . $so->bill_to_name . "</name><dc_no>" . $dc_number . "</dc_no><so_no>" . $so->so_number. "</so_no></payload>");
         return $this->sendNotification($data);
     }
 
@@ -173,7 +173,7 @@ class notifications extends Controller
         $customer_email = $customer->customer_email;
         $customer_phone = $customer->customr_contact_number;
 
-        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>delivery notification</event><object_id></object_id><customer><email_id>" . $customer_email . "</email_id><mobile_no>" . $customer_phone. "</mobile_no></customer><name>" . $customer_name . "</name><invoice_no>" . $dc_number . "</invoice_no></payload>");
+        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>delivery notification</event><object_id></object_id><customer><email_id>" . $customer_email . "</email_id><mobile_no>" . $customer_phone. "</mobile_no></customer><name>" . $customer_name . "</name><invoice_no>" . $dc_number . "</invoice_no><so_number>" . $so_number . "</so_number></payload>");
         return $this->sendNotification($data);
     }
 
