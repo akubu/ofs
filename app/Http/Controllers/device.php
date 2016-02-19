@@ -216,7 +216,7 @@ class device extends Controller
         }
 
 
-        if($device->dc_number == "0")
+        if($device->dc_number != "0")
         {
             return 0;
         }
