@@ -1,10 +1,10 @@
 <script type="application/javascript">
 
-    $(document).ready(function(){
+    $(document).ready(function () {
 
 
         @if( !count($device_ids))
-     $(function(){
+     $(function () {
                     $.growl.error({
                         message: 'No Devices Registered in system. ',
                         size: 'large',
@@ -27,22 +27,21 @@
         $(function () {
 
             $("#device_id").autocomplete({
-                source: function( request, response ) {
-                    var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i" );
-                    response($.grep(availableTags, function(value) {
-                        return matcher.test( value.toUpperCase() );
+                source: function (request, response) {
+                    var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i");
+                    response($.grep(availableTags, function (value) {
+                        return matcher.test(value.toUpperCase());
                     }));
                 },
                 minLength: 0,
                 scroll: true
-            }).focus(function() {
-                $(this).autocomplete("search",  $("#device_id").val());
+            }).focus(function () {
+                $(this).autocomplete("search", $("#device_id").val());
             });
         });
 
 
-
-        $('#register_loss').click(function() {
+        $('#register_loss').click(function () {
 
             var device_id = $('#device_id').val();
             if ($.inArray(device_id, availableTags) == -1) {
@@ -63,65 +62,63 @@
             } else {
 
 
+                if (device_id.length > 2 && reason && reason.length > 10) {
+                    $('#add_runner').addClass("hide");
+                    $('#add_runner').next().removeClass('hide');
+
+                    $.post("/device/loss", {device_id: device_id, reason: reason}, function (result) {
+
+                        if (result == 1) {
+                            $.growl.notice({
+                                message: ' Device Loss registered.',
+                                size: 'large',
+                                duration: 5000
+                            });
+                            $.get("/device/loss", function (data, status) {
+                                if (data.auth_required == true) {
+                                    window.location = "/auth/login";
+                                    return false;
+                                }
+                                $('#body_div').html(data);
+                            });
+                            $('#device_id').val("");
+                            $('#reason').val("");
+                            $('#add_runner').removeClass("hide");
+                            $('#add_runner').next().addClass('hide');
 
 
-            if (device_id.length > 2 && reason && reason.length > 10) {
-                $('#add_runner').addClass("hide");
-                $('#add_runner').next().removeClass('hide');
+                        }
+                        else if (result == -1) {
+                            $.growl.error({
+                                message: 'Device is currently assigned for tracking, please finish delivery first.',
+                                size: 'large',
+                                duration: 5000
+                            });
+                            $('#add_runner').removeClass("hide");
+                            $('#add_runner').next().addClass('hide');
+                        }
+                        else {
+                            $.growl.error({
+                                message: 'Reason should be more then 10 characters long.',
+                                size: 'large',
+                                duration: 5000
+                            });
+                            $('#add_runner').removeClass("hide");
+                            $('#add_runner').next().addClass('hide');
 
-                $.post("/device/loss", {device_id: device_id, reason: reason}, function (result) {
+                        }
 
-                    if (result == 1) {
-                        $.growl.notice({
-                            message: ' Device Loss registered.',
-                            size: 'large',
-                            duration: 5000
-                        });
-                        $.get("/device/loss", function (data, status) {
-                            if (data.auth_required == true) {
-                                window.location = "/auth/login";
-                                return false;
-                            }
-                            $('#body_div').html(data);
-                        });
-                        $('#device_id').val("");
-                        $('#reason').val("");
-                        $('#add_runner').removeClass("hide");
-                        $('#add_runner').next().addClass('hide');
+                    });
 
+                } else {
+                    $.growl.error({
+                        message: 'Enter proper information.',
+                        size: 'large',
+                        duration: 5000
+                    });
+                }
 
-                    }
-                    else if(result == -1){
-                        $.growl.error({
-                            message: 'Device is currently assigned for tracking, please finish delivery first.',
-                            size: 'large',
-                            duration: 5000
-                        });
-                        $('#add_runner').removeClass("hide");
-                        $('#add_runner').next().addClass('hide');
-                    }
-                    else {
-                        $.growl.error({
-                            message: 'Reason should be more then 10 characters long.',
-                            size: 'large',
-                            duration: 5000
-                        });
-                        $('#add_runner').removeClass("hide");
-                        $('#add_runner').next().addClass('hide');
-
-                    }
-
-                });
-
-            } else {
-                $.growl.error({
-                    message: 'Enter proper information.',
-                    size: 'large',
-                    duration: 5000
-                });
             }
-
-        }
 
         });
 
@@ -145,27 +142,27 @@
             </th>
 
 
-            <tr>
+        <tr>
             <th>
-                 Reason
+                Reason
                 <Span class="danger">*</Span>
             </th>
             <th>
                 <input type="text" id="reason" class="form-control" placeholder="Enter Reason for loss" size="150">
             </th>
-            </tr>
+        </tr>
 
         </tr>
-       
+
     </table>
-    
+
     <div class="row">
-	<div class="col-md-5"></div>
-    <div class="col-md-2">
-    	<button  id="register_loss" class="btn btn-primary">Register Loss</button>
-        <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+            <button id="register_loss" class="btn btn-primary">Register Loss</button>
+            <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif"/></div>
+        </div>
+        <div class="col-md-5"></div>
     </div>
-    <div class="col-md-5"></div>
-</div>
 
 </div>

@@ -25,13 +25,10 @@ class runner extends Controller
         $runners = App\runner::all();
         $ii = 0;
         foreach ($runners as $runner) {
-//            $response[] = $runner->runner_name;
-
             $response[$ii]['name'] = $runner->runner_name;
             $response[$ii]['vtiger_id'] = $runner->vtiger_id;
         }
         return $response;
-//        return response()->json($response);
     }
 
 
@@ -100,42 +97,14 @@ class runner extends Controller
 
             return 1;
 
-
         } catch (\Illuminate\Database\QueryException $e) {
 
-//            var_dump($e->errorInfo );
-//                $response = array();
             return 0;
 
         }
 
 
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-
-    /**
-     * tracking page for a runner
-     *
-     * @param  Request $request
-     * @return Response
-     */
-    public function track(Request $request)
-    {
-
-
-    }
-
 
     /**
      * Display the specified resource.
@@ -170,16 +139,6 @@ class runner extends Controller
         return view('runner.all', compact('response'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -283,7 +242,6 @@ class runner extends Controller
     {
         $runner_name = Input::get('runner_name');
 
-
         if ($runner_name) {
 
             $vtiger_id = substr($runner_name, strpos($runner_name, "(") + 1, -1);
@@ -291,8 +249,9 @@ class runner extends Controller
             if (!$runner) {
                 return $vtiger_id;
             }
-//            dd($runner);
+
             return view('runner.editForm', compact('runner'));
+
         } else {
             $response = array();
 
@@ -308,8 +267,6 @@ class runner extends Controller
 
     public function validateRunner()
     {
-
-
         $runner_name = Input::get('runner');
         $vtiger_id = substr($runner_name, strpos($runner_name, "(") + 1, -1);
         $runner = App\runner::where('vtiger_id', '=', $vtiger_id)->get();

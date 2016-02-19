@@ -3,7 +3,7 @@
 
 
         @if( !count($response))
-        $(function(){
+        $(function () {
                     $.growl.error({
                         message: 'No DC registerd yet. ',
                         size: 'large',
@@ -21,28 +21,27 @@
     "{{ $dc['dc_info']['dc_number'] }}",
             @endforeach
     ];
-                $(function () {
+        $(function () {
 
             $("#dcNumberSelect").autocomplete({
-                source: function( request, response ) {
-                    var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i" );
-                    response($.grep(availableTags, function(value) {
-                        return matcher.test( value.toUpperCase() );
+                source: function (request, response) {
+                    var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i");
+                    response($.grep(availableTags, function (value) {
+                        return matcher.test(value.toUpperCase());
                     }));
                 },
                 minLength: 0,
                 scroll: true
-            }).focus(function() {
-                $(this).autocomplete("search",  $("#dcNumberSelect").val());
+            }).focus(function () {
+                $(this).autocomplete("search", $("#dcNumberSelect").val());
             });
         });
 
-        $('#dc_select').click(function(){
+        $('#dc_select').click(function () {
 
             var dcNumberSelect = $.trim($("#dcNumberSelect").val());
 
-            if($.inArray(dcNumberSelect, availableTags) == -1)
-            {
+            if ($.inArray(dcNumberSelect, availableTags) == -1) {
 
                 $.growl.error({
                     message: 'Select DC Number from dropdown. ',
@@ -52,13 +51,13 @@
                 return false;
             }
 
-            $.get('dc/updateForm?dc_number=' + dcNumberSelect, function(data){
+            $.get('dc/updateForm?dc_number=' + dcNumberSelect, function (data) {
 
-                if (data != 0){
+                if (data != 0) {
 
                     $('#edit_div').html(data);
 
-                }else {
+                } else {
                     $.growl.error({
                         message: 'Please check the DC Number As eneterd. ',
                         size: 'large',
@@ -67,7 +66,7 @@
 
                 }
 
-            } );
+            });
 
         });
 
@@ -79,23 +78,23 @@
 
 <div id="info_status">
 
-<table class="table table-striped">
-    <tr>
-    	<th>&nbsp;</th>
-    	<th>&nbsp;</th>
-        <th style="width: 146px;vertical-align: middle;">Enter DC Number :</th>
-        <th>
-            <div class="ui-widget">
-                <input class="form-control" id="dcNumberSelect" placeholder="Enter DC Number">
-            </div>
-        </th>
-        <th>
-            <button id="dc_select" class="btn btn-primary btn-sm"> Select DC </button>
-        </th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
-    </tr>
-</table>
+    <table class="table table-striped">
+        <tr>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th style="width: 146px;vertical-align: middle;">Enter DC Number :</th>
+            <th>
+                <div class="ui-widget">
+                    <input class="form-control" id="dcNumberSelect" placeholder="Enter DC Number">
+                </div>
+            </th>
+            <th>
+                <button id="dc_select" class="btn btn-primary btn-sm"> Select DC</button>
+            </th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+    </table>
 
 </div>
 <div id="edit_div">

@@ -33,7 +33,6 @@ class panel extends Controller
         $dc_undelivered_count = $dc_undelivered->count();
 
         $response['dc_undelivered_count'] = $dc_undelivered_count;
-//User::where('created_at', '>=', new DateTime('today'))
 
         $date_today = Carbon::now()->toDateString('yy-mm-dd');
 
@@ -53,8 +52,6 @@ class panel extends Controller
         $late_dispatch = dc::whereDate('expected_dispatch_dt', '<', $date_today)->where('is_delivered', '=', 0)->get();
         $late_dispatch_count = $late_dispatch->count();
         $response['late_dispatch_count'] = $late_dispatch_count;
-
-
 
         return view('backend.home', compact('response'));
     }

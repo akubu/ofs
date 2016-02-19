@@ -21,22 +21,9 @@ use Log;
 
 class dc extends Controller
 {
-    public function test()
-    {
-        return view('dc.create');
-    }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    function clean($string)
     {
-        //
-    }
-
-    function clean($string) {
         $string = str_replace(' ', '', $string);
         $string = str_replace('-', '', $string);
 
@@ -75,7 +62,7 @@ class dc extends Controller
         $no_tracking_reason = trim($decoded['no_tracking_reason']);
         $so_number = trim($decoded['so_number']);
 
-        $truck_number =$this->clean($truck_number);
+        $truck_number = $this->clean($truck_number);
 
         $sku_details = $decoded['sku_details'];
 
@@ -149,7 +136,6 @@ class dc extends Controller
         Log::info("\n DC created  : " . $dc_number . " and : " . $notif . "\n");
 
 
-
         return 1;
     }
 
@@ -164,8 +150,7 @@ class dc extends Controller
         $so_numbers = array();
 
         foreach ($sos as $so) {
-            if(strpos($so->so_number, 'SO') !== false)
-            {
+            if (strpos($so->so_number, 'SO') !== false) {
                 $so_numbers[] = $so->so_number;
             }
 
@@ -174,39 +159,6 @@ class dc extends Controller
         return view('dc.create', compact('so_numbers'));
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     public function update(Request $request)
     {
@@ -224,17 +176,6 @@ class dc extends Controller
         } catch (\Illuminate\Database\QueryException $e) {
             return 0;
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
 
@@ -298,7 +239,7 @@ class dc extends Controller
 
         $response = array();
         $dcs = \App\dc::where('is_delivered', '=', 0)->get();
-        //
+
     }
 
 
@@ -312,6 +253,8 @@ class dc extends Controller
 
         return view('dc.uploadDocumentsSelectDC', compact('dc_numbers'));
     }
+
+
 
     public function  documentsForDC()
     {
@@ -335,17 +278,10 @@ class dc extends Controller
     }
 
 
-    ///////////////  TODO
-
-
     public function documentUpload()
     {
 
-//        dd(Input::all());
-//        dd(Input::file('files'));
-
         $dc_number = trim(Input::get('dc'));
-
         $type = Input::get('type');
         $type_name = document_type_master::where('id', '=', $type)->get()->first()->document_type;
         $type_name = str_replace(" ", "_", $type_name);

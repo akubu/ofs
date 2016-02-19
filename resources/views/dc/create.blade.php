@@ -10,11 +10,7 @@
             @endforeach
     ];
 
-
-
-
         $(function () {
-
             $("#so_number").autocomplete({
                 source: function( request, response ) {
                     var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i" );
@@ -34,18 +30,14 @@
 
             $('#so_entered').addClass("hide");
             $('#so_entered').next().removeClass('hide');
-
             var so_number = $.trim($('#so_number').val().toUpperCase()).replace("+","");
 
 
 
             $.post("so/checkExistence", {so_number: so_number}, function (result) {
-//                alert(result);
                 if (result == 1) {
                     $.post("so/show", {so_number: so_number}, function (result) {
                         $("#so_details").html(result);
-//                        alert(result);
-//                        alert("editable set");
                         var value = $('#so_number').attr('readonly');
                         if (value == 'false') {
                             $('#so_number').attr('readonly', 'true');
@@ -68,17 +60,12 @@
                 }
             });
         });
-
-
-
     });
 
 </script>
 
 
-
 <div id="enter_so">
-
 <table class="table table-striped">
     <tr>
     	<th>&nbsp;</th>
@@ -90,38 +77,15 @@
         <th>
          <button id="so_entered" class="btn btn-primary btn-sm">Start Assigning</button>
          <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
-          
         </th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
     </tr>
 </table>
 
-   <!-- <div class="row">
-
-
-            <div class="form-group">
-                <label class="control-label col-sm-2">SO Number:</label>
-
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" id="so_number" size="40" placeholder="Enter So Number">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-3">
-                    <button id="so_entered" class="btn btn-default">Start Assigning</button>
-                    <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
-                </div>
-            </div>
-
-    </div>-->
 </div>
 
 <div id="so_details" class="row"></div>
-{{--<div class="loading">Loading&#8230;</div>--}}
-
-<!----- all dc ----------->
 <br><br><br><br><br>
 
 

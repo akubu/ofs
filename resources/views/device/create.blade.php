@@ -6,14 +6,14 @@
                 "GSM",
             ];
             $("#type").autocomplete({
-                source: function( request, response ) {
-                    var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i" );
-                    response($.grep(availableTagsType, function(value) {
-                        return matcher.test( value.toUpperCase() );
+                source: function (request, response) {
+                    var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i");
+                    response($.grep(availableTagsType, function (value) {
+                        return matcher.test(value.toUpperCase());
                     }));
                 },
-            }).focus(function() {
-                $(this).autocomplete("search",  $("#type").val());
+            }).focus(function () {
+                $(this).autocomplete("search", $("#type").val());
             });
         });
 
@@ -25,32 +25,31 @@
             ];
             $("#model").autocomplete({
 
-                source: function( request, response ) {
-                    var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i" );
-                    response($.grep(availableTagsModel, function(value) {
-                        return matcher.test( value.toUpperCase() );
+                source: function (request, response) {
+                    var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i");
+                    response($.grep(availableTagsModel, function (value) {
+                        return matcher.test(value.toUpperCase());
                     }));
                 },
                 minLength: 0,
                 scroll: true
-            }).focus(function() {
-                $(this).autocomplete("search",  $("#model").val());
+            }).focus(function () {
+                $(this).autocomplete("search", $("#model").val());
             });
         });
 
 
-
         $('#add_device').click(function () {
 
-            errorFlag =0;
+            errorFlag = 0;
 
             var type = $('#type').val();
-            if (type == ''  ) {
+            if (type == '') {
 
                 $('#type').css('border-color', 'red');
                 $('#type_error').removeClass("hide");
                 $('#type_error').html("Please Enter Device Type");
-                ++errorFlag ;
+                ++errorFlag;
             }
             else {
                 $('#type').css('border-color', 'green');
@@ -60,12 +59,12 @@
 
 
             var model = $('#model').val();
-            if (model == ''  ) {
+            if (model == '') {
 
                 $('#model').css('border-color', 'red');
                 $('#model_error').removeClass("hide");
                 $('#model_error').html("Please Enter Device Model");
-                ++errorFlag ;
+                ++errorFlag;
             }
             else {
                 $('#model').css('border-color', 'green');
@@ -74,14 +73,13 @@
             }
 
 
-
             var imei_number = $('#imei_number').val();
-            if (imei_number == '' || imei_number < 999999999 ) {
+            if (imei_number == '' || imei_number < 999999999) {
 
                 $('#imei_number').css('border-color', 'red');
                 $('#imei_error').removeClass("hide");
                 $('#imei_error').html("Please Enter Correct IMEI Number");
-                ++errorFlag ;
+                ++errorFlag;
             }
             else {
                 $('#imei_number').css('border-color', 'green');
@@ -90,12 +88,12 @@
             }
 
             var sim_number = $('#sim_number').val();
-            if (sim_number == '' || sim_number < 9999999999 ) {
+            if (sim_number == '' || sim_number < 9999999999) {
 
                 $('#sim_number').css('border-color', 'red');
                 $('#sim_error').removeClass("hide");
                 $('#sim_error').html("Please Enter Correct SIM Number")
-                ++errorFlag ;
+                ++errorFlag;
             }
             else {
                 $('#sim_number').css('border-color', 'green');
@@ -105,12 +103,12 @@
 
 
             var gsm_number = $('#gsm_number').val();
-            if (gsm_number == '' || gsm_number < 7000000000 || gsm_number > 9999999999 || !$.isNumeric(gsm_number )) {
+            if (gsm_number == '' || gsm_number < 7000000000 || gsm_number > 9999999999 || !$.isNumeric(gsm_number)) {
 
                 $('#gsm_number').css('border-color', 'red');
                 $('#gsm_error').removeClass("hide");
                 $('#gsm_error').html("Please Enter Correct CUG Number")
-                ++errorFlag ;
+                ++errorFlag;
             }
             else {
                 $('#gsm_number').css('border-color', 'green');
@@ -119,10 +117,9 @@
             }
 
 
-
             var scm_id = $('#scm_id').val();
 
-            if(errorFlag > 0){
+            if (errorFlag > 0) {
 
                 $.growl.error({
                     message: 'Please correct all fields marked in Red .',
@@ -133,9 +130,6 @@
                 return false;
 
             }
-
-
-
 
 
             if (!(type && model && imei_number && sim_number && gsm_number && scm_id )) {
@@ -150,58 +144,56 @@
             } else {
 
 
+                $('#add_device').addClass("hide");
+                $('#add_device').next().removeClass('hide');
 
-                                $('#add_device').addClass("hide");
-                                $('#add_device').next().removeClass('hide');
-
-                                $.post("device/add", {
-                                    type: type,
-                                    model: model,
-                                    imei_number: imei_number,
-                                    sim_number: sim_number,
-                                    gsm_number: gsm_number,
-                                    scm_id: scm_id,
-                                    runner_id: "0"
-                                }, function (result) {
-
-
-                                    if (result > 0) {
-
-                                        $.growl.notice({
-
-                                            message: 'Device Added. with Device ID :  ' + result,
-                                            size: 'large',
-                                            duration: 10000
-                                        });
-
-                                        $('#device_id').html(' <h3 align="center"> New Device Id is : ' + result + '  </h3>');
-
-                                        $.get("/device/add", function (data, status) {
-                                            if(data.auth_required == true)
-                                            {
-                                                window.location = "/auth/login";
-                                                return false;
-                                            }
-                                            $('#body_div').html(data);
-                                        });
-
-                                        return false;
+                $.post("device/add", {
+                    type: type,
+                    model: model,
+                    imei_number: imei_number,
+                    sim_number: sim_number,
+                    gsm_number: gsm_number,
+                    scm_id: scm_id,
+                    runner_id: "0"
+                }, function (result) {
 
 
-                                    }
+                    if (result > 0) {
 
-                                    else {
-                                        $.growl.error({
-                                            message: 'Device cannot be added. Check information provided. Make sure the device is not already Registered ',
-                                            size: 'large',
-                                            duration: 10000
-                                        });
-                                        $('#add_device').removeClass("hide");
-                                        $('#add_device').next().addClass('hide');
-                                        $('#device_id').html(' ');
-                                    }
+                        $.growl.notice({
 
-                                });
+                            message: 'Device Added. with Device ID :  ' + result,
+                            size: 'large',
+                            duration: 10000
+                        });
+
+                        $('#device_id').html(' <h3 align="center"> New Device Id is : ' + result + '  </h3>');
+
+                        $.get("/device/add", function (data, status) {
+                            if (data.auth_required == true) {
+                                window.location = "/auth/login";
+                                return false;
+                            }
+                            $('#body_div').html(data);
+                        });
+
+                        return false;
+
+
+                    }
+
+                    else {
+                        $.growl.error({
+                            message: 'Device cannot be added. Check information provided. Make sure the device is not already Registered ',
+                            size: 'large',
+                            duration: 10000
+                        });
+                        $('#add_device').removeClass("hide");
+                        $('#add_device').next().addClass('hide');
+                        $('#device_id').html(' ');
+                    }
+
+                });
 
             }
 
@@ -273,16 +265,14 @@
         </tr>
 
 
-
-        
     </table>
     <div class="row">
-    <div class="col-md-5"></div>
-    <div class="col-md-2">
-                <button id="add_device" class="btn btn-primary">Add device to system</button>
-                <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
-           </div>
-    <div class="col-md-5"></div>
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+            <button id="add_device" class="btn btn-primary">Add device to system</button>
+            <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif"/></div>
+        </div>
+        <div class="col-md-5"></div>
     </div>
 
 </div>

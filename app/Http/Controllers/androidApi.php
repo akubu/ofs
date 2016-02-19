@@ -265,7 +265,7 @@ class androidApi extends Controller
 
         $response = array();
         $dc_number = $id1 . "/" . $id2 . "/" . $id3 . "/" . $id4;
-        $device = device::where('device_id', '=', $device_id)->get()->first();
+        $device = device::where('device_id', '=', $device_id)->where('dc_number', '=', $dc_number)->get()->first();
         $runner = runner::where('vtiger_id', '=', $runner_id)->get()->first();
 
 
@@ -311,12 +311,12 @@ class androidApi extends Controller
         $device = device::where('device_id', '=', $device_id)->get()->first();
 
         if (!$device) {
-            $response['startLat'] = "0";
-            $response['startLong'] = "0";
-            $response['currLat'] = "0";
-            $response['currLong'] = "0";
-            $response['endLat'] = "0";
-            $response['endLong'] = "0";
+            $response['startLat'] = "0.0";
+            $response['startLong'] = "0.0";
+            $response['currLat'] = "0.0";
+            $response['currLong'] = "0.0";
+            $response['endLat'] = "0.0";
+            $response['endLong'] = "0.0";
             return $response;
         }
 
@@ -352,9 +352,14 @@ class androidApi extends Controller
 
         $locationService = new locationServices();
 
-        $start_address = $locationService->getLocationFromLatLong($start_lat, $start_long);
-        $current_address = $locationService->getLocationFromLatLong($current_lat, $current_long);
-        $end_address = $dc_track->address;
+
+        if( $start_lat == 0 || $start_long || $end_lat == 0 || $end_long == 0 || $current_lat == 0 || $current_long == 0 )
+        {
+            // 7001 = Bad co-ordinates
+
+            $response['status'] = "7001";
+        }
+
 
         //{"startLat":"28.47814","startLong":"77.13025","endLat":"28.8054651","endLong":"77.0463008","currLat":"28.47814","currLong":"77.13025"}
 
@@ -364,7 +369,7 @@ class androidApi extends Controller
         $response['currLong'] = $current_long;
         $response['endLat'] = $end_lat;
         $response['endLong'] = $end_long;
-
+        $response['status'] = "7001";
 
         return $response;
 
@@ -510,7 +515,7 @@ class androidApi extends Controller
 
                     $count = 0;
                     foreach ($response['orders'][$count_order]['invoices'][$count_invoice]['materials'] as $detail) {
-                        $response['orders'][$count_order]['invoices'][$count_invoice]['materials'][$count]['units'] = str_replace('Metric Tonnes', ' MT', $detail['units']);
+                        $response['orders'][$count_order]['invoices'][$count_invoice]['materials'][$count]['units'] =  $detail['units'];
                         ++$count;
                     }
                     $device = device::where('dc_number', '=', $dc->dc_number)->get()->first();

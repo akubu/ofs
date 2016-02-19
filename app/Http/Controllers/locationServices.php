@@ -12,12 +12,6 @@ use Log;
 class locationServices extends Controller
 {
 
-
-    /*
-     * $user->{'Ship-to Address'} . " " . $user->{'Ship-to Address 2'} . " " . $user->{'Ship-to City'} . " " . $user->{'Ship-to Post Code'} . " " . " India ";
-     * */
-
-
     public function getLatLongFromAddress($address)
     {
 
@@ -101,7 +95,7 @@ class locationServices extends Controller
             $dc_number = $dc->dc_number;
         }
 
-        $url = "http://uat.power2sme.com/p2sapi/ws/v3/orderLocation?deviceId=" . $number;
+        $url = "http://uat.power2sme.com/p2sapi/ws/v3/orderLocationGroup?deviceIds=" . $number;
         $username = 'admin';
         $password = 'admin';
         $process = curl_init($url);
@@ -131,15 +125,18 @@ class locationServices extends Controller
 
         $cord = $dec['Data'];
 
-        if( $cord[0]["long"] && $cord[0]["lat"]) {
-            $long = $cord[0]["long"];
-            $lat = $cord[0]["lat"];
-        }else{
-
-            $long = 0;
-            $lat = 0;
-
+        if(count($cord) > 1) {
+            if ($cord[0]["long"] && $cord[0]["lat"]) {
+                $long = $cord[0]["long"];
+                $lat = $cord[0]["lat"];
+            }
         }
+        else {
+
+                $long = 0;
+                $lat = 0;
+
+            }
 
         $loc = new \App\locations();
         $loc->device_id = $device_id;

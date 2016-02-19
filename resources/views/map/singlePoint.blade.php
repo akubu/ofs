@@ -1,14 +1,14 @@
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
 
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-        #map {
-            height: 100%;
-        }
-    </style>
+    #map {
+        height: 100%;
+    }
+</style>
 
 
 <div id="map"></div>
@@ -24,13 +24,13 @@
             center: uluru
         });
 
-        var contentString = '<div id="content">'+
-                '<div id="siteNotice">'+
-                '</div>'+
-                '<h1 id="firstHeading" class="firstHeading">Current Location:</h1>'+
-                '<div id="bodyContent">'+
-                '<p><b>{{ $response['current_address'] }}</b></p>'+
-                '</div>'+
+        var contentString = '<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<h1 id="firstHeading" class="firstHeading">Current Location:</h1>' +
+                '<div id="bodyContent">' +
+                '<p><b>{{ $response['current_address'] }}</b></p>' +
+                '</div>' +
                 '</div>';
 
         var infowindow = new google.maps.InfoWindow({
@@ -42,7 +42,7 @@
             map: map,
             title: 'Device Location'
         });
-        marker.addListener('click', function() {
+        marker.addListener('click', function () {
             infowindow.open(map, marker);
         });
     }

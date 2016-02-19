@@ -104,7 +104,7 @@ class notifications extends Controller
         $customer_email = $customer->customer_email;
         $customer_phone = $customer->customr_contact_number;
 
-        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>dc registered</event><object_id></object_id><customer><email_id>" . $customer_email . "</email_id><mobile_no>" . $customer_number . "</mobile_no></customer><name>" . $so->bill_to_name . "</name><so_number>" . $so_number . "</so_number><dc_number>" . $dc_number . "</dc_number></payload>");
+        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>dc registered</event><object_id></object_id><customer><email_id>" . $customer_email . "</email_id><mobile_no>" . $customer_phone . "</mobile_no></customer><name>" . $so->bill_to_name . "</name><so_number>" . $so_number . "</so_number><dc_number>" . $dc_number . "</dc_number></payload>");
         $status = $this->sendNotification($data);
         if ($status > 0) {
 
@@ -173,7 +173,7 @@ class notifications extends Controller
         $customer_email = $customer->customer_email;
         $customer_phone = $customer->customr_contact_number;
 
-        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>delivery notification</event><object_id></object_id><customer><email_id>" . $customer_email . "</email_id><mobile_no>" . $customer_number . "</mobile_no></customer><name>" . $customer_name . "</name><invoice_no>" . $dc_number . "</invoice_no></payload>");
+        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>delivery notification</event><object_id></object_id><customer><email_id>" . $customer_email . "</email_id><mobile_no>" . $customer_phone. "</mobile_no></customer><name>" . $customer_name . "</name><invoice_no>" . $dc_number . "</invoice_no></payload>");
         return $this->sendNotification($data);
     }
 

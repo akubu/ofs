@@ -1,5 +1,3 @@
-
-
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
 
@@ -11,7 +9,7 @@
 
 
 <script type="text/javascript" src="{{ URL::asset('/js/jquery-ui.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('/js/nav.js') }}" ></script>
+<script type="text/javascript" src="{{ URL::asset('/js/nav.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('/js/jquery.growl.js') }}"></script>
 
 <script src="js/jquery.ui.widget.js"></script>

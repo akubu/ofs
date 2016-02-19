@@ -10,8 +10,7 @@
 
             var date = $("#deliverydate").val();
 
-            if(date.length < 3)
-            {
+            if (date.length < 3) {
                 $.growl.error({
                     message: 'Please select a date first.',
                     size: 'large',
@@ -24,7 +23,7 @@
             var dc_number = $.trim($('#dcNumberSelect').val());
 
 
-            $.post("/dc/markDelivered", {dc_number : dc_number, date : date}, function (data, status) {
+            $.post("/dc/markDelivered", {dc_number: dc_number, date: date}, function (data, status) {
 
                 if (data == 1) {
                     $.growl.notice({

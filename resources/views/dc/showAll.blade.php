@@ -23,27 +23,28 @@
 
     @foreach( $responses as $response)
 
-    <tr>
-        <th>
-            {{ $response['dc']->dc_number }}
-        </th>
-        <th>
-            {{ $response['so']->ship_to_name }}
-        </th>
-        <th>
-           {{ $response['dc']->expected_shipment_dt }}
-        </th>
-        <th>
-            {{ $response['dc']->expected_delivery_dt }}
-        </th>
-        <th>
-            Update
-        </th>
-        <th>
-            Track
-        </th>
-    </tr>
+        <tr>
+            <th>
+                {{ $response['dc']->dc_number }}
+            </th>
+            <th>
+                {{ $response['so']->ship_to_name }}
+            </th>
+            <th>
+                {{ $response['dc']->expected_shipment_dt }}
+            </th>
+            <th>
+                {{ $response['dc']->expected_delivery_dt }}
+            </th>
+            <th>
+                Update
+            </th>
+            <th>
+                Track
+            </th>
+        </tr>
 
-@endforeach
-    </tbody></table>
+    @endforeach
+    </tbody>
+</table>
 

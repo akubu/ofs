@@ -14,7 +14,7 @@ class getLocation extends Controller
     {
         $number = $device_id;
 
-        $url = "http://uat.power2sme.com/p2sapi/ws/v3/orderLocation?deviceId=" . $number;
+        $url = "http://uat.power2sme.com/p2sapi/ws/v3/orderLocationGroup?deviceIds=" . $number;
         $username = 'admin';
         $password = 'admin';
         $process = curl_init($url);
