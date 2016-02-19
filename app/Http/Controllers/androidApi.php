@@ -383,15 +383,69 @@ class androidApi extends Controller
 
         $start = locations::where('device_id', '=', $device_id)->where('created_at', '>=', $dc_track->shipment_start_dt)->orderBy('created_at', "ASC")->get()->first();
 
+        if(!$start)
+        {
+            $response['startLat'] = "28.613939";
+            $response['startLong'] = "77.209021";
+            $response['currLat'] = "28.613939";
+            $response['currLong'] = "77.209021";
+            $response['endLat'] = "28.613939";
+            $response['endLong'] = "77.209021";
+            $start_address = "Cannot determine address";
+            $end_address = "Cannot determine address";
+            $current_address = "Cannot determine address";
+            $response['start_address'] = $start_address;
+            $response['current_address'] = $current_address;
+            $response['end_address'] = $end_address;
+            return $response;
+        }
+
+
         $start_lat = $start->lat;
         $start_long = $start->long;
 
         $current = locations::where('device_id', '=', $device_id)->where('created_at', '>=', $dc_track->shipment_start_dt)->orderBy('created_at', "DESC")->get()->first();
 
+        if(!$current)
+        {
+                $response['startLat'] = "28.613939";
+                $response['startLong'] = "77.209021";
+                $response['currLat'] = "28.613939";
+                $response['currLong'] = "77.209021";
+                $response['endLat'] = "28.613939";
+                $response['endLong'] = "77.209021";
+                $start_address = "Cannot determine address";
+                $end_address = "Cannot determine address";
+                $current_address = "Cannot determine address";
+                $response['start_address'] = $start_address;
+                $response['current_address'] = $current_address;
+                $response['end_address'] = $end_address;
+                return $response;
+
+        }
+
         $current_lat = $current->lat;
         $current_long = $current->long;
 
         $end = dc_track::where('dc_number', '=', $dc_number)->get()->first();
+
+        if(!$end)
+        {
+            $response['startLat'] = "28.613939";
+            $response['startLong'] = "77.209021";
+            $response['currLat'] = "28.613939";
+            $response['currLong'] = "77.209021";
+            $response['endLat'] = "28.613939";
+            $response['endLong'] = "77.209021";
+            $start_address = "Cannot determine address";
+            $end_address = "Cannot determine address";
+            $current_address = "Cannot determine address";
+            $response['start_address'] = $start_address;
+            $response['current_address'] = $current_address;
+            $response['end_address'] = $end_address;
+            return $response;
+        }
+
         $end_lat = $end->lat;
         $end_long = $end->long;
 
@@ -475,7 +529,7 @@ class androidApi extends Controller
 
             $count_order = 0;
             foreach ($orders as $order) {
-                $dcs = \App\dc::where('so_number', '=', $order->so_number)->where('is_delivered', '=', '0')->where('is_tracked', '=', 1)->get();
+                $dcs = \App\dc::where('so_number', '=', $order->so_number)->where('is_delivered', '=', '0')->where('is_tracked', '=', 3)->get();
 
 
                 if (!$dcs) {

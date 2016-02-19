@@ -28,7 +28,7 @@
                         duration: 5000
                     });
 
-                    $('#msg').html("We Will get back to you soon, with reply to your Question.<br>Q: <font color='blue'> " + question + "</font>");
+                    $('#msg').html("We will get back to you soon, with reply to your Question.<br>Q: <font color='blue'> " + question + "</font>");
                     $('#ask').removeClass("hide");
                     $('#ask').next().addClass('hide');
                 } else {

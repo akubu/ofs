@@ -212,7 +212,6 @@ class device extends Controller
 
         if(! ($device->dc_number ==0 || $device->dc_number == ""))
         {
-
             return -1;
         }
 
