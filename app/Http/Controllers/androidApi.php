@@ -319,7 +319,7 @@ class androidApi extends Controller
             $response['currLong'] = "77.209021";
             $response['endLat'] = "28.613939";
             $response['endLong'] = "77.209021";
-//            $response['error'] = "7001";
+            $response['error'] = "7001";
             return $response;
         }
 
@@ -328,7 +328,6 @@ class androidApi extends Controller
         $dc_track = dc_track::where('dc_number', '=', $dc_number)->get()->first();
 
         if (!$dc_track) {
-            $start = locations::where('device_id', '=', $device_id)->orderBy('created_at', "ASC")->get()->first();
 
             $response['startLat'] = "28.613939";
             $response['startLong'] = "77.209021";
@@ -336,7 +335,7 @@ class androidApi extends Controller
             $response['currLong'] = "77.209021";
             $response['endLat'] = "28.613939";
             $response['endLong'] = "77.209021";
-//            $response['error'] = "7001";
+            $response['error'] = "7001";
             return $response;
         }
 
