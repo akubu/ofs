@@ -205,11 +205,12 @@ class device extends Controller
     public function loss(Request $request){
 
         $device = Input::get('device_id');
+        $device = str_replace('+', '', $device);
         $device_id = substr($device, 0, strpos($device, "("));
         $reason = Input::get('reason');
         $device = \App\device::where('device_id','=', $device_id)->get()->first();
 
-        if($device->dc_number !=0 || $device->dc_number != "")
+        if(! ($device->dc_number ==0 || $device->dc_number == ""))
         {
 
             return -1;
