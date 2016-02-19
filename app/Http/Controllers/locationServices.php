@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -32,10 +31,6 @@ class locationServices extends Controller
             $response['end_long'] = 0;
             $response['end_address'] = 'wrong address';
 
-            // send notification TODO
-
-//            $endLat = "00";   //28
-//            $endLong = "00";   //77
         } else {
 
             $response['end_lat'] = $json['results'][0]['geometry']['location']['lat'];
@@ -49,8 +44,6 @@ class locationServices extends Controller
     }
 
 
-
-
         public function getLocationFromLatLong($lat, $long)
         {
             $url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" . $lat . "," . $long . "&sensor=true";
@@ -61,8 +54,13 @@ class locationServices extends Controller
                 return "Unknown";
             }
 
+            if($json['results'][0]['formatted_address']) {
+                $address = $json['results'][0]['formatted_address'];
+            }else
+            {
+                $address = "cannot determine";
+            }
 
-            $address = $json['results'][0]['formatted_address'];
             return $address;
         }
 
@@ -84,7 +82,6 @@ class locationServices extends Controller
     public function updateDeviceLocation ($device_id){
 
         Log::useDailyFiles(storage_path() . '/logs/cron-poll.log');
-
 
         $number = \App\device::where('device_id','=', $device_id)->get()->first()->gsm_number;
 
@@ -109,9 +106,6 @@ class locationServices extends Controller
         curl_close($process);
 
         if (is_null($result) || $result == "" || !$result || empty($result)) {
-
-
-
             Log::info("\n Java API did not respond \n");
             return 0;
         }
@@ -132,10 +126,8 @@ class locationServices extends Controller
             }
         }
         else {
-
                 $long = 0;
                 $lat = 0;
-
             }
 
         $loc = new \App\locations();
@@ -143,10 +135,14 @@ class locationServices extends Controller
         $loc->lat = $lat;
         $loc->long = $long;
         $loc->dc_number = $dc_number;
-        $loc->save();
+
+
+        if($loc->lat != 0)
+        {
+            $loc->save();
+        }
 
         Log::info("\n\ " . $number . "   " . " \n\n");
-
     }
 
 }

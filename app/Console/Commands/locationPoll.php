@@ -101,7 +101,12 @@ class locationPoll extends Command
             $loc->lat = $lat;
             $loc->long = $long;
             $loc->dc_number = $dc_number;
-            $loc->save();
+
+            if($loc->lat != 0)
+            {
+                $loc->save();
+            }
+
 
         }
         Log::info("\n\n\n\n*******\n\n\n\n");

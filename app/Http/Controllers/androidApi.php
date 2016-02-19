@@ -313,13 +313,13 @@ class androidApi extends Controller
         $response['error'] = "0";
 
         if (!$device) {
-            $response['startLat'] = "0.0";
-            $response['startLong'] = "0.0";
-            $response['currLat'] = "0.0";
-            $response['currLong'] = "0.0";
-            $response['endLat'] = "0.0";
-            $response['endLong'] = "0.0";
-            $response['error'] = "7001";
+            $response['startLat'] = "28.613939";
+            $response['startLong'] = "77.209021";
+            $response['currLat'] = "28.613939";
+            $response['currLong'] = "77.209021";
+            $response['endLat'] = "28.613939";
+            $response['endLong'] = "77.209021";
+//            $response['error'] = "7001";
             return $response;
         }
 
@@ -330,13 +330,13 @@ class androidApi extends Controller
         if (!$dc_track) {
             $start = locations::where('device_id', '=', $device_id)->orderBy('created_at', "ASC")->get()->first();
 
-            $response['startLat'] = $start->lat;
-            $response['startLong'] = $start->long;
-            $response['currLat'] = $start->lat;
-            $response['currLong'] = $start->long;
-            $response['endLat'] = $start->lat;
-            $response['endLong'] = $start->long;
-            $response['error'] = "7001";
+            $response['startLat'] = "28.613939";
+            $response['startLong'] = "77.209021";
+            $response['currLat'] = "28.613939";
+            $response['currLong'] = "77.209021";
+            $response['endLat'] = "28.613939";
+            $response['endLong'] = "77.209021";
+//            $response['error'] = "7001";
             return $response;
         }
 
@@ -625,16 +625,10 @@ class androidApi extends Controller
 
 
         } else {
-
             $response['error'] = "1";
-
-
             $response['error_message'] = "please enter valid invoice number";
-
             return $response;
         }
-
-
     }
 
     public function runnerLocationSink(Request $request)
@@ -683,8 +677,5 @@ class androidApi extends Controller
 
         return $response;
 
-
     }
-
-
 }
