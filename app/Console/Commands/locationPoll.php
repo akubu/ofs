@@ -47,6 +47,7 @@ class locationPoll extends Command
         //confingure log
         Log::useDailyFiles(storage_path() . '/logs/cron-poll.log');
 
+        try{
         $dev = \App\device::all();
         foreach ($dev as $d) {
             $number = $d->gsm_number;
@@ -67,6 +68,8 @@ class locationPoll extends Command
             curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
             $result = curl_exec($process);
             curl_close($process);
+
+            Log::info($result);
 
             if (is_null($result) || $result == "" || !$result || empty($result)) {
                 Log::info("\n Java API did not respond \n");
@@ -110,5 +113,10 @@ class locationPoll extends Command
 
         }
         Log::info("\n\n\n\n*******\n\n\n\n");
-    }
+    }catch (\Exception $e)
+        {
+            Log::info($e);
+        }
+        }
+
 }

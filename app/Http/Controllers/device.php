@@ -25,56 +25,61 @@ class device extends Controller
     public function create(Request $request)
     {
 
-        $type = Input::get('type');
-        $model = Input::get('model');
-        $imei_number = Input::get('imei_number');
-        $sim_number = Input::get('sim_number');
-        $gsm_number = Input::get('gsm_number');
-        $scm_id = Input::get('scm_id');
-        $runner_id = Input::get('runner_id');
-
-        $already_registered = \App\device::where('gsm_number', '=', $gsm_number)->get()->first();
-
-        if($already_registered)
-        {
-            return 0;
-        }
-
-
-        $device = new \App\device();
-
-        $device->device_type = $type;
-        $device->device_model = $model;
-        $device->imei_number = $imei_number;
-        $device->sim_number = $sim_number;
-        $device->gsm_number = $gsm_number;
-        $device->scm_id = $scm_id;
-        $device->dc_number = "0";
-        $device->runner_id = $runner_id;
-
         try {
-            $device->save();
-                $tmp = \App\device::where('id','=',$device->id)->get()->first();
-            $tmp->device_id = $device->id;
-            $tmp->save();
-            $device->device_id = $device->id;
-            $device->save();
-            $locationService = new  locationServices();
-            $locationService->updateDeviceLocation($device->id);
 
 
-            return $device->id;
+            $type = Input::get('type');
+            $model = Input::get('model');
+            $imei_number = Input::get('imei_number');
+            $sim_number = Input::get('sim_number');
+            $gsm_number = Input::get('gsm_number');
+            $scm_id = Input::get('scm_id');
+            $runner_id = Input::get('runner_id');
+
+            $already_registered = \App\device::where('gsm_number', '=', $gsm_number)->get()->first();
+
+            if ($already_registered) {
+                return 0;
+            }
 
 
-        } catch (\Illuminate\Database\QueryException $e) {
+            $device = new \App\device();
 
+            $device->device_type = $type;
+            $device->device_model = $model;
+            $device->imei_number = $imei_number;
+            $device->sim_number = $sim_number;
+            $device->gsm_number = $gsm_number;
+            $device->scm_id = $scm_id;
+            $device->dc_number = "0";
+            $device->runner_id = $runner_id;
+
+            try {
+                $device->save();
+                $tmp = \App\device::where('id', '=', $device->id)->get()->first();
+                $tmp->device_id = $device->id;
+                $tmp->save();
+                $device->device_id = $device->id;
+                $device->save();
+                $locationService = new  locationServices();
+                $locationService->updateDeviceLocation($device->id);
+
+
+                return $device->id;
+
+
+            } catch (\Illuminate\Database\QueryException $e) {
+
+                return 0;
+
+            }
+        } catch (Exception $e) {
             return 0;
-
         }
-
 
     }
-   /**
+
+    /**
      * Display the specified resource.
      *
      * @param  int $id
@@ -83,7 +88,7 @@ class device extends Controller
     public function show($id)
     {
         $device_id = substr($id, 0, strpos($id, "("));
-        $device = \App\device::where('device_id','=',$device_id)->get()->first();
+        $device = \App\device::where('device_id', '=', $device_id)->get()->first();
 
 
         return view('device.show', compact('device'));
@@ -100,10 +105,9 @@ class device extends Controller
 
     public function allocateForm()
     {
-        $devices = \App\device::where('runner_id', '=',0 )->get();
+        $devices = \App\device::where('runner_id', '=', 0)->get();
         $device_ids = array();
-        foreach($devices as $device)
-        {
+        foreach ($devices as $device) {
             $device_ids[] = $device->id . "(" . $device->device_model . ")" . " " . $device->gsm_number;
         }
 
@@ -111,8 +115,7 @@ class device extends Controller
         $runner_names = array();
 
         $runners = runner::all();
-        foreach($runners as $runner)
-        {
+        foreach ($runners as $runner) {
             $runner_names[] = $runner->runner_name . "(" . $runner->vtiger_id . ")";
         }
 
@@ -122,44 +125,46 @@ class device extends Controller
     }
 
 
-
-
     public function allocate(Request $request)
     {
-        $device = Input::get('device_id');
-        $device_id = substr($device,0, strpos($device, "("));
-        $runner_id = Input::get('runner_id');
-        $vtiger_id = substr($runner_id, strpos( $runner_id, "(")+1, -1);
+        try {
 
-        $device = \App\device::where('id','=',$device_id)->get()->first();
 
-        $device->runner_id = $vtiger_id;
+            $device = Input::get('device_id');
+            $device_id = substr($device, 0, strpos($device, "("));
+            $runner_id = Input::get('runner_id');
+            $vtiger_id = substr($runner_id, strpos($runner_id, "(") + 1, -1);
 
-        if($device->imei == "runner device")
+            $device = \App\device::where('id', '=', $device_id)->get()->first();
+
+            $device->runner_id = $vtiger_id;
+
+            if ($device->imei == "runner device") {
+                return 0;
+            }
+
+
+            try {
+                $device->save();
+                return 1;
+
+            } catch (\Illuminate\Database\QueryException $e) {
+
+                return 0;
+
+            }
+        }catch (Exception $e)
         {
             return 0;
         }
-
-
-        try {
-            $device->save();
-            return 1;
-
-        } catch (\Illuminate\Database\QueryException $e) {
-
-            return 0;
-
-        }
-
 
     }
 
     public function recoverform()
     {
         $devices = array();
-        $tmp = \App\device::where('sim_number', '!=', 'runner device')->where('runner_id','!=', 0)->get();
-        foreach($tmp as $device)
-        {
+        $tmp = \App\device::where('sim_number', '!=', 'runner device')->where('runner_id', '!=', 0)->get();
+        foreach ($tmp as $device) {
             $devices[] = $device->id . "(" . $device->device_model . ")" . " " . $device->gsm_number;
         }
         return view('device.recoverForm', compact('devices'));
@@ -168,33 +173,34 @@ class device extends Controller
 
     public function recover(Request $request)
     {
+        try {
         $device = Input::get('device_id');
         $device_id = substr($device, 0, strpos($device, "("));
-        $device_id = str_replace("+","", $device_id);
-        $device = \App\device::where('device_id','=', $device_id)->get()->first();
+        $device_id = str_replace("+", "", $device_id);
+        $device = \App\device::where('device_id', '=', $device_id)->get()->first();
         $device->runner_id = 0;
 
-        try {
+
 
             $device->save();
             return 1;
 
 
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (Exception $e) {
 
-            return $device_id;
+            return 0;
 
         }
 
     }
 
 
-    public function lossForm(){
+    public function lossForm()
+    {
 
         $devices = \App\device::all();
         $device_ids = array();
-        foreach($devices as $device)
-        {
+        foreach ($devices as $device) {
             $device_ids[] = $device->id . "(" . $device->device_model . ")" . " " . $device->gsm_number;
         }
 
@@ -202,22 +208,21 @@ class device extends Controller
 
     }
 
-    public function loss(Request $request){
-
+    public function loss(Request $request)
+    {
+        try {
         $device = Input::get('device_id');
         $device = str_replace('+', '', $device);
         $device_id = substr($device, 0, strpos($device, "("));
         $reason = Input::get('reason');
-        $device = \App\device::where('device_id','=', $device_id)->get()->first();
+        $device = \App\device::where('device_id', '=', $device_id)->get()->first();
 
-        if(! ($device->dc_number ==0 || $device->dc_number == ""))
-        {
+        if (!($device->dc_number == 0 || $device->dc_number == "")) {
             return -1;
         }
 
 
-        if($device->dc_number != "0")
-        {
+        if ($device->dc_number != "0") {
             return 0;
         }
 
@@ -228,21 +233,22 @@ class device extends Controller
         $device_fault->scm_owner = $device->scm_id;
         $device_fault->reason = $reason;
 
-        try{
+
             $device->delete();
             $device_fault->save();
             return 1;
 
-        }catch (\Illuminate\Database\QueryException $e) {
+        } catch (Exception $e) {
 
             return 0;
         }
 
     }
 
-    public function showAll(){
+    public function showAll()
+    {
 
-        $devices = \App\device::where('device_id','>',0)->get();
+        $devices = \App\device::where('device_id', '>', 0)->get();
         return view('device.allDevices', compact('devices'));
     }
 

@@ -260,113 +260,135 @@ class androidApi extends Controller
     public function startTracking($id1, $id2, $id3, $id4, $device_id, $runner_id)
     {
 
-
-        $runner_id = strtoupper($runner_id);
-
-        $response = array();
-        $dc_number = $id1 . "/" . $id2 . "/" . $id3 . "/" . $id4;
-        $device = device::where('device_id', '=', $device_id)->where('dc_number', '=', $dc_number)->get()->first();
-        $runner = runner::where('vtiger_id', '=', $runner_id)->get()->first();
+        try {
 
 
-        if (is_null($device) || is_null($runner)) {
+            $runner_id = strtoupper($runner_id);
+
+            $response = array();
+            $dc_number = $id1 . "/" . $id2 . "/" . $id3 . "/" . $id4;
+            $device = device::where('device_id', '=', $device_id)->where('dc_number', '=', $dc_number)->get()->first();
+            $runner = runner::where('vtiger_id', '=', $runner_id)->get()->first();
+
+
+            if (is_null($device) || is_null($runner)) {
+                $response['msg'] = "error";
+                $response['invoice'] = "0";
+                $response['device'] = "0";
+                return $response;
+            }
+
+            $dc_track = dc_track::where('dc_number', '=', $dc_number)->get()->first();
+            $dc = dc::where('dc_number', '=', $dc_number)->get()->first();
+            $dc->is_tracked = 3;
+            $dc->save();
+
+            if ($dc_track) {
+                $response['msg'] = "success";
+                $response['invoice'] = "1";
+                $response['device'] = "1";
+                $dc_track->shipment_start_dt = \Carbon\Carbon::now();
+                $dc_track->save();
+
+                $notifications = new notifications();
+                $notifications->sendDispatchNotification($dc_number);
+
+                $location_service = new locationServices();
+                $location_service->updateDeviceLocation($device_id);
+
+                return $response;
+            } else {
+                $response['msg'] = "error";
+                $response['invoice'] = "0";
+                $response['device'] = "0";
+                return $response;
+            }
+        }catch (Exception $e)
+        {
             $response['msg'] = "error";
             $response['invoice'] = "0";
             $response['device'] = "0";
             return $response;
         }
-
-        $dc_track = dc_track::where('dc_number', '=', $dc_number)->get()->first();
-        $dc = dc::where('dc_number', '=', $dc_number)->get()->first();
-        $dc->is_tracked = 3;
-        $dc->save();
-
-        if ($dc_track) {
-            $response['msg'] = "success";
-            $response['invoice'] = "1";
-            $response['device'] = "1";
-            $dc_track->shipment_start_dt = \Carbon\Carbon::now();
-            $dc_track->save();
-
-            $notifications = new notifications();
-            $notifications->sendDispatchNotification($dc_number);
-
-            $location_service = new locationServices();
-            $location_service->updateDeviceLocation($device_id);
-
-            return $response;
-        } else {
-            $response['msg'] = "error";
-            $response['invoice'] = "0";
-            $response['device'] = "0";
-            return $response;
-        }
-
     }
 
     public function getLocation($device_id)
     {
 
-        $response = array();
-        $device = device::where('device_id', '=', $device_id)->get()->first();
-
-        $response['error'] = "0";
-
-        if (!$device) {
-            $response['startLat'] = "28.613939";
-            $response['startLong'] = "77.209021";
-            $response['currLat'] = "28.613939";
-            $response['currLong'] = "77.209021";
-            $response['endLat'] = "28.613939";
-            $response['endLong'] = "77.209021";
-            $response['error'] = "7001";
-            return $response;
-        }
-
-        $dc_number = $device->dc_number;
-
-        $dc_track = dc_track::where('dc_number', '=', $dc_number)->get()->first();
-
-        if (!$dc_track) {
-
-            $response['startLat'] = "28.613939";
-            $response['startLong'] = "77.209021";
-            $response['currLat'] = "28.613939";
-            $response['currLong'] = "77.209021";
-            $response['endLat'] = "28.613939";
-            $response['endLong'] = "77.209021";
-            $response['error'] = "7001";
-            return $response;
-        }
-
-        $start = locations::where('device_id', '=', $device_id)->where('created_at', '>=', $dc_track->shipment_start_dt)->orderBy('created_at', "ASC")->get()->first();
-
-        $start_lat = $start->lat;
-        $start_long = $start->long;
-
-        $current = locations::where('device_id', '=', $device_id)->where('created_at', '>=', $dc_track->shipment_start_dt)->orderBy('created_at', "DESC")->get()->first();
-
-        $current_lat = $current->lat;
-        $current_long = $current->long;
+       try {
 
 
-        $end_lat = $dc_track->lat;
-        $end_long = $dc_track->long;
+           $response = array();
+           $device = device::where('device_id', '=', $device_id)->get()->first();
+
+           $response['error'] = "0";
+
+           if (!$device) {
+               $response['startLat'] = "28.613939";
+               $response['startLong'] = "77.209021";
+               $response['currLat'] = "28.613939";
+               $response['currLong'] = "77.209021";
+               $response['endLat'] = "28.613939";
+               $response['endLong'] = "77.209021";
+               $response['error'] = "7001";
+               return $response;
+           }
+
+           $dc_number = $device->dc_number;
+
+           $dc_track = dc_track::where('dc_number', '=', $dc_number)->get()->first();
+
+           if (!$dc_track) {
+
+               $response['startLat'] = "28.613939";
+               $response['startLong'] = "77.209021";
+               $response['currLat'] = "28.613939";
+               $response['currLong'] = "77.209021";
+               $response['endLat'] = "28.613939";
+               $response['endLong'] = "77.209021";
+               $response['error'] = "7001";
+               return $response;
+           }
+
+           $start = locations::where('device_id', '=', $device_id)->where('created_at', '>=', $dc_track->shipment_start_dt)->orderBy('created_at', "ASC")->get()->first();
+
+           $start_lat = $start->lat;
+           $start_long = $start->long;
+
+           $current = locations::where('device_id', '=', $device_id)->where('created_at', '>=', $dc_track->shipment_start_dt)->orderBy('created_at', "DESC")->get()->first();
+
+           $current_lat = $current->lat;
+           $current_long = $current->long;
 
 
-        if( $start_lat == 0 || $start_long || $end_lat == 0 || $end_long == 0 || $current_lat == 0 || $current_long == 0 )
-        {
-            $response['error'] = "7001";
-        }
+           $end_lat = $dc_track->lat;
+           $end_long = $dc_track->long;
 
-        $response['startLat'] = $start_lat;
-        $response['startLong'] = $start_long;
-        $response['currLat'] = $current_lat;
-        $response['currLong'] = $current_long;
-        $response['endLat'] = $end_lat;
-        $response['endLong'] = $end_long;
 
-        return $response;
+           if ($start_lat == 0 || $start_long || $end_lat == 0 || $end_long == 0 || $current_lat == 0 || $current_long == 0) {
+               $response['error'] = "7001";
+           }
+
+           $response['startLat'] = $start_lat;
+           $response['startLong'] = $start_long;
+           $response['currLat'] = $current_lat;
+           $response['currLong'] = $current_long;
+           $response['endLat'] = $end_lat;
+           $response['endLong'] = $end_long;
+
+           return $response;
+
+       }catch (Exception $e)
+       {
+           $response['startLat'] = "28.613939";
+           $response['startLong'] = "77.209021";
+           $response['currLat'] = "28.613939";
+           $response['currLong'] = "77.209021";
+           $response['endLat'] = "28.613939";
+           $response['endLong'] = "77.209021";
+           $response['error'] = "7001";
+           return $response;
+       }
 
     }
 
@@ -496,6 +518,10 @@ class androidApi extends Controller
     {
         $response = array();
 
+        try
+        {
+
+
         if ($request->input('sme_id')) {
             $SMEID = $request->input('sme_id');
             $response['sme_id'] = $SMEID;
@@ -505,7 +531,7 @@ class androidApi extends Controller
             $orders = array();
             foreach ($all_so as $so) {
 
-                $dcs = dc::where('so_number', '=', $so->so_number)->where('is_tracked', '=', 3)->get();
+                $dcs = dc::where('so_number', '=', $so->so_number)->where('is_delivered', '=', '0')->where('is_tracked', '=', 3)->get();
 
                 if ($dcs) {
                     foreach ($dcs as $dc)
@@ -528,7 +554,7 @@ class androidApi extends Controller
 
             $count_order = 0;
             foreach ($orders as $order) {
-                $dcs = \App\dc::where('so_number', '=', $order->so_number)->where('is_delivered', '=', '0')->where('is_tracked', '=', 3)->get();
+                $dcs = \App\dc::where('so_number', '=', $order->so_number)->where('is_tracked', '=', 3)->get();
 
 
                 if (!$dcs) {
@@ -600,7 +626,11 @@ class androidApi extends Controller
         }
 
         return $response;
-
+        }catch (Exception $e)
+        {
+            $response['error'] = "1";
+            $response['error_message'] = "System encountered an error";
+        }
     }
 
 

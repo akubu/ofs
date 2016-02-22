@@ -14,8 +14,10 @@ class locationServices extends Controller
     public function getLatLongFromAddress($address)
     {
 
+
         $response = array();
 
+        try{
         $ch = curl_init();
         $location = curl_escape($ch, $address);
         $url = "https://maps.googleapis.com/maps/api/geocode/json?address=" . $location . "&key=AIzaSyBXxkYt5TxoLuIxJZSDjSd0v--rrbC-b3s";
@@ -26,44 +28,52 @@ class locationServices extends Controller
         $json = json_decode($address, true);
 
         if ($json['status'] == "ZERO_RESULTS") {
-
             $response['end_lat'] = 0;
             $response['end_long'] = 0;
             $response['end_address'] = 'wrong address';
 
         } else {
-
             $response['end_lat'] = $json['results'][0]['geometry']['location']['lat'];
             $response['end_long'] = $json['results'][0]['geometry']['location']['lng'];
             $response['end_address'] = $json['results'][0]['formatted_address'];
-
         }
 
         return $response;
 
+        }catch (Exception $e)
+        {
+            $response['end_lat'] = 0;
+            $response['end_long'] = 0;
+            $response['end_address'] = 'wrong address';
+            return $response;
+        }
     }
 
 
-        public function getLocationFromLatLong($lat, $long)
-        {
-            $url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" . $lat . "," . $long . "&sensor=true";
-            $location = $this->get_data($url);
-            $json = json_decode($location, true);
-            if($json['status'] == "ZERO_RESULTS")
-            {
-                return "Unknown";
-            }
+    public function getLocationFromLatLong($lat, $long)
+    {
+        try{
 
-            if($json['results'][0]['formatted_address']) {
-                $address = $json['results'][0]['formatted_address'];
-            }else
-            {
-                $address = "cannot determine";
-            }
 
-            return $address;
+        $url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" . $lat . "," . $long . "&sensor=true";
+        $location = $this->get_data($url);
+        $json = json_decode($location, true);
+        if ($json['status'] == "ZERO_RESULTS") {
+            return "Location Cannot be tracked";
         }
 
+        if ($json['results'][0]['formatted_address']) {
+            $address = $json['results'][0]['formatted_address'];
+        } else {
+            $address = "cannot determine";
+        }
+        return $address;
+        }catch (Exception $e)
+        {
+            $address = "cannot determine";
+            return $address;
+        }
+    }
 
 
     public static function get_data($url)
@@ -79,70 +89,74 @@ class locationServices extends Controller
     }
 
 
-    public function updateDeviceLocation ($device_id){
+    public function updateDeviceLocation($device_id)
+    {
 
-        Log::useDailyFiles(storage_path() . '/logs/cron-poll.log');
+        try {
 
-        $number = \App\device::where('device_id','=', $device_id)->get()->first()->gsm_number;
 
-        $dc_number = 0;
-        $dc = \App\dc_track::where('device_id', '=', $device_id)->get()->first();
+            Log::useDailyFiles(storage_path() . '/logs/cron-poll.log');
+            $number = \App\device::where('device_id', '=', $device_id)->get()->first()->gsm_number;
 
-        if($dc){
-            $dc_number = $dc->dc_number;
-        }
+            $dc_number = 0;
+            $dc = \App\dc_track::where('device_id', '=', $device_id)->get()->first();
 
-        $url = "http://uat.power2sme.com/p2sapi/ws/v3/orderLocationGroup?deviceIds=" . $number;
-        $username = 'admin';
-        $password = 'admin';
-        $process = curl_init($url);
-
-        curl_setopt($process, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
-        curl_setopt($process, CURLOPT_HTTPGET, TRUE);
-        curl_setopt($process, CURLOPT_POSTFIELDS, NULL);
-        curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
-        $result = curl_exec($process);
-        curl_close($process);
-
-        if (is_null($result) || $result == "" || !$result || empty($result)) {
-            Log::info("\n Java API did not respond \n");
-            return 0;
-        }
-
-        $dec = json_decode($result, true);
-
-        if (is_null($dec) || $dec == "") {
-            Log::info("\n Java API did respond but with a NULL \n");
-            return 0;
-        }
-
-        $cord = $dec['Data'];
-
-        if(count($cord) > 1) {
-            if ($cord[0]["long"] && $cord[0]["lat"]) {
-                $long = $cord[0]["long"];
-                $lat = $cord[0]["lat"];
+            if ($dc) {
+                $dc_number = $dc->dc_number;
             }
-        }
-        else {
+
+            $url = "http://uat.power2sme.com/p2sapi/ws/v3/orderLocationGroup?deviceIds=" . $number;
+            $username = 'admin';
+            $password = 'admin';
+            $process = curl_init($url);
+
+            curl_setopt($process, CURLOPT_CUSTOMREQUEST, "GET");
+            curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
+            curl_setopt($process, CURLOPT_HTTPGET, TRUE);
+            curl_setopt($process, CURLOPT_POSTFIELDS, NULL);
+            curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
+            $result = curl_exec($process);
+            curl_close($process);
+
+            if (is_null($result) || $result == "" || !$result || empty($result)) {
+                Log::info("\n Java API did not respond \n");
+                return 0;
+            }
+
+            $dec = json_decode($result, true);
+
+            if (is_null($dec) || $dec == "") {
+                Log::info("\n Java API did respond but with a NULL \n");
+                return 0;
+            }
+
+            $cord = $dec['Data'];
+
+            if (count($cord) > 1) {
+                if ($cord[0]["long"] && $cord[0]["lat"]) {
+                    $long = $cord[0]["long"];
+                    $lat = $cord[0]["lat"];
+                }
+            } else {
                 $long = 0;
                 $lat = 0;
             }
 
-        $loc = new \App\locations();
-        $loc->device_id = $device_id;
-        $loc->lat = $lat;
-        $loc->long = $long;
-        $loc->dc_number = $dc_number;
+            $loc = new \App\locations();
+            $loc->device_id = $device_id;
+            $loc->lat = $lat;
+            $loc->long = $long;
+            $loc->dc_number = $dc_number;
 
 
-        if($loc->lat != 0)
-        {
-            $loc->save();
+            if ($loc->lat != 0) {
+                $loc->save();
+            }
+
+            Log::info("\n\ " . $number . "   " . " \n\n");
+        }catch (Exception $e){
+
+            return 0;
         }
-
-        Log::info("\n\ " . $number . "   " . " \n\n");
     }
-
 }

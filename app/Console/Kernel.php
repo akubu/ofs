@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
     {
         //$schedule->command('inspire')->hourly();
         $schedule->command('navision:pullSO')
-				->cron('*/1 * * * *')
+				->cron('*/10 * * * *')
 				->withoutOverlapping();
         Log::info("Nav task run \n");
 
