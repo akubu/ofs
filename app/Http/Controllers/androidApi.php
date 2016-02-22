@@ -322,14 +322,15 @@ class androidApi extends Controller
            $device = device::where('device_id', '=', $device_id)->get()->first();
 
            $response['error'] = "0";
+           $response['startLat'] = "28.613939";
+           $response['startLong'] = "77.209021";
+           $response['currLat'] = "28.613939";
+           $response['currLong'] = "77.209021";
+           $response['endLat'] = "28.613939";
+           $response['endLong'] = "77.209021";
 
            if (!$device) {
-               $response['startLat'] = "28.613939";
-               $response['startLong'] = "77.209021";
-               $response['currLat'] = "28.613939";
-               $response['currLong'] = "77.209021";
-               $response['endLat'] = "28.613939";
-               $response['endLong'] = "77.209021";
+
                $response['error'] = "7001";
                return $response;
            }
@@ -340,17 +341,18 @@ class androidApi extends Controller
 
            if (!$dc_track) {
 
-               $response['startLat'] = "28.613939";
-               $response['startLong'] = "77.209021";
-               $response['currLat'] = "28.613939";
-               $response['currLong'] = "77.209021";
-               $response['endLat'] = "28.613939";
-               $response['endLong'] = "77.209021";
                $response['error'] = "7001";
                return $response;
            }
 
            $start = locations::where('device_id', '=', $device_id)->where('created_at', '>=', $dc_track->shipment_start_dt)->orderBy('created_at', "ASC")->get()->first();
+
+           if(!$start)
+           {
+               $response['error'] = "7001";
+               return $response;
+           }
+
 
            $start_lat = $start->lat;
            $start_long = $start->long;
@@ -365,7 +367,7 @@ class androidApi extends Controller
            $end_long = $dc_track->long;
 
 
-           if ($start_lat == 0 || $start_long || $end_lat == 0 || $end_long == 0 || $current_lat == 0 || $current_long == 0) {
+           if ($start_lat == "0" || $start_long == "0" || $end_lat == "0" || $end_long == "0" || $current_lat == "0" || $current_long == "0") {
                $response['error'] = "7001";
            }
 
@@ -380,12 +382,6 @@ class androidApi extends Controller
 
        }catch (Exception $e)
        {
-           $response['startLat'] = "28.613939";
-           $response['startLong'] = "77.209021";
-           $response['currLat'] = "28.613939";
-           $response['currLong'] = "77.209021";
-           $response['endLat'] = "28.613939";
-           $response['endLong'] = "77.209021";
            $response['error'] = "7001";
            return $response;
        }

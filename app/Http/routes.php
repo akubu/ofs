@@ -90,6 +90,7 @@ $router->group(['middleware' => ['auth', 'actionLog']], function () {   ///'acti
     Route::post($base_url . '/dc/markDelivered', 'dc@markDelivered');
     Route::post($base_url . '/dc/validateDCNumber/{dc_number}', 'dc@validateDCNumber');
 
+    Route::get('/', 'frontend@index');
 
     Route::get($base_url . 'home', 'panel@home');
     Route::get($base_url . '/', 'panel@index');

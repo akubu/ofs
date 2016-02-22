@@ -1,0 +1,89 @@
+/* how it works page */
+
+
+/* bx-wrapper */
+element.style {
+    margin: 30px 0 0; /* added */
+    max-width: 100%;
+}
+
+/* line no 1780 */
+#main #content article {
+    margin: 0 auto;
+    padding: 0 10px 20px;
+    width: 960px;
+}
+
+/* About Us Page */
+/* line no 124 */
+#main {
+    margin: 0 auto;
+    padding: 0;
+    width: 960px;
+}
+
+/* line no 1784 */
+.sidebars .region-sidebar-second .block-menu-block .menu {
+    border-left: 1px solid #00aeef;
+    color: #3a3c33;
+    font-family: "Muli",sans-serif;
+    list-style: outside none none;
+    margin: 0 12px 0 0;
+    padding: 0; /* added */
+    text-align: left;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+/* responsive.css */
+.sidebar-second .region-sidebar-second {
+    float: left;
+    margin-left: 80%;
+    margin-right: -100%;
+    margin-top: 40px;
+    width: 20%;
+}
+
+/* line 1796 */
+.sidebars .region-sidebar-second .block-menu-block .menu li {
+    display: inline-block;
+    height: 30px;
+    padding-left: 30px;
+    /* padding-top: 5px; */
+    width: 170px;
+}
+
+
+
+	/* ========= ======== 
+	Careers & Testimonial 
+	========= ========= */
+
+/* normalize.css ( line no 347) */
+
+.menu, ol, ul { padding:0;}
+
+/* style.css ( line no 1819) */
+.sidebar-second .region-sidebar-second {
+float: right;
+width: 30%;
+/* margin-left: 80%; */
+/* margin-right: -100%; */
+margin: 0px 0 0 0;
+}
+
+/* style.css ( line no 156) */
+.view-knowledge-center .view-content {
+width: 100%;
+margin: 20px 0 0 0;
+}
+
+/* add class */
+.views-row views-row-2 list-holder{margin:0 0 20px 0;}
+.sidebar-second #content {
+/* float: left; */
+width: 67%;
+/* margin-left: 0%; */
+/* margin-right: -80%; */
+}
+
+

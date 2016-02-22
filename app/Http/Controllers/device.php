@@ -222,9 +222,6 @@ class device extends Controller
         }
 
 
-        if ($device->dc_number != "0") {
-            return 0;
-        }
 
         $device_fault = new device_faults();
 

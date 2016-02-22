@@ -1,0 +1,234 @@
+
+	@charset "utf-8";
+	/* CSS Document */
+		
+@media only screen and (min-width : 320px) and (max-width : 767px) /* mobile */
+{
+	* {
+		margin:0;
+		padding:0
+	}
+	img, a {
+		outline:none;
+		border:none
+	}
+	img {
+		width:100%;
+		
+	}
+	.clear {
+		clear:both
+	}
+
+
+
+	
+.f24 {
+	font-size:1.4em
+}
+
+.custompadding img {
+	
+	 width:auto !important;
+	}
+.alignimages img{
+	
+	 width:auto !important;
+	}
+
+
+
+	header {
+		width:100%;
+		height:110px;
+		background:#fff;
+		border-top:6px solid #00aeef;
+		position:relative
+	}
+	.logoWrapper {
+		width:130px;
+		padding:12px 0 0 0;
+		float:left
+	}
+	.topnavWrapper {
+		width: 180px;
+		height: 0px;
+		float: right;
+		/*margin: 28px 0 0 0;*/
+	}
+	.mainnavWrapper {
+		width:100%;
+		height:45px;
+		float:right
+	}
+
+	
+	
+	
+	/* Footer starts */
+	.footernavigation {
+		display:none;
+	}	
+	.FooterWrapp {
+		width:100%;
+		overflow:hidden;
+		padding:0 0 0 0;
+		background:#00aeef;
+	}
+	.FooterInnerWrapp {
+		margin:0 auto;
+		overflow:hidden;
+		color:#fff;
+	}
+	.FooterMenu {
+		width:100%;
+		overflow:hidden;
+		margin:0 0 20px 0;
+		height:auto;
+	}
+	.FooterMenu ul {
+		width:auto;
+		height:auto;
+		margin:0;
+		padding:0;
+		list-style:none;
+		text-align:left;
+	}
+	.FooterMenu ul li {
+		width:100%;
+		height:auto;
+		list-style:none;
+		padding:6px;
+	}
+	.FooterMenu ul li a {
+		font-family: 'Questrial', sans-serif;
+		font-size:12px;
+		text-transform:uppercase;
+		padding:0;
+		color:#fff;
+		text-decoration:none;
+		padding:8px;
+	}
+	.FooterMenu ul li a:hover {
+		background:#313131;
+		padding:8px;
+	}
+	.FooterAdd {
+		width:100%;
+		overflow:hidden;
+		margin:0 auto;
+		float: left;
+	}
+	
+	.AdrWrapp {
+		width:30%;
+		overflow:hidden;
+		margin:0 15% 0 0;
+		float:left;
+		font-family: 'Muli', sans-serif;
+		font-size:12px;
+		line-height:18px;
+	}
+	.AdrWrapp h1 {
+		font-family: 'Questrial', sans-serif;
+		font-size:18px;
+		text-transform:uppercase;
+		color:#fff;
+		margin-bottom:10px;
+	} 
+	#addresF{display:none;}
+	.rowAccordian{
+		display: block;
+		margin: 20px 0 0 0;
+		position: relative;
+		width: 100%;
+	}
+	.FooterAwrd{
+		/*position:relative; 
+		width:100%; 
+		margin: 20px 0 0;
+		float: none;
+		padding:0 20px;*/
+		display:none;
+	}
+	.FooterAwrdImg{
+		width:140px;
+		height:140px;
+		margin:20px 0;
+	}
+	.read_more{
+		margin:20px 0;
+	}
+	.read_more a{
+		color:#fff;
+		text-decoration:none;
+	}
+	.read_more a:hover{
+		color:#fff;
+		text-decoration:underline;
+	}
+	.CopyRight {
+		width:100%;
+		height:50px;
+		padding:20px 0 0 0;
+		font-family: 'Questrial', sans-serif;
+		font-size:12px;
+		color:#222;
+		text-align:center;
+	}
+	.navWrapper_footer{
+		width:100%;
+		height:40px;
+		display:block;
+		position:relative;
+		z-index:40;
+		margin:20px 0 0 0;
+	}
+	.center {
+		text-align: center;
+	}
+	.nav{
+		display:none;
+	}
+	.nav_footer-dropdown{
+		display:block;
+		text-align:center !important;
+		padding:0px 20px;
+	}
+
+	.nav_footer-dropdown select{
+		width:100%;
+		color: #ffffff;
+		font-family: "Questrial",sans-serif;
+		font-size:16px;
+		font-weight:normal;
+		vertical-align:middle;
+		text-align:center !important;
+		background: #00aeef;
+		padding:0px;
+		border: none;
+		background: url("../img/dropdown_arrow.png") no-repeat scroll right 9px bottom 12px #068ec1;
+		height:40px;
+	}
+
+	.nav_footer-dropdown select:focus {
+		outline: 0 none;
+	}
+	.nav_footer-dropdown select option{
+		padding:8px;
+		font-family: "Muli",sans-serif;
+		font-size:12px;
+		font-weight:normal;
+	}
+
+
+
+	
+	/* Footer ends */
+
+
+}
+}
+
+
+	

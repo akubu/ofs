@@ -99,7 +99,7 @@
                         }
                         else {
                             $.growl.error({
-                                message: 'Reason should be more then 10 characters long.',
+                                message: 'Server error please contact support using help menu.',
                                 size: 'large',
                                 duration: 5000
                             });

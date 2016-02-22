@@ -56,7 +56,7 @@ class locationPoll extends Command
             if ($dc) {
                 $dc_number = $dc->dc_number;
             }
-            $url = "http://uat.power2sme.com/p2sapi/ws/v3/orderLocationGroup?deviceIds=" . $number;
+            $url = "http://uat.power2sme.com/p2sapi/ws/v3/orderLocation?deviceId=" . $number;
             $username = 'admin';
             $password = 'admin';
             $process = curl_init($url);
