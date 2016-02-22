@@ -230,7 +230,7 @@
                 <th style="width: 146px;vertical-align: middle;">Runner ID:</th>
                 <th>
 
-                    <input type="text" class="form-control" id="runnerId" placeholder="Enter runner id">
+                    <input type="text" class="form-control" id="runnerId" placeholder="Cick to select runner " readonly>
 
                 </th>
                 <th>

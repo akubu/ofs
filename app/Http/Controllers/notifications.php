@@ -136,7 +136,8 @@ class notifications extends Controller
 
     public function sendLoadingStartedNotification($dc_number)
     {
-        $so_number = \App\dc::where('dc_number', '=', $dc_number)->get()->first()->so_number;
+        $dc = \App\dc::where('dc_number', '=', $dc_number)->get()->first();
+        $so_number = $dc->so_number;
         $so = \App\so::where('so_number', '=', $so_number)->get()->first();
         $customer_number = $so->customer_number;
         $customer_name = $so->bill_to_name;
@@ -145,7 +146,9 @@ class notifications extends Controller
         $customer_email = $customer->customer_email;
         $customer_phone = $customer->customr_contact_number;
 
-        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>loading started</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><name>" . $customer_name . "</name><dc_no>" . $dc_number . "</dc_no><so_number></so_number>" . $so_number . "<so_number></payload>");
+        $runner = App\runner::where('vtiger_id', '=', $dc->runner_id )->get()->first();
+
+        $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>loading started</event><object_id></object_id><customer><email_id>" . $runner->reports_to_email . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><name>" . $customer_name . "</name><dc_no>" . $dc_number . "</dc_no><so_number>" . $so_number . "<so_number></payload>");
         return $this->sendNotification($data);
     }
 
