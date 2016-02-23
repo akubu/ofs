@@ -123,15 +123,26 @@ class runner extends Controller
 
             $device_id = App\device::where('gsm_number', '=', $gsm_number)->get()->first()->device_id;
             $location = App\locations::where('device_id', '=', $device_id)->orderBy('created_at', "DESC")->get()->first();
-            $response[$ii]['current_lat'] = $location->lat;
-            $response[$ii]['current_long'] = $location->long;
-            $location_service = new locationServices();
-            if ($location->lat > 0 && $location->long > 0) {
+            if($location)
+            {
+                $response[$ii]['current_lat'] = $location->lat;
+                $response[$ii]['current_long'] = $location->long;
+                $location_service = new locationServices();
 
-                $response[$ii]['current_address'] = $location_service->getLocationFromLatLong($location->lat, $location->long);
-            } else {
+                if ($location->lat > 0 && $location->long > 0) {
+
+                    $response[$ii]['current_address'] = $location_service->getLocationFromLatLong($location->lat, $location->long);
+                } else {
+                    $response[$ii]['current_address'] = "Unknown";
+                }
+            }else{
+
+                $response[$ii]['current_lat'] = "28";
+                $response[$ii]['current_long'] = "77";
                 $response[$ii]['current_address'] = "Unknown";
+
             }
+
 
             ++$ii;
         }

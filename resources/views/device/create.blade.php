@@ -74,7 +74,7 @@
 
 
             var imei_number = $('#imei_number').val();
-            if (imei_number == '' || imei_number < 999999999) {
+            if (imei_number == '' || imei_number < 9999999990 || !$.isNumeric(imei_number)) {
 
                 $('#imei_number').css('border-color', 'red');
                 $('#imei_error').removeClass("hide");
@@ -88,7 +88,7 @@
             }
 
             var sim_number = $('#sim_number').val();
-            if (sim_number == '' || sim_number < 9999999999) {
+            if (sim_number == '' || sim_number < 99999999990 || !$.isNumeric(sim_number)) {
 
                 $('#sim_number').css('border-color', 'red');
                 $('#sim_error').removeClass("hide");

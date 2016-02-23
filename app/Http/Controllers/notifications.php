@@ -159,7 +159,7 @@ class notifications extends Controller
         $customer = customer_contact_master::where('customer_number','=', $so->customer_number)->get()->first();
 
         $customer_email = $customer->customer_email;
-        $customer_phone = $customer->customr_contact_number;
+        $customer_phone = $customer->customer_contact_number;
 
         $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>dispatch</event><object_id></object_id><customer><email_id>" . $customer_email . "</email_id><mobile_no>" . $customer_phone . "</mobile_no></customer><name>" . $so->bill_to_name . "</name><dc_no>" . $dc_number . "</dc_no><so_no>" . $so->so_number. "</so_no></payload>");
         return $this->sendNotification($data);
@@ -167,7 +167,8 @@ class notifications extends Controller
 
     public function sendDeliveredNotification($dc_number)
     {
-        $so_number = \App\dc::where('dc_number', '=', $dc_number)->get()->first()->so_number;
+        $dc = \App\dc::where('dc_number', '=', $dc_number)->get()->first();
+        $so_number = $dc->so_number;
         $so = \App\so::where('so_number', '=', $so_number)->get()->first();
         $customer_number = $so->customer_number;
         $customer_name = $so->bill_to_name;
