@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\BEBBLocalLocations;
+use App\customer_contact_master;
 use App\dc_details;
 use App\dc_track;
 use App\device;
@@ -18,6 +20,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Log;
+use Illuminate\Mail\Mailer;
 
 class dc extends Controller
 {
@@ -40,6 +43,7 @@ class dc extends Controller
         $response = array();
         $response['error'] = '200';
         $response['message'] = 'DC Created';
+        $response['dc_number'] = '';
 
         $jsonInput = Input::get('json');
         $decoded = json_decode($jsonInput, true);
@@ -51,16 +55,17 @@ class dc extends Controller
         $driver_name = trim($decoded['driver_name']);
         $driver_contact_number = trim($decoded['driver_contact_number']);
         $truck_number = trim($decoded['truck_number']);
-        $truck_type = trim($decoded['truck_type']);
+        $truck_type = trim($decoded['truck_capacity']);
         $expected_delivery_date = trim($decoded['expected_delivery_date']);
 
         $expected_dispatch_date = trim($decoded['expected_dispatch_date']);
         $address = trim($decoded['address']);
         $lat = trim($decoded['lat']);
         $long = trim($decoded['long']);
-        $tracking_status = trim($decoded['tracking_status']);
+        $tracking_status = "";
         $no_tracking_reason = trim($decoded['no_tracking_reason']);
         $so_number = trim($decoded['so_number']);
+        $dc_date = trim($decoded['dc_date']);
 
         $truck_number = $this->clean($truck_number);
 
@@ -69,12 +74,13 @@ class dc extends Controller
 
         //  validate dc_number //
 
-        $validate_dc = \App\dc::where('dc_number', '=', $dc_number)->get()->first();
-        if ($validate_dc) {
-            $response['error'] = "1001";
-            $response['message'] = "please change DC Number";
-            return $response;
-        }
+        $validate_dc = \App\dc::where('so_number', '=', $so_number)->get();
+
+            $next_dc = $validate_dc->count()+1;
+            $dc_number = str_replace("SO","DC",$so_number) . '/' . $next_dc;
+
+
+
 
 
         $dc = new \App\dc();
@@ -88,6 +94,7 @@ class dc extends Controller
         $dc->truck_type = $truck_type;
         $dc->expected_delivery_dt = $expected_delivery_date;
         $dc->expected_dispatch_dt = $expected_dispatch_date;
+        $dc->created_at = $dc_date;
 
 
         $dc->is_tracked = $tracking_status;
@@ -98,7 +105,7 @@ class dc extends Controller
         foreach ($sku_details as $sku_detail) {
             $dc_detail = new dc_details();
             $dc_detail->dc_number = $dc_number;
-            $dc_detail->sku = $sku_detail['sku'];
+            $dc_detail->sku = $sku_detail['sku' ];
             $dc_detail->sku_quantity = trim($sku_detail['sku_quantity']);
 
             $dc_detail->save();
@@ -129,14 +136,25 @@ class dc extends Controller
         Log::useDailyFiles(storage_path() . '/logs/notificationsl.log');
 
         $notifier = new notifications();
-        $notif = $notifier->sendDcCreatedNotification($dc_number, $so_number);
-        Log::info("\n DC created  : " . $dc_number . " and : " . $notif . "\n");
+//        $notif = $notifier->sendDcCreatedNotification($dc_number, $so_number);
+//        Log::info("\n DC created  : " . $dc_number . " and : " . $notif . "\n");
 
-        $notif = $notifier->sendRunnerAssignmentNotification($dc_number);
-        Log::info("\n DC created  : " . $dc_number . " and : " . $notif . "\n");
+//        $notif = $notifier->sendRunnerAssignmentNotification($dc_number);
+//        Log::info("\n DC created  : " . $dc_number . " and : " . $notif . "\n");
 
 
-        return 1;
+        $dc_file = str_replace('/', '_', $dc_number);
+
+        $command = 'wkhtmltopdf -q --copies 3 "http://localhost:1234/dc/print132DC?dc_number=' . $dc_number . '&print=2"  "/Users/harsh/projects/orderFulfillmentSystem/trackingsystem/public/storage/'.$dc_file.'.pdf" ' . '  > /dev/null 2>&1 &';
+
+//        return $command;
+
+        exec($command, $outputArray);
+
+
+        $response['dc_number'] = $dc_number;
+
+        return $response;
     }
 
     /**
@@ -151,7 +169,7 @@ class dc extends Controller
 
         foreach ($sos as $so) {
             if (strpos($so->so_number, 'SO') !== false) {
-                $so_numbers[] = $so->so_number;
+                $so_numbers[] = $so->bill_to_name . " | " .  $so->so_number;
             }
 
         }
@@ -191,8 +209,12 @@ class dc extends Controller
         foreach ($runners as $runner) {
             $runner_names[] = $runner->runner_name . "(" . $runner->vtiger_id . ")";
         }
+        $bebb_locations = BEBBLocalLocations::all();
 
-        return view('dc.newDc', compact('details', 'runner_names'));
+        $date_time = \Carbon\Carbon::now();
+
+
+        return view('dc.newDc', compact('details', 'bebb_locations', 'date_time'));
     }
 
     public function generateDCNumber()
@@ -440,6 +462,66 @@ class dc extends Controller
         $dc->save();
 
         return 1;
+
+    }
+
+
+    public function dcCreated(){
+
+            $so_number = Input::get('so_number');
+            $dcs = \App\dc::where('so_number', '=', $so_number)->get();
+
+        $ii=0;
+
+        foreach($dcs as $dc){
+
+            $dcs[$ii]['identifier'] = str_replace('/','_', $dc->dc_number);
+            ++$ii;
+        }
+
+
+
+
+            return view('dc.dcCreated', compact('dcs'));
+
+    }
+
+    public function printDC(){
+
+        $dc_number = Input::get('dc_number');
+        $print = Input::get('print');
+        $dc = \App\dc::where('dc_number', '=', $dc_number)->get()->first();
+        $so = so::where('so_number', '=', $dc->so_number)->get()->first();
+        $bebb_location = \App\BEBBLocalLocations::where('code', '=', $so->location_code)->get()->first();
+        $customer = customer_contact_master::where('number', '=', $so->customer_number)->get()->first();
+        $dc_details = dc_details::where('dc_number', '=', $dc_number)->where('sku_quantity', '>', 0)->get();
+
+
+        return view('dc.printDC', compact('dc', 'so', 'bebb_location', 'customer', 'dc_details', 'print'));
+
+
+    }
+
+    public function downloadDC()
+    {
+        $dc_number = Input::get('dc_number');
+        $dc_number = str_replace('/','_', $dc_number );
+
+        return Response::download("/Users/harsh/projects/orderFulfillmentSystem/trackingsystem/public/storage/" . $dc_number . ".pdf", $dc_number. ".pdf");
+
+    }
+
+
+    public function sendMail(){
+
+        $dc_number = Input::get('dc_number');
+
+        $mailDC = new notifications();
+
+
+
+        return $mailDC->sendMail($dc_number);
+
 
     }
 

@@ -8,27 +8,32 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" id="home" href="/"><font color="#FFFFFF" style="font-size: 22px;">Tracking System</font></a>
+          <a class="navbar-brand" id="home" href="/"><font color="#FFFFFF" style="font-size: 22px;"> OFS </font></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
               <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" > Assignments &nbsp;<span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" > Manage DC &nbsp;<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#" id="new_assignment_nav">New Assignment</a></li>
-                <li><a href="#" id="current_assignment_nav">Current Assignments</a></li>
-                <li><a href="#" id="update_dc_nav">Update DC</a></li>
-                <li><a href="#" id="mark_delivered_nav">Mark Delivered</a></li>
+                <li><a href="#" id="new_assignment_nav">Create New DC</a></li>
+                {{--<li><a href="#" id="current_assignment_nav">Print DC</a></li>--}}
+                <li><a href="#" id="print_dc_nav">Print DC</a></li>
+                <li><a href="#" id="update_dc_nav">Delete DC</a></li>
+                {{--<li><a href="#" id="mark_delivered_nav">Mark Delivered</a></li>--}}
               </ul>
             </li>
+
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Tracking centre <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                       <li><a href="#" id="track_shipment_nav">Track Shipment-DC</a></li>
-                      <li><a href="#" id="track_runner_nav">Track runner</a></li>
+                      <li><a href="#" id="assign_runner_nav">Assign DC to a runner</a></li>
+                      {{--<li><a href="#" id="track_runner_nav">Track runner</a></li>--}}
                       <li><a href="#" id="track_device">Track Device</a></li>
                   </ul>
               </li>
+
+
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Runner Central <span class="caret"></span></a>
                   <ul class="dropdown-menu">

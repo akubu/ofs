@@ -47,7 +47,7 @@ class SoFetch extends Command
         //confingure log
         Log::useDailyFiles(storage_path() . '/logs/navision-pull.log');
 
-        $nav_so = SalesHeader::all();
+        $nav_so = SalesHeader::where('No_', 'LIKE', '%1617/%' )->get();
 
         Log::info("Master SO count : "  .$nav_so->count() . "\n");
 
@@ -101,9 +101,9 @@ class SoFetch extends Command
                 $navContact = App\BEBB_IndiaContact::where('No_', '=', $so->{"Sell-to Customer No_"})->get();
                 foreach ($navContact as $navC) {
                     $customer = new  App\customer_contact_master();
-                    $customer->customer_number = $navC->{"No_"};
-                    $customer->customer_contact_number = $navC->{"Phone No_"};
-                    $customer->customer_email = $navC->{"E-Mail"};
+                    $customer->number = $navC->{"No_"};
+                    $customer->contact_number = $navC->{"Phone No_"};
+                    $customer->email = $navC->{"E-Mail"};
                     $customer->save();
                 }
 

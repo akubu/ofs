@@ -16,45 +16,52 @@
             dateFormat: "yy-mm-dd"
         });
 
-
-        @if( !count($runner_names))
-         $(function () {
-                    $.growl.error({
-                        message: 'No Runner registered In System. ',
-                        size: 'large',
-                        duration: 10000
-                    });
-                    $('#allocate_device').hide();
-                });
-
-        $('#info_status').html('<center><h3 style="color:#0AB2F1; margin-top:30px;">Please add a runner first</h3></center>');
-
-        @endif
-
-
- availableTags = [
-            @foreach( $runner_names as $runner_name)
-
-    "{{ $runner_name }}",
-            @endforeach
-    ];
-
-        $(function () {
-
-            $("#runner_assigned").autocomplete({
-                source: function (request, response) {
-                    var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i");
-                    response($.grep(availableTags, function (value) {
-                        return matcher.test(value.toUpperCase());
-                    }));
-                },
-                minLength: 0,
-                scroll: true
-            }).focus(function () {
-                $(this).autocomplete("search", $('#runner_assigned').val());
-
-            });
+        $("#dc_date").datepicker({
+            dateFormat: "yy-mm-dd"
         });
+
+
+
+
+
+        {{--@if( !count($runner_names))--}}
+         {{--$(function () {--}}
+                    {{--$.growl.error({--}}
+                        {{--message: 'No Runner registered In System. ',--}}
+                        {{--size: 'large',--}}
+                        {{--duration: 10000--}}
+                    {{--});--}}
+                    {{--$('#allocate_device').hide();--}}
+                {{--});--}}
+
+        {{--$('#info_status').html('<center><h3 style="color:#0AB2F1; margin-top:30px;">Please add a runner first</h3></center>');--}}
+
+        {{--@endif--}}
+
+
+ {{--availableTags = [--}}
+            {{--@foreach( $runner_names as $runner_name)--}}
+
+    {{--"{{ $runner_name }}",--}}
+            {{--@endforeach--}}
+    {{--];--}}
+
+        {{--$(function () {--}}
+
+            {{--$("#runner_assigned").autocomplete({--}}
+                {{--source: function (request, response) {--}}
+                    {{--var matcher = new RegExp($.trim(request.term).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i");--}}
+                    {{--response($.grep(availableTags, function (value) {--}}
+                        {{--return matcher.test(value.toUpperCase());--}}
+                    {{--}));--}}
+                {{--},--}}
+                {{--minLength: 0,--}}
+                {{--scroll: true--}}
+            {{--}).focus(function () {--}}
+                {{--$(this).autocomplete("search", $('#runner_assigned').val());--}}
+
+            {{--});--}}
+        {{--});--}}
 
 
         $('#select_address').click(function () {
@@ -65,16 +72,16 @@
             $('#locate_on_map').html('Change Address');
         });
 
-        $('#generate_dc').click(function () {
-
-            var so_number = $('#so_number').val();
-            $.post('/dc/getDCNumber', {so_number: so_number}, function (data) {
-
-                $('#dc_number').val(data);
-
-            });
-
-        });
+//        $('#generate_dc').click(function () {
+//
+//            var so_number = $('#so_number').val();
+//            $.post('/dc/getDCNumber', {so_number: so_number}, function (data) {
+//
+//                $('#dc_number').val(data);
+//
+//            });
+//
+//        });
 
 
         $('#locate_on_map').click(function () {
@@ -115,15 +122,15 @@
         });
 
 
-        $('#tracking_status').change(function () {
-
-            var tracking_status = $('#tracking_status').val();
-            if (tracking_status == 0) {
-                $('#reason_row').show();
-            } else {
-                $('#reason_row').hide();
-            }
-        });
+//        $('#tracking_status').change(function () {
+//
+//            var tracking_status = $('#tracking_status').val();
+//            if (tracking_status == 0) {
+//                $('#reason_row').show();
+//            } else {
+//                $('#reason_row').hide();
+//            }
+//        });
 
         $('#register_dc').click(function () {
 
@@ -132,40 +139,40 @@
 
             which = 0;
 
-            var dc_number = $('#dc_number').val();
-
-            if (dc_number == '') {
-                $('#dc_number').css('border-color', 'red');
-                $('#dc_error').removeClass("hide");
-                $('#dc_error').html("Please Generate A DC Number");
-                which = 1;
-                ++errorFlag;
-            }
-            else {
-                $('#dc_number').css('border-color', 'green');
-                $('#dc_error').addClass("hide");
-                $('#dc_error').html("");
-            }
-
-
-            var runner_assigned = $('#runner_assigned').val();
+//            var dc_number = $('#dc_number').val();
+//
+//            if (dc_number == '') {
+//                $('#dc_number').css('border-color', 'red');
+//                $('#dc_error').removeClass("hide");
+//                $('#dc_error').html("Please Generate A DC Number");
+//                which = 1;
+//                ++errorFlag;
+//            }
+//            else {
+//                $('#dc_number').css('border-color', 'green');
+//                $('#dc_error').addClass("hide");
+//                $('#dc_error').html("");
+//            }
 
 
-            if ($.inArray(runner_assigned, availableTags) == -1) {
-                which = 2;
-                $('#runner_assigned').css('border-color', 'red');
-                $('#runner_error').removeClass("hide");
-                $('#runner_error').html("Please Select A Runner");
-                ++errorFlag;
-
-
-            }
-
-            else {
-                $('#runner_assigned').css('border-color', 'green');
-                $('#runner_error').addClass("hide");
-                $('#runner_error').html("");
-            }
+//            var runner_assigned = $('#runner_assigned').val();
+//
+//
+//            if ($.inArray(runner_assigned, availableTags) == -1) {
+//                which = 2;
+//                $('#runner_assigned').css('border-color', 'red');
+//                $('#runner_error').removeClass("hide");
+//                $('#runner_error').html("Please Select A Runner");
+//                ++errorFlag;
+//
+//
+//            }
+//
+//            else {
+//                $('#runner_assigned').css('border-color', 'green');
+//                $('#runner_error').addClass("hide");
+//                $('#runner_error').html("");
+//            }
 
 
             var driver_name = $('#driver_name').val();
@@ -215,12 +222,12 @@
                 $('#truck_number_error').html("");
             }
 
-            var truck_type = $('#truck_type').val();
+            var truck_capacity = $('#truck_capacity').val();
 
-            if (truck_type == '' || truck_type < 2 || truck_type.length > 25) {
+            if (truck_capacity == '' || truck_capacity < 0.1 || truck_capacity.length > 6) {
 
                 which = 6;
-                $('#truck_type').css('border-color', 'red');
+                $('#truck_capacity').css('border-color', 'red');
                 $('#truck_type_error').removeClass("hide");
                 $('#truck_type_error').html("Please Enter A Proper Truck Type");
                 ++errorFlag;
@@ -306,37 +313,37 @@
             }
 
 
-            var tracking_status = $('#tracking_status').val();
+//            var tracking_status = $('#tracking_status').val();
+//
+//            if (tracking_status == '-1') {
+//                $('#tracking_status').css('border-color', 'red');
+//                $('#tracking_status_error').removeClass("hide");
+//                $('#tracking_status_error').html("Please Select A Tracking Status");
+//                which = 12;
+//                ++errorFlag;
+//            }
+//            else {
+//                $('#tracking_status').css('border-color', 'green');
+//                $('#tracking_status_error').addClass("hide");
+//                $('#tracking_status_error').html("");
+//            }
 
-            if (tracking_status == '-1') {
-                $('#tracking_status').css('border-color', 'red');
-                $('#tracking_status_error').removeClass("hide");
-                $('#tracking_status_error').html("Please Select A Tracking Status");
-                which = 12;
-                ++errorFlag;
-            }
-            else {
-                $('#tracking_status').css('border-color', 'green');
-                $('#tracking_status_error').addClass("hide");
-                $('#tracking_status_error').html("");
-            }
-
-
-            var no_tracking_reason = $('#no_tracking_reason').val();
-
-
-            if (no_tracking_reason == '' && tracking_status == '0') {
-                $('#no_tracking_reason').css('border-color', 'red');
-                $('#reason_error').removeClass("hide");
-                $('#reason_error').html("Please Enter Reason For Not tracking This Shipment");
-                ++errorFlag;
-                which = 13;
-            }
-            else {
-                $('#no_tracking_reason').css('border-color', 'green');
-                $('#reason_error').addClass("hide");
-                $('#reason_error').html("");
-            }
+//
+//            var no_tracking_reason = $('#no_tracking_reason').val();
+//
+//
+//            if (no_tracking_reason == '' && tracking_status == '0') {
+//                $('#no_tracking_reason').css('border-color', 'red');
+//                $('#reason_error').removeClass("hide");
+//                $('#reason_error').html("Please Enter Reason For Not tracking This Shipment");
+//                ++errorFlag;
+//                which = 13;
+//            }
+//            else {
+//                $('#no_tracking_reason').css('border-color', 'green');
+//                $('#reason_error').addClass("hide");
+//                $('#reason_error').html("");
+//            }
 
             var so_number = $('#so_number').val();
 
@@ -420,28 +427,35 @@
 
             $('#register_dc').addClass("hide");
             $('#register_dc').next().removeClass('hide');
+
+
+            $('#register_new_dc').addClass("hide");
+            $('#register_new_dc').next().removeClass('hide');
+
+
+
             $('input').attr('readonly', true);
 
 
-            $.get("runner/validate?runner=" + runner_assigned, function (data) {
-                if (data == 1) {
+
 
 
                     var JavaScriptObjectLiteral = {
-                        dc_number: dc_number,
-                        runner_assigned: runner_assigned,
+                        dc_number: "",
+                        runner_assigned: "",
                         driver_name: driver_name,
                         driver_contact_number: driver_contact_number,
-                        truck_type: truck_type,
+                        truck_capacity: truck_capacity,
                         truck_number: truck_number,
                         expected_delivery_date: expected_delivery_date,
                         expected_dispatch_date: expected_dispatch_date,
                         address: address,
                         lat: lat,
                         long: long,
-                        tracking_status: tracking_status,
-                        no_tracking_reason: no_tracking_reason,
+                        tracking_status: "",
+                        no_tracking_reason: "",
                         so_number: so_number,
+                        dc_date: $('#dc_date').val()
 
                     }
 
@@ -462,9 +476,15 @@
 
                     $.post("/dc/create", theJ, function (data, status) {
 
-                        if (data == 1) {
+
+
+                        if (status == "success") {
+
+//                            json = JSON.parse(data);
+                            var dc_number = data['dc_number'];
+
                             $.growl.notice({
-                                message: 'DC Registered. DC Number: ' + $('#dc_number').val(),
+                                message: 'DC Registered. DC Number: ' + dc_number ,
                                 size: 'large',
                                 duration: 10000
                             });
@@ -479,9 +499,13 @@
                             });
 
 
+
+
+
+
                         } else {
                             $.growl.error({
-                                message: 'Change DC Number.',
+                                message: 'DC Not Registered.',
                                 size: 'large',
                                 duration: 5000
                             });
@@ -489,17 +513,15 @@
                             $('input').attr('readonly', false);
                             $('#register_dc').removeClass("hide");
                             $('#register_dc').next().addClass('hide');
+
+
+                            $('#register_new_dc').removeClass("hide");
+                            $('#register_new_dc').next().addClass('hide');
                         }
-                    });
 
 
-                } else {
 
-                    $('input').attr('readonly', false);
-                    $('#register_dc').attr('disabled', false);
-                    $('#register_dc').removeClass("hide");
-                    $('#register_dc').next().addClass('hide');
-                }
+
             });
         });
 
@@ -512,71 +534,66 @@
 <hr>
 <div class="row" id="info_status">
 
-    <table class="table table-striped">
-        <tr>
+    {{--<table class="table table-striped">--}}
+        {{--<tr>--}}
 
-            <th style="width: 210px;vertical-align: middle; text-align:center">Dc number:<Span class="danger">*</Span>
-            </th>
+            {{--<th style="width: 210px;vertical-align: middle; text-align:center">Dc number:<Span class="danger">*</Span>--}}
+            {{--</th>--}}
 
-            <th>
-                <input type="text" class="form-control" size="40" id="dc_number" placeholder="Enter DC number"
-                       readonly/>
-                <span class="help-block hide danger" id="dc_error"></span>
-            </th>
-            <th>
-                <button id="generate_dc" class="btn btn-primary btn-sm" style="width: auto">Generate DC Number</button>
-            </th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
+            {{--<th>--}}
+                {{--<input type="text" class="form-control" size="40" id="dc_number" placeholder="Enter DC number"--}}
+                       {{--readonly/>--}}
+                {{--<span class="help-block hide danger" id="dc_error"></span>--}}
+            {{--</th>--}}
+            {{--<th>--}}
+                {{--<button id="generate_dc" class="btn btn-primary btn-sm" style="width: auto">Generate DC Number</button>--}}
+            {{--</th>--}}
+            {{--<th>&nbsp;</th>--}}
+            {{--<th>&nbsp;</th>--}}
+            {{--<th>&nbsp;</th>--}}
+            {{--<th>&nbsp;</th>--}}
+            {{--<th>&nbsp;</th>--}}
 
-        </tr>
-    </table>
+        {{--</tr>--}}
+    {{--</table>--}}
 
     <div class="form-group">
         <table class="table borderless">
 
 
+
             <tr>
                 <th>
-                    <center>Runner Assigned <Span class="danger">*</Span></center>
-
+                    <center>
+                        Select BEBB location from :
+                        <Span class="danger">*</Span></center>
+                    </center>
                 </th>
                 <td>
-
-                    <input type="text" class="form-control" id="runner_assigned" size="40"
-                           placeholder="Enter Runner Name"/><span class="help-block hide danger" id="runner_error">Please Select A Runner From DropDown</span>
-
-                    <span class="help-block hide danger"></span>
-
-                </td>
-                <th>
-                    <center>Select Status:<Span class="danger">*</Span></center>
-
-                </th>
-                <td>
-                    <select class="form-control" id="tracking_status">
-                        <option value="-1">Select Tracking status</option>
-                        <option value="1">This DC is Tracked</option>
-                        <option value="0">This DC is Un-Tracked</option>
-
+                    <select id="bebb_location" class="form-control">
+                        @foreach($bebb_locations as $bebb_location)
+                        <option value="{{ $bebb_location->code }}">{{$bebb_location->code}}</option>
+                        @endforeach
                     </select>
-                    <span class="help-block hide danger"
-                          id="tracking_status_error">Please Select a Tracking Status</span>
+
+                    <span class="help-block hide danger" id="bebb_location_error"></span>
+                </td>
+
+                <th>
+                    <center> DC Date <Span class="danger">*</Span></center>
+                </th>
+
+                <td>
+
+                    <input id="dc_date" class="form-control" type="text" size="40"
+
+                           placeholder="Select DC Date" value="{{ $date_time }}" readonly/><span class="help-block hide danger"
+                                                                                       id="dc_date_error">Error</span>
+
                 </td>
             </tr>
 
-            <tr id="reason_row">
-                <th colspan="1">
-                    Reason for Not Tracking
-                    <Span class="danger">*</Span>
-                </th>
-                <th colspan="3"><input type="text" placeholder="Enter Reason" id="no_tracking_reason"
-                                       class="form-control"/><span class="help-block hide danger" id="reason_error">Please Enter A Reason For Not Tracking</span>
-                </th>
-            </tr>
+
 
             <tr>
                 <th>
@@ -608,13 +625,13 @@
                            placeholder="Enter Truck Number"/><span class="help-block hide danger"
                                                                    id="truck_number_error">Error</span>
                 </td>
-                {{--<th>--}}
-                {{--<center>Truck Type--}}
-                {{--<Span class="danger">*</Span></center>--}}
-                {{--</th>--}}
+                <th>
+                <center>Truck capacity
+                <Span class="danger">*</Span></center>
+                </th>
                 <td>
-                    <input type="text" size="40" id="truck_type" value="field disabled"
-                           placeholder="Enter Truck Type (Load Capacity)" hidden/>
+                    <input type="text" size="40" id="truck_capacity" value="" class="form-control"
+                           placeholder="Enter Truck Load Capacity" />
                     <span class="help-block hide danger" id="truck_type_error"></span>
                 </td>
             </tr>
@@ -733,7 +750,7 @@
     <div class="col-md-12">
         <div class="col-md-5"></div>
         <div class="col-md-2">
-            <button id="register_dc" class="btn btn-primary"> Register DC</button>
+            <button id="register_dc" class="btn btn-primary"> Create DC</button>
             <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif"/></div>
         </div>
         <div class="col-md-5"></div>

@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\SoFetch::class,
         \App\Console\Commands\locationPoll::class,
         \App\Console\Commands\notificationAutomatic::class,
+        \App\Console\Commands\getBEBBNos::class,
 
     ];
 
@@ -38,10 +39,14 @@ class Kernel extends ConsoleKernel
         $schedule->command('cron:all')
             ->cron('*/7 * * * *')
             ->withoutOverlapping();
+
         $schedule->command('notify:automaticReport')
             ->cron('00 00 * * *')
             ->withoutOverlapping();
 
+        $schedule->command('navision:getBEBBNos')
+            ->daily()
+            ->withoutOverlapping();
 
 
     }

@@ -30,12 +30,15 @@
 
             $('#so_entered').addClass("hide");
             $('#so_entered').next().removeClass('hide');
-            var so_number = $.trim($('#so_number').val().toUpperCase()).replace("+","");
+            index_so = $('#so_number').val().lastIndexOf("| ");
+            so_number_temp = $('#so_number').val().substring(index_so+2);
+            var so_number = (so_number_temp.toUpperCase()).replace("+","").trim();
 
 
 
             $.post("so/checkExistence", {so_number: so_number}, function (result) {
                 if (result == 1) {
+                    $('#so_number').val(so_number);
                     $.post("so/show", {so_number: so_number}, function (result) {
                         $("#so_details").html(result);
                         var value = $('#so_number').attr('readonly');
@@ -70,12 +73,12 @@
     <tr>
     	<th>&nbsp;</th>
     	<th>&nbsp;</th>
-        <th style="width: 146px;vertical-align: middle;">SO Number:</th>
+        <th style="width: 146px;vertical-align: middle;">Select SO :</th>
         <th>
             <input type="text" class="form-control" id="so_number" size="40" placeholder="Enter SO Number">
         </th>
         <th>
-         <button id="so_entered" class="btn btn-primary btn-sm">Start Assigning</button>
+         <button id="so_entered" class="btn btn-primary btn-sm"> Create DC </button>
          <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
         </th>
         <th>&nbsp;</th>

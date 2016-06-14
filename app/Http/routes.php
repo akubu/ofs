@@ -34,7 +34,7 @@ $router->group(['middleware' => ['auth']], function () {
 
 $router->group(['middleware' => ['auth', 'actionLog']], function () {   ///'actionLog'
 
-    $base_url = config('app.rewrite_base');
+    $base_url =  config('app.rewrite_base');
 
     Route::get($base_url . 'manageDc', 'dc@createForm');
     Route::get($base_url . 'autosuggest/so/undelivered', 'autosuggest@soUndelivered');
@@ -74,6 +74,16 @@ $router->group(['middleware' => ['auth', 'actionLog']], function () {   ///'acti
 
 
     Route::post($base_url . 'dc/newDC', 'dc@newDC');
+    Route::post($base_url . 'dc/dcCreated', 'dc@dcCreated');
+    Route::get($base_url . 'dc/printDC', 'dc@printDC');
+    Route::get($base_url . 'dc/viewDC', 'dc@viewDC');
+    Route::get($base_url . 'dc/downloadDC', 'dc@downloadDC');
+
+
+    Route::post($base_url . 'dc/sendMail', 'dc@sendMail');
+
+
+
     Route::post($base_url . 'dc/getDCNumber', 'dc@generateDCNumber');
     Route::get($base_url . 'dc/showAll', 'dc@showAll');
     Route::get($base_url . 'dc/currentAssignments', 'dc@currentAssignments');
@@ -90,7 +100,7 @@ $router->group(['middleware' => ['auth', 'actionLog']], function () {   ///'acti
     Route::post($base_url . '/dc/markDelivered', 'dc@markDelivered');
     Route::post($base_url . '/dc/validateDCNumber/{dc_number}', 'dc@validateDCNumber');
 
-    Route::get('/', 'frontend@index');
+    Route::get($base_url . '/', 'frontend@index');
 
     Route::get($base_url . 'home', 'panel@home');
     Route::get($base_url . '/', 'panel@index');
@@ -99,4 +109,19 @@ $router->group(['middleware' => ['auth', 'actionLog']], function () {   ///'acti
     Route::get($base_url . '/auth/logout', 'Auth\AuthController@logout');
 
 });
+
+
+Route::get($base_url . 'dc/print132DC', 'dc@printDC');
+
+$router->group(['middleware' => ['auth', 'actionLog']], function () {
+//
+//Route::get('/', 'ofs@home');
+//Route::get('/dc_manage', 'ofs@dc_manage');
+//Route::get('/dc_create', 'ofs@dc_create');
+//Route::get('/dcCreated', 'ofs@dc_manage');
+
+
+
+});
+
 

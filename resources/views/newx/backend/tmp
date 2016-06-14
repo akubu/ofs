@@ -1,0 +1,238 @@
+<div class="row">
+
+
+
+    <div class="col-md-12">
+
+
+        <div class="row" id="info_status">
+
+            <table class="table">
+                <tbody><tr>
+
+                    <th style="width: 210px;vertical-align: middle; text-align:center">Dc number:<span class="danger">*</span>
+                    </th>
+
+                    <th>
+                        <input type="text" class="form-control" size="40" id="dc_number" placeholder="Enter DC number">
+                        <span class="help-block hide danger" id="dc_error"></span>
+                    </th>
+                    <th>
+                        <button id="generate_dc" class="btn btn-md red" style="width: auto">Generate DC Number</button>
+                    </th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+
+                </tr>
+                </tbody></table>
+
+            <div class="form-group">
+                <table class="table tracking_table">
+
+
+                    <tbody><tr>
+                        <th>
+                            <center>Runner Assigned <span class="danger">*</span></center>
+
+                        </th>
+                        <td>
+
+                            <input type="text" class="form-control ui-autocomplete-input" id="runner_assigned" size="40" placeholder="Enter Runner Name" autocomplete="off"><span class="help-block hide danger" id="runner_error">Please Select A Runner From DropDown</span>
+
+                            <span class="help-block hide danger"></span>
+
+                        </td>
+                        <th>
+                            <center>Select Status:<span class="danger">*</span></center>
+
+                        </th>
+                        <td>
+                            <select class="form-control" id="tracking_status">
+                                <option value="-1">Select Tracking status</option>
+                                <option value="1">This DC is Tracked</option>
+                                <option value="0">This DC is Un-Tracked</option>
+
+                            </select>
+                            <span class="help-block hide danger" id="tracking_status_error">Please Select a Tracking Status</span>
+                        </td>
+                    </tr>
+
+                    <tr id="reason_row" style="display: none;">
+                        <th colspan="1">
+                            Reason for Not Tracking
+                            <span class="danger">*</span>
+                        </th>
+                        <th colspan="3"><input type="text" placeholder="Enter Reason" id="no_tracking_reason" class="form-control"><span class="help-block hide danger" id="reason_error">Please Enter A Reason For Not Tracking</span>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <center>Driver Name
+                                <span class="danger">*</span></center>
+                        </th>
+                        <td>
+                            <input type="text" class="form-control" size="40" id="driver_name" placeholder="Enter Driver Name"><span class="help-block hide danger" id="driver_name_error"></span>
+                        </td>
+
+                        <th>
+                            <center>Driver Contact Number
+                                <span class="danger">*</span></center>
+                        </th>
+                        <td>
+                            <input type="text" class="form-control" size="40" id="driver_contact_number" placeholder="Enter Driver Contact Number"><span class="help-block hide danger" id="driver_contact_error"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <center>Truck Number
+                                <span class="danger">*</span></center>
+                        </th>
+                        <td>
+                            <input type="text" class="form-control" size="40" id="truck_number" placeholder="Enter Truck Number"><span class="help-block hide danger" id="truck_number_error">Error</span>
+                        </td>
+                        <td>
+                            <input type="text" size="40" id="truck_type" value="field disabled" placeholder="Enter Truck Type (Load Capacity)" hidden="">
+                            <span class="help-block hide danger" id="truck_type_error"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <center>
+                                Expected dispatch Date
+                                <span class="danger">*</span>
+                            </center>
+                        </th>
+                        <td>
+
+                            <input id="expected_dispatch_date" class="form-control hasDatepicker" size="40" placeholder="Select Dispatch Date" type="text" value="" readonly><span class="help-block hide danger" id="dispatch_date_error"></span>
+
+
+                        </td>
+                        <th>
+                            <center>
+                                Expected Delivery Date
+                                <span class="danger">*</span>
+                            </center>
+                        </th>
+                        <td>
+                            <input id="expected_delivery_date" class="form-control hasDatepicker" type="text" size="40" placeholder="Select Expected Delivery Date" readonly><span class="help-block hide danger" id="delivery_date_error">Error</span>
+
+                        </td>
+                    </tr>
+                    </tbody></table>
+            </div>
+
+            <!----------- enter info into dc --------------->
+
+            <br><br>
+
+            <table class="table">
+                <tbody><tr>
+                    <th>
+                        SKU
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                    <th>
+                        SKU Units
+                    </th>
+                </tr>
+
+                <tr>
+                    <td>
+                        SKUN103946
+                    </td>
+                    <td>
+                        HRCF_SRCWTP02_2_1250_0_0
+                    </td>
+                    <td>
+                        <input type="text" class="form-control sku_class" value="0" sku="SKUN103946" size="40" placeholder="Enter Quantity">
+
+
+                    </td>
+                    <td>
+                        Metric Tonnes
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        SKUN105879
+                    </td>
+                    <td>
+                        HRCF_SRCWTP02_2_1250_0_0
+                    </td>
+                    <td>
+                        <input type="text" class="form-control sku_class" value="0" sku="SKUN105879" size="40" placeholder="Enter Quantity">
+
+
+                    </td>
+                    <td>
+                        Metric Tonnes
+                    </td>
+                </tr>
+
+                </tbody></table>
+
+            <table class="table">
+                <tbody><tr>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                    <th style="width: 210px;vertical-align: middle; text-align:center">Delivery Address:
+                        <span class="danger">*</span></th>
+                    <th>
+                        <input type="text" class="form-control" id="address" value="1366VIRAMGAMAhmedabad City" size="60"><span class="help-block hide danger" id="address_error">Error</span>
+                        <input type="text" id="lat" value="0" size="10" readonly hidden="">
+                        <input type="text" id="long" value="0" size="10" readonly hidden="">
+                    </th>
+                    <th>
+                        <button id="select_address" class="btn btn-primary btn-sm" style="display: inline-block;">Select This Address</button>
+                    </th>
+                    <th>
+                        <button id="locate_on_map" class="btn grey btn-sm"><i class="fa fa-map-marker" aria-hidden="true"></i> Locate on map</button>
+                    </th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+
+
+                </tr>
+                </tbody></table>
+
+            <div class="row" id="map_sellector" style="display: none;">
+
+                <div class="form-horizontal" style="width: 80%">
+
+                    <div id="us3" style="width: 100%; height: 400px;"></div>
+                    <div class="clearfix">&nbsp;</div>
+                    <div class="clearfix"></div>
+                    <script></script>
+                </div>
+
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-5"></div>
+                <div class="col-md-2">
+                    <button id="register_dc" class="btn btn-md red"> Register DC</button>
+                    <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif"></div>
+                </div>
+                <div class="col-md-5"></div>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>

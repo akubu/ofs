@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>P2S tracking System</title>
+    <title>P2S OFS</title>
 
     @include('include.js')
     @include('include.css')

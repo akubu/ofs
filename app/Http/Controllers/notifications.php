@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Log;
+use Illuminate\Support\Facades\Mail;
+
 
 class notifications extends Controller
 {
@@ -183,7 +185,6 @@ class notifications extends Controller
 
     public function sendIncorrectAddress($so_number, $address)
     {
-
         $data = array("method" => "enqueue", "payload" => "<payload><object>order</object><event>error report</event><object_id></object_id><customer><email_id>" . "harsh.khatri@power2sme.com" . "</email_id><mobile_no>" . "9968898636" . "</mobile_no></customer><so_number>" . $so_number . "</so_number><address>" . $address . "</address></payload>");
         return $this->sendNotification($data);
     }
@@ -202,6 +203,8 @@ class notifications extends Controller
 
     }
 
+
+
     public function helpNotification($emp_id, $question)
     {
 
@@ -216,5 +219,28 @@ class notifications extends Controller
 
 
     }
+
+
+    public function sendMail($dc_number){
+
+
+        $data = array('dc_number'=> $dc_number);
+
+        $mailer = new Mail();
+
+       return  Mail::send('mail.dc',$data,function($message) use ($dc_number)
+        {
+            $fileName = str_replace('/', '_', $dc_number ) . ".pdf";
+            $message->to('harsh.khatri@power2sme.com')
+                ->subject('DC - ' . $dc_number)
+                ->attach("/Users/harsh/projects/orderFulfillmentSystem/trackingsystem/public/storage/" . $fileName); }
+        );
+
+    }
+
+
+
+
+
 
 }

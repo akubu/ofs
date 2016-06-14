@@ -56,8 +56,8 @@ return [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', '127.0.0.1'),
             'database'  => env('DB_DATABASE', 'new_tracking'),
-            'username'  => env('DB_USERNAME', 'trackingsystem'),
-            'password'  => env('DB_PASSWORD', 'tr@ckingsystem'),
+            'username'  => env('DB_USERNAME', 'root'),
+            'password'  => env('DB_PASSWORD', 'toor'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
@@ -78,10 +78,10 @@ return [
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
-            'host' => '192.168.1.46:49272',
+            'host' => '103.25.172.167:1433',
             'database' => 'Bebb New',
             'username' => 'trackingsystem',
-            'password' => 'Admin@123',
+            'password' => 'admin@123',
             'prefix' => '',
         ],
 

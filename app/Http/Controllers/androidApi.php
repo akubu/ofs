@@ -547,11 +547,9 @@ class androidApi extends Controller
 
             }
 
-
             $count_order = 0;
             foreach ($orders as $order) {
                 $dcs = \App\dc::where('so_number', '=', $order->so_number)->where('is_tracked', '=', 3)->get();
-
 
                 if (!$dcs) {
                     return $response;
@@ -572,8 +570,6 @@ class androidApi extends Controller
                             ++$counter;
                         }
                     }
-
-
                     $response['orders'][$count_order]['invoices'][$count_invoice]['invoice_number'] = $dc->dc_number;
                     $response['orders'][$count_order]['invoices'][$count_invoice]['shipment_time']['date'] = dc_track::where('dc_number', '=', $dc->dc_number)->get()->first()->shipment_start_dt;
                     $response['orders'][$count_order]['invoices'][$count_invoice]['shipment_time']['timezone_type'] = "";

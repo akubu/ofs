@@ -14,10 +14,15 @@ class CustomerContactMaster extends Migration
     {
         Schema::create('customer_contact_master', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('customer_number');
-            $table->string('customer_email');
+            $table->string('number');
+            $table->string('email');
             $table->string('customer_preference');
-            $table->string('customer_contact_number');
+            $table->string('contact_number');
+            $table->string('name');
+            $table->string('address');
+            $table->string('tin');
+            $table->string('cst');
+
             $table->timestamps();
         });
 

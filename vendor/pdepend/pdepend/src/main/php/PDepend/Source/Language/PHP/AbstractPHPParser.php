@@ -46,9 +46,12 @@ use org\pdepend\reflection\exceptions\EndOfTokenStreamException;
 use PDepend\Source\AST\AbstractASTCallable;
 use PDepend\Source\AST\AbstractASTClassOrInterface;
 use PDepend\Source\AST\AbstractASTType;
+use PDepend\Source\AST\ASTAllocationExpression;
 use PDepend\Source\AST\ASTArray;
 use PDepend\Source\AST\ASTClass;
+use PDepend\Source\AST\ASTDeclareStatement;
 use PDepend\Source\AST\ASTExpression;
+use PDepend\Source\AST\ASTIndexExpression;
 use PDepend\Source\AST\ASTInterface;
 use PDepend\Source\AST\ASTNode;
 use PDepend\Source\AST\ASTStatement;
@@ -188,7 +191,7 @@ abstract class AbstractPHPParser
      *
      * @var \PDepend\Source\AST\ASTCompilationUnit
      */
-    private $compilationUnit;
+    protected $compilationUnit;
 
     /**
      * The symbol table used to handle PHP 5.3 use statements.
@@ -583,7 +586,7 @@ abstract class AbstractPHPParser
 
         $trait = $this->builder->buildTrait($qualifiedName);
         $trait->setCompilationUnit($this->compilationUnit);
-        $trait->setDocComment($this->docComment);
+        $trait->setComment($this->docComment);
         $trait->setId($this->idBuilder->forClassOrInterface($trait));
         $trait->setUserDefined();
 
@@ -624,7 +627,7 @@ abstract class AbstractPHPParser
 
         $interface = $this->builder->buildInterface($qualifiedName);
         $interface->setCompilationUnit($this->compilationUnit);
-        $interface->setDocComment($this->docComment);
+        $interface->setComment($this->docComment);
         $interface->setId($this->idBuilder->forClassOrInterface($interface));
         $interface->setUserDefined();
 
@@ -689,7 +692,7 @@ abstract class AbstractPHPParser
         $class = $this->builder->buildClass($qualifiedName);
         $class->setCompilationUnit($this->compilationUnit);
         $class->setModifiers($this->modifiers);
-        $class->setDocComment($this->docComment);
+        $class->setComment($this->docComment);
         $class->setId($this->idBuilder->forClassOrInterface($class));
         $class->setUserDefined();
 
@@ -736,11 +739,11 @@ abstract class AbstractPHPParser
     /**
      * Parses a parent class declaration for the given <b>$class</b>.
      *
-     * @param  \PDepend\Source\AST\ASTClass $class
+     * @param \PDepend\Source\AST\ASTClass $class
      * @return \PDepend\Source\AST\ASTClass
-     * @since  1.0.0
+     * @since 1.0.0
      */
-    private function parseClassExtends(ASTClass $class)
+    protected function parseClassExtends(ASTClass $class)
     {
         $this->consumeToken(Tokens::T_EXTENDS);
         $this->tokenStack->push();
@@ -761,10 +764,10 @@ abstract class AbstractPHPParser
      * part of a interface declaration or in the <b>implements</b> part of a
      * class declaration.
      *
-     * @param  \PDepend\Source\AST\AbstractASTClassOrInterface $abstractType
+     * @param \PDepend\Source\AST\AbstractASTClassOrInterface $abstractType
      * @return void
      */
-    private function parseInterfaceList(AbstractASTClassOrInterface $abstractType)
+    protected function parseInterfaceList(AbstractASTClassOrInterface $abstractType)
     {
         while (true) {
             $this->tokenStack->push();
@@ -790,7 +793,7 @@ abstract class AbstractPHPParser
     /**
      * Parses a class/interface/trait body.
      *
-     * @param  \PDepend\Source\AST\AbstractASTType $type
+     * @param \PDepend\Source\AST\AbstractASTType $type
      * @return \PDepend\Source\AST\AbstractASTType
      * @throws \PDepend\Source\Parser\UnexpectedTokenException
      * @throws \PDepend\Source\Parser\TokenStreamEndException
@@ -1033,7 +1036,7 @@ abstract class AbstractPHPParser
             $this->compilationUnit->addChild($callable);
         }
 
-        $callable->setDocComment($this->docComment);
+        $callable->setComment($this->docComment);
         $callable->setTokens($this->tokenStack->pop());
         $this->prepareCallable($callable);
 
@@ -1155,7 +1158,7 @@ abstract class AbstractPHPParser
         $methodName = $this->parseFunctionName();
 
         $method = $this->builder->buildMethod($methodName);
-        $method->setDocComment($this->docComment);
+        $method->setComment($this->docComment);
         $method->setCompilationUnit($this->compilationUnit);
 
         $this->classOrInterface->addMethod($method);
@@ -1469,12 +1472,24 @@ abstract class AbstractPHPParser
         $token = $this->consumeToken(Tokens::T_NEW);
 
         $allocation = $this->builder->buildAstAllocationExpression($token->image);
-        $allocation = $this->parseExpressionTypeReference($allocation, true);
+        $allocation = $this->parseAllocationExpressionTypeReference($allocation);
 
         if ($this->isNextTokenArguments()) {
             $allocation->addChild($this->parseArguments());
         }
         return $this->setNodePositionsAndReturn($allocation);
+    }
+
+    /**
+     * Parse the type reference used in an allocation expression.
+     *
+     * @param \PDepend\Source\AST\ASTAllocationExpression $allocation
+     * @return \PDepend\Source\AST\ASTNode
+     * @since 2.3
+     */
+    protected function parseAllocationExpressionTypeReference(ASTAllocationExpression $allocation)
+    {
+        return $this->parseExpressionTypeReference($allocation, true);
     }
 
     /**
@@ -1661,9 +1676,9 @@ abstract class AbstractPHPParser
      * Parses a cast-expression node.
      *
      * @return \PDepend\Source\AST\ASTCaseExpression
-     * @since  0.10.0
+     * @since 0.10.0
      */
-    private function parseCastExpression()
+    protected function parseCastExpression()
     {
         $token = $this->consumeToken($this->tokenizer->peek());
 
@@ -1935,7 +1950,7 @@ abstract class AbstractPHPParser
      * @return boolean
      * @since  0.9.8
      */
-    private function isNextTokenArguments()
+    protected function isNextTokenArguments()
     {
         $this->consumeComments();
         return $this->tokenizer->peek() === Tokens::T_PARENTHESIS_OPEN;
@@ -2068,11 +2083,10 @@ abstract class AbstractPHPParser
      * allocation node like {@link \PDepend\Source\AST\ASTAllocationExpression}.
      *
      * @param \PDepend\Source\AST\ASTNode $expr
-     * @param boolean                     $classRef
-     *
+     * @param boolean $classRef
      * @return \PDepend\Source\AST\ASTNode
      */
-    private function parseExpressionTypeReference(ASTNode $expr, $classRef)
+    protected function parseExpressionTypeReference(ASTNode $expr, $classRef)
     {
         // Peek next token and look for a static type identifier
         $this->consumeComments();
@@ -2117,9 +2131,9 @@ abstract class AbstractPHPParser
      * </code>
      *
      * @return \PDepend\Source\AST\ASTConditionalExpression
-     * @since  0.9.8
+     * @since 0.9.8
      */
-    private function parseConditionalExpression()
+    protected function parseConditionalExpression()
     {
         $this->tokenStack->push();
         $this->consumeToken(Tokens::T_QUESTION_MARK);
@@ -2180,9 +2194,9 @@ abstract class AbstractPHPParser
      * This method parses a boolean and-expression.
      *
      * @return \PDepend\Source\AST\ASTBooleanAndExpression
-     * @since  0.9.8
+     * @since 0.9.8
      */
-    private function parseBooleanAndExpression()
+    protected function parseBooleanAndExpression()
     {
         $token = $this->consumeToken(Tokens::T_BOOLEAN_AND);
 
@@ -2200,9 +2214,9 @@ abstract class AbstractPHPParser
      * This method parses a boolean or-expression.
      *
      * @return \PDepend\Source\AST\ASTBooleanOrExpression
-     * @since  0.9.8
+     * @since 0.9.8
      */
-    private function parseBooleanOrExpression()
+    protected function parseBooleanOrExpression()
     {
         $token = $this->consumeToken(Tokens::T_BOOLEAN_OR);
 
@@ -2220,9 +2234,9 @@ abstract class AbstractPHPParser
      * This method parses a logical <b>and</b>-expression.
      *
      * @return \PDepend\Source\AST\ASTLogicalAndExpression
-     * @since  0.9.8
+     * @since 0.9.8
      */
-    private function parseLogicalAndExpression()
+    protected function parseLogicalAndExpression()
     {
         $token = $this->consumeToken(Tokens::T_LOGICAL_AND);
 
@@ -2240,9 +2254,9 @@ abstract class AbstractPHPParser
      * This method parses a logical <b>or</b>-expression.
      *
      * @return \PDepend\Source\AST\ASTLogicalOrExpression
-     * @since  0.9.8
+     * @since 0.9.8
      */
-    private function parseLogicalOrExpression()
+    protected function parseLogicalOrExpression()
     {
         $token = $this->consumeToken(Tokens::T_LOGICAL_OR);
 
@@ -2260,9 +2274,9 @@ abstract class AbstractPHPParser
      * This method parses a logical <b>xor</b>-expression.
      *
      * @return \PDepend\Source\AST\ASTLogicalXorExpression
-     * @since  0.9.8
+     * @since 0.9.8
      */
-    private function parseLogicalXorExpression()
+    protected function parseLogicalXorExpression()
     {
         $token = $this->consumeToken(Tokens::T_LOGICAL_XOR);
 
@@ -2727,6 +2741,18 @@ abstract class AbstractPHPParser
                     $this->consumeToken($tokenType);
                     break;
                 case Tokens::T_PRINT: // TODO: Implement print expression
+                    $token = $this->consumeToken($tokenType);
+
+                    $expr = $this->builder->buildAstPrintExpression();
+                    $expr->configureLinesAndColumns(
+                        $token->startLine,
+                        $token->endLine,
+                        $token->startColumn,
+                        $token->endColumn
+                    );
+
+                    $expressions[] = $expr;
+                    break;
                 case Tokens::T_STRING_VARNAME: // TODO: Implement this
                 case Tokens::T_PLUS: // TODO: Make this a arithmetic expression
                 case Tokens::T_MINUS:
@@ -2749,12 +2775,13 @@ abstract class AbstractPHPParser
                 case Tokens::T_BITWISE_XOR:
                     $token = $this->consumeToken($tokenType);
 
-                    $expr = $this->builder->buildAstExpression();
-                    $expr->setImage($token->image);
-                    $expr->setStartLine($token->startLine);
-                    $expr->setStartColumn($token->startColumn);
-                    $expr->setEndLine($token->endLine);
-                    $expr->setEndColumn($token->endColumn);
+                    $expr = $this->builder->buildAstExpression($token->image);
+                    $expr->configureLinesAndColumns(
+                        $token->startLine,
+                        $token->endLine,
+                        $token->startColumn,
+                        $token->endColumn
+                    );
 
                     $expressions[] = $expr;
                     break;
@@ -2763,10 +2790,12 @@ abstract class AbstractPHPParser
                     $token = $this->consumeToken($tokenType);
 
                     $expr = $this->builder->buildAstUnaryExpression($token->image);
-                    $expr->setStartLine($token->startLine);
-                    $expr->setStartColumn($token->startColumn);
-                    $expr->setEndLine($token->endLine);
-                    $expr->setEndColumn($token->endColumn);
+                    $expr->configureLinesAndColumns(
+                        $token->startLine,
+                        $token->endLine,
+                        $token->startColumn,
+                        $token->endColumn
+                    );
 
                     $expressions[] = $expr;
                     break;
@@ -2850,8 +2879,13 @@ abstract class AbstractPHPParser
                 $child = $expressions[$i + 1];
 
                 $expr->addChild($child);
-                $expr->setEndColumn($child->getEndColumn());
-                $expr->setEndLine($child->getEndLine());
+
+                $expr->configureLinesAndColumns(
+                    $expr->getStartLine(),
+                    $child->getEndLine(),
+                    $expr->getStartColumn(),
+                    $child->getEndColumn()
+                );
 
                 unset($expressions[$i + 1]);
             }
@@ -3516,7 +3550,7 @@ abstract class AbstractPHPParser
      * </code>
      *
      * @return \PDepend\Source\AST\ASTDeclareStatement
-     * @since  0.10.0
+     * @since 0.10.0
      */
     private function parseDeclareStatement()
     {
@@ -3536,11 +3570,10 @@ abstract class AbstractPHPParser
      *
      * @param \PDepend\Source\AST\ASTDeclareStatement $stmt The declare statement that
      *        is the owner of this list.
-     *
      * @return \PDepend\Source\AST\ASTDeclareStatement
-     * @since  0.10.0
+     * @since 0.10.0
      */
-    private function parseDeclareList(\PDepend\Source\AST\ASTDeclareStatement $stmt)
+    private function parseDeclareList(ASTDeclareStatement $stmt)
     {
         $this->consumeComments();
         $this->consumeToken(Tokens::T_PARENTHESIS_OPEN);
@@ -3658,9 +3691,9 @@ abstract class AbstractPHPParser
      * </code>
      *
      * @return \PDepend\Source\AST\ASTNode
-     * @since  1.0.0
+     * @since 1.0.0
      */
-    private function parseParenthesisExpressionOrPrimaryPrefix()
+    protected function parseParenthesisExpressionOrPrimaryPrefix()
     {
         $expr = $this->parseParenthesisExpression();
 
@@ -3890,12 +3923,14 @@ abstract class AbstractPHPParser
         $tokenType = $this->tokenizer->peek();
 
         switch ($tokenType) {
+            case Tokens::T_CALLABLE:
+                /* Fixme */
             case Tokens::T_STRING:
                 $child = $this->parseIdentifier();
                 $child = $this->parseOptionalIndexExpression($child);
 
                 // TODO: Move this in a separate method
-                if ($child instanceof \PDepend\Source\AST\ASTIndexExpression) {
+                if ($child instanceof ASTIndexExpression) {
                     $this->consumeComments();
                     if (Tokens::T_PARENTHESIS_OPEN === $this->tokenizer->peek()) {
                         $prefix->addChild($this->parsePropertyPostfix($child));
@@ -4073,10 +4108,12 @@ abstract class AbstractPHPParser
         $postfix = $this->builder->buildAstPropertyPostfix($image);
         $postfix->addChild($node);
 
-        $postfix->setEndLine($node->getEndLine());
-        $postfix->setEndColumn($node->getEndColumn());
-        $postfix->setStartLine($node->getStartLine());
-        $postfix->setStartColumn($node->getStartColumn());
+        $postfix->configureLinesAndColumns(
+            $node->getStartLine(),
+            $node->getEndLine(),
+            $node->getStartColumn(),
+            $node->getEndColumn()
+        );
 
         return $postfix;
     }
@@ -4136,10 +4173,12 @@ abstract class AbstractPHPParser
         $postfix->addChild($node);
         $postfix->addChild($args);
 
-        $postfix->setEndLine($args->getEndLine());
-        $postfix->setEndColumn($args->getEndColumn());
-        $postfix->setStartLine($node->getStartLine());
-        $postfix->setStartColumn($node->getStartColumn());
+        $postfix->configureLinesAndColumns(
+            $node->getStartLine(),
+            $args->getEndLine(),
+            $node->getStartColumn(),
+            $args->getEndColumn()
+        );
 
         return $this->parseOptionalMemberPrimaryPrefix($postfix);
     }
@@ -4151,7 +4190,7 @@ abstract class AbstractPHPParser
      * @throws \PDepend\Source\Parser\ParserException
      * @since  0.9.6
      */
-    private function parseArguments()
+    protected function parseArguments()
     {
         $this->consumeComments();
 
@@ -4176,9 +4215,9 @@ abstract class AbstractPHPParser
      * several php language constructs like, isset, empty, unset etc.
      *
      * @return \PDepend\Source\AST\ASTNode
-     * @since  0.9.12
+     * @since 0.9.12
      */
-    private function parseVariableOrConstantOrPrimaryPrefix()
+    protected function parseVariableOrConstantOrPrimaryPrefix()
     {
         $this->consumeComments();
         switch ($this->tokenizer->peek()) {
@@ -4257,26 +4296,29 @@ abstract class AbstractPHPParser
      *        expression that will be parsed by this method.
      *
      * @return \PDepend\Source\AST\ASTAssignmentExpression
-     * @since  0.9.12
+     * @since 0.9.12
      */
-    private function parseAssignmentExpression(\PDepend\Source\AST\ASTNode $left)
+    protected function parseAssignmentExpression(ASTNode $left)
     {
         $token = $this->consumeToken($this->tokenizer->peek());
 
         $node = $this->builder->buildAstAssignmentExpression($token->image);
         $node->addChild($left);
-        $node->setStartLine($left->getStartLine());
-        $node->setStartColumn($left->getStartColumn());
 
         // TODO: Change this into a mandatory expression in later versions
         if (($expr = $this->parseOptionalExpression()) != null) {
             $node->addChild($expr);
-            $node->setEndLine($expr->getEndLine());
-            $node->setEndColumn($expr->getEndColumn());
         } else {
-            $node->setEndLine($left->getEndLine());
-            $node->setEndColumn($left->getEndColumn());
+            $expr = $left;
         }
+
+        $node->configureLinesAndColumns(
+            $left->getStartLine(),
+            $expr->getEndLine(),
+            $left->getStartColumn(),
+            $expr->getEndColumn()
+        );
+
         return $node;
     }
 
@@ -4347,9 +4389,9 @@ abstract class AbstractPHPParser
      * Parses a simple PHP constant use and returns a corresponding node.
      *
      * @return \PDepend\Source\AST\ASTNode
-     * @since  1.0.0
+     * @since 1.0.0
      */
-    private function parseConstant()
+    protected function parseConstant()
     {
         $this->tokenStack->push();
         switch ($type = $this->tokenizer->peek()) {
@@ -4803,7 +4845,7 @@ abstract class AbstractPHPParser
      * @return \PDepend\Source\AST\ASTNode
      * @throws UnexpectedTokenException
      */
-    private function parseLiteralOrString()
+    protected function parseLiteralOrString()
     {
         $tokenType = $this->tokenizer->peek();
 
@@ -4857,7 +4899,7 @@ abstract class AbstractPHPParser
      * @return \PDepend\Source\AST\ASTArray
      * @since 1.0.0
      */
-    private function doParseArray($static = false)
+    protected function doParseArray($static = false)
     {
         $this->tokenStack->push();
 
@@ -5034,14 +5076,21 @@ abstract class AbstractPHPParser
         $token = $this->consumeToken($delimiterType);
 
         $string = $this->builder->buildAstString();
-        $string->setStartLine($token->startLine);
-        $string->setStartColumn($token->startColumn);
+        $startLine = $token->startLine;
+        $startColumn = $token->startColumn;
 
         $this->parseStringExpressions($string, $delimiterType);
 
         $token = $this->consumeToken($delimiterType);
-        $string->setEndLine($token->endLine);
-        $string->setEndColumn($token->endColumn);
+        $endLine = $token->endLine;
+        $endColumn = $token->endColumn;
+
+        $string->configureLinesAndColumns(
+            $startLine,
+            $endLine,
+            $startColumn,
+            $endColumn
+        );
 
         return $string;
     }
@@ -5213,7 +5262,6 @@ abstract class AbstractPHPParser
             case Tokens::T_ARRAY:
                 $parameter = $this->parseFormalParameterAndArrayTypeHint();
                 break;
-
             case ($this->isTypeHint($tokenType)):
                 $parameter = $this->parseFormalParameterAndTypeHint();
                 break;
@@ -5769,6 +5817,15 @@ abstract class AbstractPHPParser
         // Check for fully qualified name
         if ($fragments[0] === '\\') {
             return join('', $fragments);
+        } else {
+            switch (strtolower($fragments[0])) {
+                case 'int':
+                case 'bool':
+                case 'float':
+                case 'string':
+                case 'callable':
+                    return $fragments[0];
+            }
         }
 
         // Search for an use alias
@@ -6460,7 +6517,7 @@ abstract class AbstractPHPParser
         ) {
             $this->globalPackageName = $package;
 
-            $this->compilationUnit->setDocComment($comment);
+            $this->compilationUnit->setComment($comment);
         }
         return $package;
     }
@@ -6647,7 +6704,7 @@ abstract class AbstractPHPParser
         }
 
         // Get all @throws Types
-        $throws = $this->parseThrowsAnnotations($callable->getDocComment());
+        $throws = $this->parseThrowsAnnotations($callable->getComment());
         foreach ($throws as $qualifiedName) {
             $callable->addExceptionClassReference(
                 $this->builder->buildAstClassOrInterfaceReference($qualifiedName)
@@ -6655,12 +6712,12 @@ abstract class AbstractPHPParser
         }
 
         // Stop here if return class already exists.
-        if ($callable->getReturnClass()) {
+        if ($callable->hasReturnClass()) {
             return;
         }
 
         // Get return annotation
-        $qualifiedName = $this->parseReturnAnnotation($callable->getDocComment());
+        $qualifiedName = $this->parseReturnAnnotation($callable->getComment());
         if ($qualifiedName !== null) {
             $callable->setReturnClassReference(
                 $this->builder->buildAstClassOrInterfaceReference($qualifiedName)

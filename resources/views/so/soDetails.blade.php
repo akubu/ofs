@@ -1,11 +1,19 @@
 <script type="application/javascript">
     $(document).ready(function () {
+
+        var so_number = $.trim($('#so_number').val().toUpperCase()).replace("+","");
+
+        $.post("/dc/dcCreated", { so_number : so_number}, function (data, status) {
+
+            $('#new_dc_form').html(data);
+        });
+
         $('#register_new_dc').click(function () {
 
             $('#register_new_dc').addClass("hide");
             $('#register_new_dc').next().removeClass('hide');
 
-            var so_number = $.trim($('#so_number').val().toUpperCase()).replace("+","");
+
 
         $.post("dc/newDC", {so_number: so_number}, function (result, status) {
 
@@ -18,6 +26,9 @@
 
             });
         });
+
+
+
     });
 
 
@@ -94,7 +105,7 @@
     <div class="row">
     <div class="col-md-5"></div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-primary" id="register_new_dc">Register New DC</button>
+            <button type="button" class="btn btn-primary" id="register_new_dc">Create New DC</button>
             <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
 
         </div>
