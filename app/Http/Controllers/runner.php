@@ -290,4 +290,49 @@ class runner extends Controller
 
     }
 
+    public function assignDC()
+    {
+
+        $runners = App\runner::all();
+        $response = array();
+        foreach ($runners as $runner) {
+            $response[] = $runner->runner_name . "(" . $runner->vtiger_id . ")";
+        }
+        $runner_names = $response;
+
+        $dcs = App\dc::where('runner_id','=', '0')->get();
+        $dc_numbers = array();
+
+        foreach($dcs as $dc)
+        {
+            $dc_numbers[]=$dc->dc_number;
+        }
+
+        return view('runner.assignDC', compact('runner_names','dc_numbers'));
+
+
+    }
+
+
+    public function assign_dc(){
+
+        $dc_number = Input::get('dc_number');
+        $runner_id = Input::get('runner_id');
+        $vtiger_id = substr($runner_id, strpos($runner_id, "(") + 1, -1);
+
+        $dc = App\dc::where('dc_number', '=', $dc_number)->get()->first();
+
+        try {
+            $dc->runner_id = $vtiger_id;
+            $dc->save();
+        }catch (Exception $e)
+        {
+            return 0;
+        }
+
+        return 1;
+
+
+    }
+
 }

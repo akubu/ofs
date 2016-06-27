@@ -72,6 +72,8 @@ class SoFetch extends Command
                 $local_so->order_date = $so->{"Order Date"};
                 $local_so->posting_date = $so->{"Posting Date"};
                 $local_so->shipment_date = $so->{"Shipment Date"};
+                $local_so->customer_order_number = $so->{"Customer Order No_"};
+                $local_so->customer_order_date = $so->{"Customer Order Date"};
                 $local_so->due_date = $so->{"Due Date"};
                 $local_so->requested_delivery_dt = $so->{"Requested Delivery Date"};
                 $local_so->promised_delivery_date = $so->{"Promised Delivery Date"};
@@ -88,6 +90,8 @@ class SoFetch extends Command
                     $local_so_details->sku_description = $so_details->{"Description"};
                     $local_so_details->sku_units = $so_details->{"Unit of Measure"};
                     $local_so_details->sku_quantity = $so_details->{"Quantity"};
+                    $local_so_details->amount_to_customer = $so_details->{"Amount To Customer"} ;
+
                     $local_so_details->requested_delivery_dt = $so_details->{"Requested Delivery Date"};
                     $local_so_details->promised_delivery_dt = $so_details->{"Promised Delivery Date"};
                     $local_so_details->planned_delivery_dt = $so_details->{"Planned Delivery Date"};
@@ -102,8 +106,12 @@ class SoFetch extends Command
                 foreach ($navContact as $navC) {
                     $customer = new  App\customer_contact_master();
                     $customer->number = $navC->{"No_"};
+                    $customer->address = $navC->{"Address"} . " ". $navC->{"Address 2"};
                     $customer->contact_number = $navC->{"Phone No_"};
                     $customer->email = $navC->{"E-Mail"};
+                    $customer->cst = $navC->{"C_S_T_ No_"};
+                    $customer->tin = $navC->{"T_I_N_ No_"};
+
                     $customer->save();
                 }
 

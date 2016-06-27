@@ -221,17 +221,17 @@ class notifications extends Controller
     }
 
 
-    public function sendMail($dc_number){
+    public function sendMail($dc_number, $email_id){
 
 
         $data = array('dc_number'=> $dc_number);
 
         $mailer = new Mail();
 
-       return  Mail::send('mail.dc',$data,function($message) use ($dc_number)
+       return  Mail::send('mail.dc',$data,function($message) use ($dc_number, $email_id)
         {
             $fileName = str_replace('/', '_', $dc_number ) . ".pdf";
-            $message->to('harsh.khatri@power2sme.com')
+            $message->to($email_id)
                 ->subject('DC - ' . $dc_number)
                 ->attach("/Users/harsh/projects/orderFulfillmentSystem/trackingsystem/public/storage/" . $fileName); }
         );

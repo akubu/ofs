@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use App\BEBBLocalLocations;
 use App\customer_contact_master;
+use App\dc_deleted;
 use App\dc_details;
+use App\dc_details_deleted;
 use App\dc_track;
+use App\dc_track_deleted;
 use App\device;
 use App\document_type_master;
 use App\documents;
 use App\runner;
 use App\so;
+use App\so_details;
 use Illuminate\Http\Request;
 use Mockery\CountValidator\Exception;
 use Validator;
@@ -164,7 +168,7 @@ class dc extends Controller
      */
     public function createForm()
     {
-        $sos = so::where('is_delivered', '=', 0)->where('posting_date', 'LIKE', '%2016%')->get();
+        $sos = so::where('is_delivered', '=', 0)->get();
         $so_numbers = array();
 
         foreach ($sos as $so) {
@@ -173,6 +177,8 @@ class dc extends Controller
             }
 
         }
+
+
 
         return view('dc.create', compact('so_numbers'));
     }
@@ -209,12 +215,47 @@ class dc extends Controller
         foreach ($runners as $runner) {
             $runner_names[] = $runner->runner_name . "(" . $runner->vtiger_id . ")";
         }
+
+//        return $details;
+
+       $ii = count($details);
+
+
+        for ($initz = 0; $initz < $ii-1; ++$initz)
+        {
+            $details['details'][$initz]['shipped'] = 0;
+        }
+
+//dd($details);
+
+        $shipped_dc = \App\dc::where('so_number', '=', $so_number)->get();
+        foreach ($shipped_dc as $dc) {
+            $dc_details = dc_details::where('dc_number', '=', $dc->dc_number)->get();
+            foreach ($dc_details as $dc_detail) {
+
+                for ($yt = 0; $yt < $ii-1; ++$yt) {
+//return $dc_detail['sku'];
+
+//                    return $details['details'][$yt]['sku'];
+//   $compareSku =  strcmp($dc_detail['sku'],  $details['details'][$yt]['sku']);
+//                    echo $yt . '----';
+
+                    if ( !strcmp($dc_detail['sku'],  $details['details'][$yt]['sku'])) {
+                        $details['details'][$yt]['shipped'] += $dc_detail->sku_quantity;
+                    }
+                }
+            }
+        }
+
         $bebb_locations = BEBBLocalLocations::all();
 
         $date_time = \Carbon\Carbon::now();
 
+        $location_code = so::where('so_number', '=', $so_number)->get()->first()->location_code;
 
-        return view('dc.newDc', compact('details', 'bebb_locations', 'date_time'));
+//        return $details;
+
+        return view('dc.newDc', compact('details', 'bebb_locations', 'date_time', 'location_code'));
     }
 
     public function generateDCNumber()
@@ -270,6 +311,7 @@ class dc extends Controller
         $dc_numbers = array();
         $dc = \App\dc::where('is_delivered', '=', 0)->get();
         foreach ($dc as $d) {
+//            $so = so::where('so_number','=', $d->so_number)->get()->first();
             $dc_numbers[] = $d->dc_number;
         }
 
@@ -469,17 +511,26 @@ class dc extends Controller
     public function dcCreated(){
 
             $so_number = Input::get('so_number');
-            $dcs = \App\dc::where('so_number', '=', $so_number)->get();
+            $dcs = \App\dc::where('so_number', '=', $so_number)->where('is_delivered', '<', '1')->get();
+            $sku_description = array();
+//            $dcs_details = dc_details::where('dc_number', '=', $dc)->get();
 
         $ii=0;
 
         foreach($dcs as $dc){
+            $dc_details = dc_details::where('dc_number', '=', $dc->dc_number)->get();
 
+
+
+            foreach( $dc_details as $dc_detail) {
+
+                $so_details = so_details::where('so_number', '=', $dc->so_number)->where('sku', '=', $dc_detail->sku)->get()->first();
+                $dc_detail->sku_description = $so_details->sku_description;
+            }
             $dcs[$ii]['identifier'] = str_replace('/','_', $dc->dc_number);
+            $dcs[$ii]['details'] = $dc_details;
             ++$ii;
         }
-
-
 
 
             return view('dc.dcCreated', compact('dcs'));
@@ -496,9 +547,25 @@ class dc extends Controller
         $customer = customer_contact_master::where('number', '=', $so->customer_number)->get()->first();
         $dc_details = dc_details::where('dc_number', '=', $dc_number)->where('sku_quantity', '>', 0)->get();
 
+        $ii =0;
+        $amount = 0.0;
+        foreach( $dc_details as $dc_detail)
+        {
 
-        return view('dc.printDC', compact('dc', 'so', 'bebb_location', 'customer', 'dc_details', 'print'));
 
+            $so_details = so_details::where('so_number','=', $so->so_number)->where('sku','=', $dc_detail->sku)->get()->first();
+            $dc_details[$ii]['sku_description'] = $so_details->sku_description;
+//            return $so_details->amount_to_customer;
+            $dc_details[$ii]['unit_price'] = $so_details->sku_quantity/$so_details->amount_to_customer;
+            $dc_details[$ii]['net_sku_price'] = ($so_details->sku_quantity/$so_details->amount_to_customer) * $dc_detail->sku_quantity;
+
+
+
+            $amount  = $amount + $dc_details[$ii]['net_sku_price'];
+            ++$ii;
+        }
+
+        return view('dc.printDC', compact('dc', 'so', 'bebb_location', 'customer', 'dc_details', 'print', 'amount'));
 
     }
 
@@ -515,15 +582,107 @@ class dc extends Controller
     public function sendMail(){
 
         $dc_number = Input::get('dc_number');
+        $email_id = Input::get('email_id');
 
         $mailDC = new notifications();
 
-
-
-        return $mailDC->sendMail($dc_number);
+        return $mailDC->sendMail($dc_number, $email_id);
 
 
     }
 
+
+    public function cancelDC(){
+
+        $dc_number = Input::get('dc_number');
+
+        try{
+
+        $dc_to_delete = \App\dc::where('dc_number', '=', $dc_number)->get()->first();
+
+            $dc_track_to_delete = dc_track::where('dc_number', '=', $dc_number)->get()->first();
+
+            $dc_track_deleted = new dc_track_deleted();
+
+            $dc_track_deleted->dc_number = $dc_track_to_delete->dc_number;
+            $dc_track_deleted->device_id = $dc_track_to_delete->device_id;
+            $dc_track_deleted->loading_start_dt = $dc_track_to_delete->loading_start_dt;
+            $dc_track_deleted->shipment_start_dt = $dc_track_to_delete->shipment_start_dt;
+            $dc_track_deleted->no_track_reason = $dc_track_to_delete->no_track_reason;
+            $dc_track_deleted->delivered_dt = $dc_track_to_delete->delivered_dt;
+            $dc_track_deleted->address = $dc_track_to_delete->address;
+            $dc_track_deleted->lat = $dc_track_to_delete->lat;
+            $dc_track_deleted->long = $dc_track_to_delete->long;
+
+            $dc_track_deleted->save();
+
+
+
+
+            $deleted_dc = new dc_deleted();
+
+            $deleted_dc->so_number = $dc_to_delete->so_number;
+            $deleted_dc->dc_number = $dc_to_delete->dc_number;
+            $deleted_dc->truck_number = $dc_to_delete->truck_number;
+            $deleted_dc->driver_id = $dc_to_delete->driver_id;
+            $deleted_dc->logistics_id = $dc_to_delete->logistics_id;
+            $deleted_dc->runner_id = $dc_to_delete->runner_id;
+            $deleted_dc->is_tracked = $dc_to_delete->is_tracked;
+            $deleted_dc->expected_dispatch_dt = $dc_to_delete->expected_dispatch_dt;
+            $deleted_dc->expected_delivery_dt = $dc_to_delete->expected_delivery_dt;
+            $deleted_dc->driver_contact_number = $dc_to_delete->driver_contact_number;
+            $deleted_dc->truck_type = $dc_to_delete->truck_type;
+            $deleted_dc->is_delivered = $dc_to_delete->is_delivered;
+
+            $deleted_dc->save();
+
+
+            $dc_documents_to_delete = documents::where('dc_number','=',$dc_number)->get();
+            foreach($dc_documents_to_delete as $document)
+            {
+                $document->delete();
+            }
+
+            $dc_details_to_delete = dc_details::where('dc_number','=',$dc_number)->get();
+            foreach($dc_details_to_delete as $detail)
+            {
+                $dc_details_deleted = new dc_details_deleted();
+
+
+                $dc_details_deleted->dc_number = $detail->dc_number;
+                $dc_details_deleted->sku= $detail->sku;
+                $dc_details_deleted->sku_quantity= $detail->sku_quantity;
+                $dc_details_deleted->sku_units= $detail->sku_units;
+
+
+
+                $dc_details_deleted->save();
+                $detail->delete();
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $dc_to_delete->delete();
+        $dc_track_to_delete->delete();
+
+        }catch (\Exception $e)
+        {
+            return $e;
+        }
+        return 1;
+
+    }
 
 }

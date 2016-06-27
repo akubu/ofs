@@ -56,6 +56,8 @@ $router->group(['middleware' => ['auth', 'actionLog']], function () {   ///'acti
     Route::get($base_url . '/runner/delete', 'runner@deleteForm');
     Route::post($base_url . '/runner/delete', 'runner@destroy');
     Route::get($base_url . '/runner/all', 'runner@showAll');
+    Route::get($base_url . '/runner/assignDC', 'runner@assignDC');
+    Route::post($base_url . '/runner/assign_dc', 'runner@assign_dc');
 
 
     Route::get($base_url . 'track/currentDeviceLocation', 'trackDevice@currentDeviceLocation');
@@ -78,6 +80,9 @@ $router->group(['middleware' => ['auth', 'actionLog']], function () {   ///'acti
     Route::get($base_url . 'dc/printDC', 'dc@printDC');
     Route::get($base_url . 'dc/viewDC', 'dc@viewDC');
     Route::get($base_url . 'dc/downloadDC', 'dc@downloadDC');
+
+
+    Route::post($base_url . 'dc/cancelDC', 'dc@cancelDC');
 
 
     Route::post($base_url . 'dc/sendMail', 'dc@sendMail');

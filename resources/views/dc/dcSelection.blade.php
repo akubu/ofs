@@ -82,7 +82,7 @@
         <tr>
             <th>&nbsp;</th>
             <th>&nbsp;</th>
-            <th style="width: 146px;vertical-align: middle;">Enter DC Number :</th>
+            <th style="width: 146px;vertical-align: middle;">Select DC Number :</th>
             <th>
                 <div class="ui-widget">
                     <input class="form-control" id="dcNumberSelect" placeholder="Enter DC Number">

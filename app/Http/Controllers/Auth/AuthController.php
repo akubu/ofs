@@ -104,7 +104,7 @@ class AuthController extends Controller
 	public function validateVtigerUser(Request $request) 
 	{
 		//create user validation link
-		$url = "http://uat.power2sme.com/p2sapi/ws/v3/userlogin";
+		$url = "http://power2sme.com/p2sapi/ws/v3/userlogin";
 
 		$data = array('userId' => $request->input('username'), 
 			'password' => $request->input('password'));

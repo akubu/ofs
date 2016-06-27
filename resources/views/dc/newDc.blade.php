@@ -565,16 +565,18 @@
             <tr>
                 <th>
                     <center>
-                        Select BEBB location from :
+                       BEBB location  :
                         <Span class="danger">*</Span></center>
                     </center>
                 </th>
-                <td>
-                    <select id="bebb_location" class="form-control">
-                        @foreach($bebb_locations as $bebb_location)
-                        <option value="{{ $bebb_location->code }}">{{$bebb_location->code}}</option>
-                        @endforeach
-                    </select>
+                    <td>
+
+                        <input type="text" class="form-control" id="location_Code" value="{{ $location_code }}" disabled/>
+                    {{--<select id="bebb_location" class="form-control">--}}
+                        {{--@foreach($bebb_locations as $bebb_location)--}}
+                        {{--<option value="{{ $bebb_location->code }}">{{$bebb_location->code}}</option>--}}
+                        {{--@endforeach--}}
+                    {{--</select>--}}
 
                     <span class="help-block hide danger" id="bebb_location_error"></span>
                 </td>
@@ -681,12 +683,16 @@
                 Description
             </th>
             <th>
-                Quantity
+                Remaining Quantity
+            </th>
+            <th>
+                Current Quantity
             </th>
             <th>
                 SKU Units
             </th>
         </tr>
+
 
         @foreach($details['details'] as $detail)
             <tr>
@@ -697,9 +703,11 @@
                     {{ $detail['sku_description'] }}
                 </td>
                 <td>
+                    {{ $detail['sku_quantity'] -  $detail['shipped'] }} {{ $detail['sku_units'] }}
+                </td>
+                <td>
                     <input type="text" class="form-control sku_class" value="0" sku="{{ $detail['sku'] }}" size="40"
                            placeholder="Enter Quantity">
-
 
                 </td>
                 <td>

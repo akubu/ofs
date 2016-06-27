@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\locationPoll::class,
         \App\Console\Commands\notificationAutomatic::class,
         \App\Console\Commands\getBEBBNos::class,
+        \App\Console\Commands\pullPO::class,
 
     ];
 

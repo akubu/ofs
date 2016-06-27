@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class SalesHeader extends Model
 {
     protected $connection = 'sqlsrv';
-    protected $table = "BEBB_India\$Sales Header";
+    protected $table = "Bebb New.dbo.BEBB_India\$Sales Header";
 
 }

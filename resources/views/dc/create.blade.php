@@ -78,7 +78,7 @@
             <input type="text" class="form-control" id="so_number" size="40" placeholder="Enter SO Number">
         </th>
         <th>
-         <button id="so_entered" class="btn btn-primary btn-sm"> Create DC </button>
+         <button id="so_entered" class="btn btn-primary btn-sm"> Manage DCs</button>
          <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
         </th>
         <th>&nbsp;</th>

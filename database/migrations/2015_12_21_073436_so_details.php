@@ -20,6 +20,7 @@ class SoDetails extends Migration
         $table->string('sku_description');
         $table->string('sku_units');
         $table->string('sku_quantity');
+        $table->float('amount_to_customer');
         $table->string('requested_delivery_dt');
         $table->string('promised_delivery_dt');
         $table->string('planned_delivery_dt');

@@ -41,11 +41,15 @@
 				<div class="row">
 					
 					<div class="col-md-6 text-left">
-						SO Number :<strong id="so_number"> {{ $so_details['so_number'] }}</strong>
+						SO Number :<strong id="so_number"> {{ $so_details['so_number'] }} &nbsp;( <strong>{{ $so_details['customer_name'] }} )</strong></strong>
 					</div>
 
-					<div class="col-md-6 text-left">
-						<strong>{{ $so_details['customer_name'] }}</strong>
+					<div class="col-md-3 text-right ">
+                        {{--<div class="col-md-2">--}}
+                            <button type="button" class="btn btn-primary" id="register_new_dc">Create New DC</button>
+                            <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
+
+                        {{--</div>--}}
 					</div>
 
 				</div>
@@ -70,8 +74,9 @@
                 <th>S.No.</th>
                 <th>Material</th>
 
-                <th>Quantity</th>
-                <th>Dispatched</th>
+                <th>Booked Quantity</th>
+                <th>Dispatched Quantity</th>
+                <th>Remaining Quantity</th>
             </tr>
 
             @foreach($details as $detail)
@@ -95,6 +100,11 @@
                         &nbsp;
                         {{ $detail['units'] }}
                     </td>
+                    <td>
+                        {{ $detail['quantity'] - $detail['shipped'] }}
+                        &nbsp;
+                        {{ $detail['units'] }}
+                    </td>
 
                 </tr>
 
@@ -104,11 +114,7 @@
 
     <div class="row">
     <div class="col-md-5"></div>
-        <div class="col-md-2">
-            <button type="button" class="btn btn-primary" id="register_new_dc">Create New DC</button>
-            <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
 
-        </div>
     </div>
 
     <div id="new_dc_form">

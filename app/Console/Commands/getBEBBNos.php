@@ -58,14 +58,14 @@ class getBEBBNos extends Command
 
                 $local_location->code = $nav_location->{"Code"};
                 $local_location->name = $nav_location->{"Name"};
-                $local_location->address = $nav_location->{"Address"} + " " + $nav_location->{"Address2"} ;
+                $local_location->address = $nav_location->{"Address"} . " " . $nav_location->{"Address2"} ;
                 $local_location->pin = $nav_location->{"Post Code"};
                 $local_location->serviceTax = $nav_location->{"Service Tax Registration No_"};
                 $local_location->tin = $nav_location->{"T_I_N_ No_"};
                 $local_location->tan = $nav_location->{"T_A_N_ No_"};
                 $local_location->cst = $nav_location->{"C_S_T No_"};
                 $local_location->lst = $nav_location->{"L_S_T_ No_"};
-                $local_location->cin = "";
+                $local_location->cin = "U74900DL2012PTC230723";
                 $local_location->ECC = $nav_location->{"E_C_C_ No_"};
 
 

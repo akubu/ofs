@@ -14,6 +14,7 @@ class So extends Migration
     {
         //
         Schema::create('so', function (Blueprint $table) {
+
             $table->increments('id');
             $table->string('so_number')->unique();
             $table->string('customer_number');
@@ -27,11 +28,13 @@ class So extends Migration
             $table->string('order_date');
             $table->string('posting_date');
             $table->string('shipment_date');
-            $table->string('due_date');
-            $table->string('requested_delivery_dt');
-            $table->string('promised_delivery_date');
+            $table->string('customer_order_number');
+            $table->date('customer_order_date');
+            $table->date('due_date');
+            $table->date('requested_delivery_dt');
+            $table->date('promised_delivery_date');
             $table->string('wishlist_number');
-            $table->string('is_delivered');
+            $table->integer('is_delivered');
 
             $table->timestamps();
         });

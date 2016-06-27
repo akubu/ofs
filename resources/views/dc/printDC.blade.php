@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +15,7 @@
     <link href="../css/bootstrapDC.min.css" rel="stylesheet">
     <link href="../css/mainDC.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -134,24 +137,24 @@
                                         <tr>
                                             <td width="50%">
 
-                                                <div class="col-md-12" style=" padding: 64px 0 0px 20px;">
+                                                <div class="col-md-12" style=" padding: 37px 0 0px 16px;">
                     <span class="text small"><span style="font-weight:700;">NOTE:</span><br>
 Please receive the undermentioned goods order and sound condition and return the DUPLICATE COPY duly signed with your rubber stamp.</span>
                                                 </div>
                                             </td>
 
                                             <td width="50%">
-                                                <div class="col-md-8 col-md-offset-4  ">
+                                                <div class="col-md-10 col-md-offset-1  ">
 
                                                     <div class="dc_details">
 
                                                         <p>
-                                                            <span>Order Date :</span> {{ $so->order_date }}<br>
+                                                            <span>Order Date :</span> {{ str_replace('00:00:00', '', $so->order_date) }}<br>
                                                             <span>Order # </span> {{ $so->so_number }} <br>
                                                             <span>Challan Number :</span> {{ $dc->dc_number }}<br>
                                                             <span>Challan Date :</span> {{ $dc->created_at->format('Y-m-d') }} <br>
-                                                            <span>PO Number :</span> 231456<br>
-                                                            <span>PO Date :</span> 03 March 2016<br>
+                                                            <span>PO Number :</span> {{ $so->customer_order_number }}<br>
+                                                            <span>PO Date :</span> {{ str_replace('12:00:00:000AM', '',$so->customer_order_date) }}<br>
 
                                                         </p>
 
@@ -197,11 +200,11 @@ Please receive the undermentioned goods order and sound condition and return the
 
                                         <td width="50%">
                                             <div class="col-md-12 address_panel">
-                                                <div class="address_head"><strong>Shipping Address:</strong></div>
+                                                <div class="address_head"><strong>Consignee Address:</strong></div>
 
                                                 <div class="address_box" style=" border: 1px solid #ddd !important;">
 
-                                                    <p class="box_head">{{ $customer->name }}</p>
+                                                    <p class="box_head">{{ $so->bill_to_name }}</p>
                                                     <p>{{ $customer->address }}</p>
 
                                                     <p>
@@ -243,21 +246,16 @@ Please receive the undermentioned goods order and sound condition and return the
                                     @foreach($dc_details as $dc_detail)
                                     <tr>
                                         <td>
-                                        <strong>1.</strong> {{ $dc_detail->sku }}</td>
+                                        <strong>1.</strong> {{ $dc_detail->sku_description }}</td>
                                         <td> {{ $dc_detail->sku_quantity }}</td>
-                                        <td><span class="fa fa-rupee"></span> 89</td>
-                                        <td class="text-right"><span class="fa fa-rupee">345</span>
+                                        <td><span class="fa fa-rupee"></span> {{ $dc_detail->unit_price }}</td>
+                                        <td class="text-right"><span class="fa fa-rupee"> {{ $dc_detail->net_sku_price }}</span>
                                         </td>
                                     </tr>
 
                                     @endforeach
 
-                                    <tr>
-                                        <td><strong>1.</strong> sdfdsfgs</td>
-                                        <td>1000 MT</td>
-                                        <td><span class="fa fa-rupee"></span> 89MT</td>
-                                        <td class="text-right"><span class="fa fa-rupee"></span> 89,000</td>
-                                    </tr>
+
 
 
 
@@ -268,7 +266,7 @@ Please receive the undermentioned goods order and sound condition and return the
                                     {{--</tr>--}}
                                     <tr>
                                         <td colspan="4" class="text-right">
-                                            <strong>NET AMOUNT:  </strong>  <span class="fa fa-rupee"></span>1,59,000
+                                            <strong>NET AMOUNT:  </strong>  <span class="fa fa-rupee"></span> {{ $amount }}
                                         </td>
                                     </tr>
 

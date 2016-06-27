@@ -9,6 +9,6 @@ class BEBBlocations extends Model
     //
 
     protected $connection = 'sqlsrv';
-    protected $table = "BEBB_India\$Location";
+    protected $table = "Bebb New.dbo.BEBB_India\$Location";
 
 }

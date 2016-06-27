@@ -119,10 +119,10 @@ $(document).ready(function () {
     });
 
 
-    $('#track_runner_nav').click(function () {
+    $('#assign_runner_nav').click(function () {
 
 
-        $.get("/runner/all", function (data, status) {
+        $.get("/runner/assignDC", function (data, status) {
             if(data.auth_required == true)
             {
                 window.location = "/auth/login";

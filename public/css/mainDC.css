@@ -54,16 +54,16 @@ table.table tr{border-top:2px solid #ddd;}
 .address_panel .address_box{background: #f8f8f8; padding: 8px 25px;}
 .address_box p{ font-size:13px;}
 .address_box p span{ font-weight:700;}
-.address_box .box_head{ font-size:14px; font-weight:600;}
+.address_box .box_head{ font-size:12px; font-weight:600;}
 
-.dc_details p{ font-size:14px;}
+.dc_details p{ font-size:12px;}
 .dc_details p span{ font-weight:700;}
 
 
 .invoice{background: #f8f8f8; padding:0 15px 1px 15px;}
 table.invoice_table{background: #fff; font-size: 13px; }
 table.invoice_table tr td, table.invoice_table tr th, table.invoice_table tr{border: 0 !important; background: #fff !important;}
-table.invoice_table tr th{background: #f8f8f8 !important; padding:5px 20px; font-size: 14px;}
+table.invoice_table tr th{background: #f8f8f8 !important; padding:5px 20px; font-size: 12px;}
 table.invoice_table tr td{padding:10px 20px;  font-size: 11px;}
 table.invoice_table tr.border{border-bottom: 1px solid #ddd !important;}
 
