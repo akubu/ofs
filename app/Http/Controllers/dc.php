@@ -662,18 +662,6 @@ class dc extends Controller
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
         $dc_to_delete->delete();
         $dc_track_to_delete->delete();
 

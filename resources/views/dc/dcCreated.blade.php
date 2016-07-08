@@ -155,7 +155,7 @@
         }else{
 
             $.growl.error({
-                message: ' Pease check email_id ',
+                message: ' Pease check email id ',
                 size: 'large',
                 duration: 5000
             });

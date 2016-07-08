@@ -5,13 +5,13 @@
         @if( !count($runner_names))
         $(function () {
                     $.growl.error({
-                        message: 'No Devices Vacant, Please recover first. ',
+                        message: 'No Runner registered in System . ',
                         size: 'large',
-                        duration: 10000
+                        duration: 5000
                     });
                     $('#allocate_device').hide();
                 });
-        $('#info_status').html('<center><h2 style="color:#0AB2F1; margin-top:30px;">No Devices Vaccant, Please recover or add Device first</h2></center>');
+        $('#info_status').html('<center><h2 style="color:#0AB2F1; margin-top:30px;">No Runner registered in System .</h2></center>');
         @endif
 
          availableTags = [
@@ -36,6 +36,19 @@
                 $(this).autocomplete("search", $("#deviceToAllocate").val());
             });
         });
+
+
+        @if( !count($dc_numbers))
+        $(function () {
+                    $.growl.error({
+                        message: 'No un-assigned DC in system . ',
+                        size: 'large',
+                        duration: 10000
+                    });
+                    $('#allocate_device').hide();
+                });
+        $('#info_status').html('<center><h2 style="color:#0AB2F1; margin-top:30px;">No un-assigned DC in system .</h2></center>');
+        @endif
 
 
         availableTagsRunner = [

@@ -28,7 +28,7 @@ errorFlag =0;
                 $.growl.error({
                     message: 'Enter Proper E-mail Address.',
                     size: 'large',
-                    duration: 10000
+                    duration: 5000
                 });
                if(!validateEmail(runner_email))
                {
