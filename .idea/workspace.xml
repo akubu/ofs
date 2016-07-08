@@ -2,13 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e74f77f-563f-4b85-a04c-d00bd956d4f3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/storage/DC_1617_00596_1.pdf" afterPath="$PROJECT_DIR$/public/storage/DC_1617_00596_1.pdf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/storage/DC_1617_00596_2.pdf" afterPath="$PROJECT_DIR$/public/storage/DC_1617_00596_2.pdf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/storage/DC_1617_00596_3.pdf" afterPath="$PROJECT_DIR$/public/storage/DC_1617_00596_3.pdf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/runner/assignDC.blade.php" afterPath="$PROJECT_DIR$/resources/views/runner/assignDC.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/runner/create.blade.php" afterPath="$PROJECT_DIR$/resources/views/runner/create.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/dc.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/dc.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/dc/dcCreated.blade.php" afterPath="$PROJECT_DIR$/resources/views/dc/dcCreated.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="trackingsystem.iws" />
@@ -315,10 +308,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="725" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25826773" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25826773" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
