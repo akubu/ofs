@@ -31,7 +31,7 @@
                       {{--<li><a href="#" id="track_runner_nav">Track runner</a></li>--}}
                       <li><a href="#" id="track_device">Track Device</a></li>
                       <li><a href="#" id="track_shipment_nav">Track Shipment-DC</a></li>
-                      {{--<li><a href="#" id="mark_delivered_nav">Mark Delivered</a></li>--}}
+                      <li><a href="#" id="mark_delivered_nav">Mark Delivered</a></li>
                   </ul>
               </li>
 

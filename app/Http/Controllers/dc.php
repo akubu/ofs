@@ -78,10 +78,18 @@ class dc extends Controller
 
         //  validate dc_number //
 
-        $validate_dc = \App\dc::where('so_number', '=', $so_number)->get();
+        $validate_dc = \App\dc::where('so_number', '=', $so_number)->orderBy('dc_number', 'DESC')->first();
 
-            $next_dc = $validate_dc->count()+1;
-            $dc_number = str_replace("SO","DC",$so_number) . '/' . $next_dc;
+        if( $validate_dc != NULL) {
+
+            $the_new_dc_number = substr($validate_dc->dc_number, strpos($validate_dc->dc_number, '/', 10)+1)+1;
+        }
+        else {
+            $the_new_dc_number = 1;
+        }
+
+
+            $dc_number = str_replace("SO","DC",$so_number) . '/' . $the_new_dc_number;
 
 
 
@@ -218,10 +226,10 @@ class dc extends Controller
 
 //        return $details;
 
-       $ii = count($details);
+       $ii = count($details['details']);
 
 
-        for ($initz = 0; $initz < $ii-1; ++$initz)
+        for ($initz = 0; $initz < $ii; ++$initz)
         {
             $details['details'][$initz]['shipped'] = 0;
         }
@@ -465,7 +473,8 @@ class dc extends Controller
 
     public function markDeliveredSelection()
     {
-        $dcs = \App\dc::where('is_tracked', '=', 0)->where('is_delivered', '=', 0)->get();
+//        $dcs = \App\dc::where('is_tracked', '=', 0)->where('is_delivered', '=', 0)->get();
+        $dcs = \App\dc::where('is_delivered', '=', 0)->get();
         $dc_numbers = array();
         foreach ($dcs as $dc) {
             $dc_numbers[] = $dc->dc_number;
@@ -556,8 +565,8 @@ class dc extends Controller
             $so_details = so_details::where('so_number','=', $so->so_number)->where('sku','=', $dc_detail->sku)->get()->first();
             $dc_details[$ii]['sku_description'] = $so_details->sku_description;
 //            return $so_details->amount_to_customer;
-            $dc_details[$ii]['unit_price'] = $so_details->sku_quantity/$so_details->amount_to_customer;
-            $dc_details[$ii]['net_sku_price'] = ($so_details->sku_quantity/$so_details->amount_to_customer) * $dc_detail->sku_quantity;
+            $dc_details[$ii]['unit_price'] = $so_details->amount_to_customer/$so_details->sku_quantity;
+            $dc_details[$ii]['net_sku_price'] = ($so_details->amount_to_customer/$so_details->sku_quantity) * $dc_detail->sku_quantity;
 
 
 

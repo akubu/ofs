@@ -149,7 +149,7 @@ Please receive the undermentioned goods order and sound condition and return the
                                                     <div class="dc_details">
 
                                                         <p>
-                                                            <span>Order Date :</span> {{ str_replace('00:00:00', '', $so->order_date) }}<br>
+                                                            <span>Order Date :</span> {{  date('d-m-Y',strtotime($so->order_date))      }}<br>
                                                             <span>Order # </span> {{ $so->so_number }} <br>
                                                             <span>Challan Number :</span> {{ $dc->dc_number }}<br>
                                                             <span>Challan Date :</span> {{ $dc->created_at->format('Y-m-d') }} <br>

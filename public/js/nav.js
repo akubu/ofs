@@ -1,6 +1,8 @@
 $(document).ready(function () {
 
 
+
+
     $.get("/home", function (data, status) {
 
         if(data.auth_required == true)
@@ -12,7 +14,7 @@ $(document).ready(function () {
     });
 
     $('#home').click(function () {
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
 
         $.get("/home", function (data, status) {
             if(data.auth_required == true)
@@ -33,7 +35,7 @@ $(document).ready(function () {
 
     $('#new_assignment_nav').click(function () {
 
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
 
         $.get("/manageDc", function (data, status) {
 
@@ -47,7 +49,7 @@ $(document).ready(function () {
 
 
     $('#mark_delivered_nav').click(function () {
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
 
         $.get("/dc/markDeliveredSelection", function (data, status) {
             if(data.auth_required == true)
@@ -69,7 +71,7 @@ $(document).ready(function () {
 
 
     $('#current_assignment_nav').click(function () {
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
         $.get("dc/manageDC", function (data, status) {
             if(data.auth_required == true)
             {
@@ -84,7 +86,7 @@ $(document).ready(function () {
 
 
     $('#update_dc_nav').click(function () {
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
 
         $.get("dc/updateDCSelection", function (data, status) {
             if(data.auth_required == true)
@@ -105,7 +107,7 @@ $(document).ready(function () {
 
     $('#track_shipment_nav').click(function () {
 
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
         $.get("dc/manageDC", function (data, status) {
             if(data.auth_required == true)
             {
@@ -120,7 +122,7 @@ $(document).ready(function () {
 
 
     $('#assign_runner_nav').click(function () {
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
 
         $.get("/runner/assignDC", function (data, status) {
             if(data.auth_required == true)
@@ -137,7 +139,7 @@ $(document).ready(function () {
 
     $('#track_device').click(function () {
 
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
         $.get("/device/all", function (data, status) {
             if(data.auth_required == true)
             {
@@ -152,7 +154,7 @@ $(document).ready(function () {
 
 
     $('#add_runner_nav').click(function () {
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
 
         $.get("/runner/create", function (data, status) {
             if(data.auth_required == true)
@@ -169,7 +171,7 @@ $(document).ready(function () {
 
     $('#update_runner_nav').click(function () {
 
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
         $.get("/runner/updateSelect", function (data, status) {
             if(data.auth_required == true)
             {
@@ -185,7 +187,7 @@ $(document).ready(function () {
 
     $('#delete_runner_nav').click(function () {
 
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
         $.get("/runner/delete", function (data, status) {
             if(data.auth_required == true)
             {
@@ -201,7 +203,7 @@ $(document).ready(function () {
 
     $('#all_runner_nav').click(function () {
 
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
         $.get("/runner/all", function (data, status) {
             if(data.auth_required == true)
             {
@@ -216,7 +218,7 @@ $(document).ready(function () {
 
 
     $('#new_device_nav').click(function () {
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
 
         $.get("/device/add", function (data, status) {
             if(data.auth_required == true)
@@ -233,7 +235,7 @@ $(document).ready(function () {
 
     $('#allocate_device_to_runner_nav').click(function () {
 
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
         $.get("/device/allocateForm", function (data, status) {
             if(data.auth_required == true)
             {
@@ -248,7 +250,7 @@ $(document).ready(function () {
 
 
     $('#recover_device_nav').click(function () {
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
 
         $.get("/device/recover", function (data, status) {
             if(data.auth_required == true)
@@ -265,7 +267,7 @@ $(document).ready(function () {
 
 
     $('#register_device_loss_nav').click(function () {
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
 
         $.get("/device/loss", function (data, status) {
             if(data.auth_required == true)
@@ -281,7 +283,7 @@ $(document).ready(function () {
 
     $('#all_device_nav').click(function () {
 
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
         $.get("/device/all", function (data, status) {
             if(data.auth_required == true)
             {
@@ -298,7 +300,7 @@ $(document).ready(function () {
 
     $('#upload_document_nav').click(function () {
 
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
         $.get("/dc/uploadDocuments", function (data, status) {
             if(data.auth_required == true)
             {
@@ -313,7 +315,7 @@ $(document).ready(function () {
 
     $('#view_document_nav').click(function () {
 
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
         $.get("/dc/uploadDocuments", function (data, status) {
             if(data.auth_required == true)
             {
@@ -328,7 +330,7 @@ $(document).ready(function () {
 
 
     $('#start_shipment_nav').click(function () {
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
 
         $.get("/start_shipment", function (data, status) {
             if(data.auth_required == true)
@@ -344,7 +346,7 @@ $(document).ready(function () {
 
 
     $('#register_delivery_nav').click(function () {
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
 
         $.get("/register_delivery", function (data, status) {
             if(data.auth_required == true)
@@ -360,7 +362,7 @@ $(document).ready(function () {
 
 
     $('#urgent_notifications_nav').click(function () {
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
 
         $.get("/urgent_notifications", function (data, status) {
             if(data.auth_required == true)
@@ -376,7 +378,7 @@ $(document).ready(function () {
 
 
     $('#ask_question_nav').click(function () {
-
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
 
         $.get("/help/askForm", function (data, status) {
 

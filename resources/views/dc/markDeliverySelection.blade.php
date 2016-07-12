@@ -95,7 +95,7 @@
         </th>
         <th>
             <div class="ui-widget">
-                <input id="dcNumberSelect" placeholder="Enter DC Number">
+                <input id="dcNumberSelect" class="form-control " placeholder="Enter DC Number">
             </div>
         </th>
         <th>

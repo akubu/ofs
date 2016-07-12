@@ -224,12 +224,12 @@
 
             var truck_capacity = $('#truck_capacity').val();
 
-            if (truck_capacity == '' || truck_capacity < 0.1 || truck_capacity.length > 6) {
+            if (truck_capacity == '' || truck_capacity < 0.1 || truck_capacity.length > 6 || isNaN(truck_capacity)) {
 
                 which = 6;
                 $('#truck_capacity').css('border-color', 'red');
                 $('#truck_type_error').removeClass("hide");
-                $('#truck_type_error').html("Please Enter A Proper Truck Type");
+                $('#truck_type_error').html("Please enter a valid truck capacity");
                 ++errorFlag;
             }
             else {
@@ -379,11 +379,11 @@
             if (errorFlag > 0) {
 
                 if (which == 21) {
-                    $.growl.error({
-                        message: 'Quantity for at-least one sku should be Greater than 0.',
-                        size: 'large',
-                        duration: 5000
-                    });
+//                    $.growl.error({
+//                        message: 'Quantity for at-least one sku should be Greater than 0.',
+//                        size: 'large',
+//                        duration: 5000
+//                    });
 
                 }
                 {
@@ -708,7 +708,6 @@
                 <td>
                     <input type="text" class="form-control sku_class" value="0" sku="{{ $detail['sku'] }}" size="40"
                            placeholder="Enter Quantity">
-
                 </td>
                 <td>
                     {{ $detail['sku_units'] }}

@@ -14,7 +14,7 @@ class CreateDcTrackDeletedsTable extends Migration
     {
         Schema::create('dc_track_deleted', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('dc_number')->unique();
+            $table->string('dc_number');
             $table->string('device_id');
             $table->string('loading_start_dt');
             $table->string('shipment_start_dt');

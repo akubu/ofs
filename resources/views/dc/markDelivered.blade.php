@@ -72,7 +72,7 @@
                         Delivered on
                     </th>
                     <th>
-                        <input id="deliverydate" type="datetime" size="40"
+                        <input id="deliverydate" type="datetime" size="40" class="form-control"
                                placeholder="Select Expected Delivery Date" readonly="readonly"/>
                     </td>
                     </th>

@@ -40,18 +40,18 @@
 
         @if( !count($dc_numbers))
         $(function () {
-                    $.growl.error({
-                        message: 'No un-assigned DC in system . ',
-                        size: 'large',
-                        duration: 10000
-                    });
+//                    $.growl.error({
+//                        message: 'No un-assigned DC in system . ',
+//                        size: 'large',
+//                        duration: 10000
+//                    });
                     $('#allocate_device').hide();
                 });
         $('#info_status').html('<center><h2 style="color:#0AB2F1; margin-top:30px;">No un-assigned DC in system .</h2></center>');
         @endif
 
 
-        availableTagsRunner = [
+       var availableTagsRunner = [
             @foreach( $dc_numbers as $dc_numbers)
 
     "{{ $dc_numbers }}",
@@ -85,12 +85,14 @@
             if ($.inArray(device_id, availableTags) == -1) {
 
                 $.growl.error({
-                    message: 'Select Runner from dropdown. ',
+                    message: 'Select valid Runner from dropdown. ',
                     size: 'large',
                     duration: 10000
                 });
                 return false;
             }else{
+
+                $('#runner_id').prop('disabled', true);
 
                 $('#runner_selection').show();
 
@@ -108,6 +110,28 @@
 
 
             var dc_number = $('#dc_number').val();
+
+            if ( dc_number.length < 1)
+            {
+                $.growl.error({
+                    message: 'No DC selected ',
+                    size: 'large',
+                    duration: 5000
+                });
+                return false;
+            }
+
+
+
+                if ($.inArray(dc_number, availableTagsRunner) == -1) {
+
+                    $.growl.error({
+                        message: ' Please select valid DC from dropdown. ',
+                        size: 'large',
+                        duration: 10000
+                    });
+                    return false;
+                }
 
 
             $.post("/runner/assign_dc", {dc_number: dc_number, runner_id: runner_id}, function (result, status) {

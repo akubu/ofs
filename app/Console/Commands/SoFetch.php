@@ -64,10 +64,10 @@ class SoFetch extends Command
                 $local_so->customer_number = $so->{"Sell-to Customer No_"};
                 $local_so->shipment_type = $so->{"No_"};
                 $local_so->bill_to_name = $so->{"Bill-to Name"};
-                $local_so->bill_to_address = $so->{"Bill-to Address"};
+                $local_so->bill_to_address = $so->{"Bill-to Address"} . " " . $so->{"Bill-to Address 2"} ;
                 $local_so->ship_to_customer = $so->{"No_"};
                 $local_so->ship_to_name = $so->{"Ship-to Name"};
-                $local_so->ship_to_address = $so->{"Ship-to Address"};
+                $local_so->ship_to_address = $so->{"Bill-to Address"} . " " . $so->{"Bill-to Address 2"};
                 $local_so->location_code = $so->{"Location Code"};
                 $local_so->order_date = $so->{"Order Date"};
                 $local_so->posting_date = $so->{"Posting Date"};
