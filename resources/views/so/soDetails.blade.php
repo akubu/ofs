@@ -3,7 +3,11 @@
 
         var so_number = $.trim($('#so_number').val().toUpperCase()).replace("+","");
 
+        $('#new_dc_form').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading DCs ... </center>');
+
         $.post("/dc/dcCreated", { so_number : so_number}, function (data, status) {
+
+
 
             $('#new_dc_form').html(data);
         });

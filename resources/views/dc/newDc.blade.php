@@ -404,6 +404,11 @@
 
 
             if (expected_delivery_date < expected_dispatch_date) {
+
+                $('#expected_dispatch_date').css('border-color', 'red');
+                $('#dispatch_date_error').removeClass("hide");
+                $('#dispatch_date_error').html("Please Enter Expected Dispatch Date");
+
                 $.growl.error({
                     message: 'Delivery date can not be before dispatch date. ',
                     size: 'large',
@@ -411,6 +416,11 @@
                 });
 
                 return false;
+            }else
+            {
+                $('#expected_dispatch_date').css('border-color', 'green');
+                $('#dispatch_date_error').addClass("hide");
+                $('#dispatch_date_error').html("");
             }
 
             if (lat == 0 || long == 0) {
