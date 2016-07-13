@@ -104,6 +104,7 @@ class dc extends Controller
         $dc->driver_contact_number = $driver_contact_number;
         $dc->truck_number = $truck_number;
         $dc->truck_type = $truck_type;
+        $dc->is_tracked = '0';
         $dc->expected_delivery_dt = $expected_delivery_date;
         $dc->expected_dispatch_dt = $expected_dispatch_date;
         $dc->created_at = $dc_date;
@@ -316,14 +317,17 @@ class dc extends Controller
 
     public function uploadDocumentsSelectDC()
     {
-        $dc_numbers = array();
-        $dc = \App\dc::where('is_delivered', '=', 0)->get();
+        $dc_details = array();
+        $dc = \App\dc::all();
+//        $ii =0;
         foreach ($dc as $d) {
-//            $so = so::where('so_number','=', $d->so_number)->get()->first();
-            $dc_numbers[] = $d->dc_number;
+            $so = so::where('so_number','=', $d->so_number)->get()->first();
+            $dc_details[] =  $d->dc_number;  // $so->customer_name . " | " .
+
+
         }
 
-        return view('dc.uploadDocumentsSelectDC', compact('dc_numbers'));
+        return view('dc.uploadDocumentsSelectDC', compact('dc_details'));
     }
 
 

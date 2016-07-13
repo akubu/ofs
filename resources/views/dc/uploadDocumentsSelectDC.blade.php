@@ -2,7 +2,7 @@
     $(document).ready(function () {
 
 
-        @if( !count($dc_numbers))
+        @if( !count($dc_details))
    $(function () {
                     $.growl.error({
                         message: 'No DC Registered In System. ',
@@ -15,9 +15,9 @@
         @endif
 
   availableTags = [
-            @foreach( $dc_numbers as $dc_number)
+            @foreach( $dc_details as $dc_detail)
 
-    "{{ $dc_number }}",
+    "{{ $dc_detail }}" ,
             @endforeach
     ];
 
@@ -39,8 +39,23 @@
 
         $('#dc_select').click(function () {
 
+
+            $('#upload_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
+
+            var dcNumberSelectCheck = $("#dcNumberSelect").val();
             var dcNumberSelect = $("#dcNumberSelect").val();
-            if ($.inArray(dcNumberSelect, availableTags) == -1) {
+
+//            index_dc = $('#dcNumberSelect').val().lastIndexOf("| ");
+////            alert(index_dc);
+//            dcNumberSelect_temp = $('#dcNumberSelect').val().substring(index_dc+2);
+////            alert(dcNumberSelect_temp);
+//            var dcNumberSelect = (dcNumberSelect_temp.toUpperCase()).replace("+","").trim();
+
+
+
+
+
+            if ($.inArray(dcNumberSelectCheck, availableTags) == -1) {
 
                 $.growl.error({
                     message: 'Select DC  from dropdown. ',

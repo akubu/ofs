@@ -78,6 +78,7 @@
 
         $('#allocate_device').click(function () {
 
+            $('#loader').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
 
             var device_id = $('#runner_id').val();
 
@@ -94,8 +95,10 @@
 
                 $('#runner_id').prop('disabled', true);
 
+
                 $('#runner_selection').show();
 
+                $('#loader').prop('hidden', 'true');
             }
 
 
@@ -110,6 +113,8 @@
 
 
             var dc_number = $('#dc_number').val();
+
+            var tracking_status = $('#tracking_status').val();
 
             if ( dc_number.length < 1)
             {
@@ -134,7 +139,11 @@
                 }
 
 
-            $.post("/runner/assign_dc", {dc_number: dc_number, runner_id: runner_id}, function (result, status) {
+            $.post("/runner/assign_dc", {dc_number: dc_number, runner_id: runner_id, tracking_status : tracking_status}, function (result, status) {
+
+
+                $('#assign_DC').addClass("hide");
+                $('#assign_DC').next().removeClass('hide');
 
 
                 if (result != 0) {
@@ -211,9 +220,32 @@
 
 
 
+
     <div id="runner_selection" hidden>
         <hr>
         <table class="table table-striped">
+
+
+            <tr>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th style="width: 146px;vertical-align: middle;">Tracking status </th>
+                <th>
+
+                        <select class="form-control" id="tracking_status">
+                            <option value="0">This Dc is untracked</option>
+                            <option value="1">This DC is Tracked</option>
+                        </select>
+
+                </th>
+                <th>
+                    &nbsp;
+                </th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+            </tr>
+
+
             <tr>
                 <th>&nbsp;</th>
                 <th>&nbsp;</th>

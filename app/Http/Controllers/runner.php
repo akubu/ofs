@@ -318,12 +318,14 @@ class runner extends Controller
 
         $dc_number = Input::get('dc_number');
         $runner_id = Input::get('runner_id');
+        $tracking_status = Input::get('tracking_status');
         $vtiger_id = substr($runner_id, strpos($runner_id, "(") + 1, -1);
 
         $dc = App\dc::where('dc_number', '=', $dc_number)->get()->first();
 
         try {
             $dc->runner_id = $vtiger_id;
+            $dc->is_tracked = $tracking_status;
             $dc->save();
         }catch (Exception $e)
         {
