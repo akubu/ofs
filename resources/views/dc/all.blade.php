@@ -13,7 +13,6 @@
 
     $('#info_status').html('<center><h3 style="color:#0AB2F1; margin-top:30px;">NO DC Registered yet</h3></center>');
 
-
             @endif
 
 
@@ -27,6 +26,9 @@
 
 
         $('.track_runner_button').click(function () {
+
+            $('#loader_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');;
+
             var link = $(this).attr('target');
             var dc_number = $(this).attr('dc_number')
             $('#info').html('current location of ' + dc_number)
@@ -35,6 +37,13 @@
             });
         });
     });
+
+
+    function disable_loader()
+    {
+        $('#loader_div').html('  ');
+    }
+
 
 </script>
 <style>
@@ -186,6 +195,7 @@
     <br>
 
     <div id="map_view" width="80%">
-        <iframe id="map_frame" src="" width="80%" height="400px" frameborder="0"></iframe>
+        <div id="loader_div" ></div>
+        <iframe id="map_frame" src="" width="80%" height="400px" frameborder="0" onload="disable_loader();"></iframe>
     </div>
 </div>

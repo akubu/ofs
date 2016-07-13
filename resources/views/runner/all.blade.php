@@ -21,6 +21,9 @@
 
     $(document).ready(function () {
         $('.track_runner_button').click(function () {
+
+            $('#loader_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');;
+
 //            alert('sdfsdf');
             var link = $(this).attr('target');
             var runner_name = $(this).attr('runner_name');
@@ -34,6 +37,12 @@
             });
         });
     });
+
+    function disable_loader()
+    {
+        $('#loader_div').html('  ');
+    }
+
 </script>
 
 <style>
@@ -164,7 +173,8 @@
 
 
     <div id="map_view" width="80%">
-        <iframe id="map_frame" src="" width="80%" height="400px" frameborder="0"></iframe>
+        <div id="loader_div" ></div>
+        <iframe id="map_frame" src="" width="80%" height="400px" frameborder="0" onload="disable_loader();"> </iframe>
     </div>
 
 </div>

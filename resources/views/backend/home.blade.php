@@ -46,7 +46,7 @@
 
     <tr>
         <th align="center">
-            Deliveries Alrady Late :
+            Deliveries Already Late :
         </th>
         <th align="center">
             {{ $response['late_delivery_count'] }}

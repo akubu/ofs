@@ -23,7 +23,7 @@
 
                 if (data == 1) {
                     $.growl.notice({
-                        message: 'Question received, We will get back to you .',
+                        message: 'Question received, We will get back to you.',
                         size: 'large',
                         duration: 5000
                     });
