@@ -233,7 +233,7 @@
                 ++errorFlag;
             }
             else {
-                $('#truck_type').css('border-color', 'green');
+                $('#truck_capacity').css('border-color', 'green');
                 $('#truck_type_error').addClass("hide");
                 $('#truck_type_error').html("");
             }
@@ -271,6 +271,36 @@
                 $('#expected_dispatch_date').css('border-color', 'green');
                 $('#dispatch_date_error').addClass("hide");
                 $('#dispatch_date_error').html("");
+            }
+
+
+
+
+            if (expected_delivery_date < expected_dispatch_date) {
+                which = 88;
+
+                $('#expected_dispatch_date').css('border-color', 'red');
+                $('#dispatch_date_error').removeClass("hide");
+                $('#dispatch_date_error').html("Please Enter Expected Dispatch Date");
+                $('#expected_delivery_date').css('border-color', 'red');
+                $('#delivery_date_error').removeClass("hide");
+                $('#delivery_date_error').html("Please Select Expected Delivery Date");
+
+//                $.growl.error({
+//                    message: 'Delivery date can not be before dispatch date. ',
+//                    size: 'large',
+//                    duration: 5000
+//                });
+                ++errorFlag;
+
+            }else
+            {
+                $('#expected_dispatch_date').css('border-color', 'green');
+                $('#dispatch_date_error').addClass("hide");
+                $('#dispatch_date_error').html("");
+                $('#expected_delivery_date').css('border-color', 'green');
+                $('#delivery_date_error').addClass("hide");
+                $('#delivery_date_error').html("");
             }
 
 
@@ -353,7 +383,7 @@
 
             $(".sku_class").each(function () {
 
-                if ($.isNumeric($(this).val())) {
+                if ($.isNumeric($(this).val()) && $(this).val() > 0) {
                     is_a_quantity = is_a_quantity + $(this).val();
                     $(this).css('border-color', 'green');
                 } else {
@@ -403,25 +433,7 @@
             }
 
 
-            if (expected_delivery_date < expected_dispatch_date) {
 
-                $('#expected_dispatch_date').css('border-color', 'red');
-                $('#dispatch_date_error').removeClass("hide");
-                $('#dispatch_date_error').html("Please Enter Expected Dispatch Date");
-
-                $.growl.error({
-                    message: 'Delivery date can not be before dispatch date. ',
-                    size: 'large',
-                    duration: 5000
-                });
-
-                return false;
-            }else
-            {
-                $('#expected_dispatch_date').css('border-color', 'green');
-                $('#dispatch_date_error').addClass("hide");
-                $('#dispatch_date_error').html("");
-            }
 
             if (lat == 0 || long == 0) {
 

@@ -332,6 +332,18 @@ class runner extends Controller
             return 0;
         }
 
+        $notifier = new notifications();
+        $notif = $notifier->sendRunnerAssignmentNotification($dc_number);
+
+        $mailDC = new notifications();
+
+        $email_id = App\runner::where('vtiger_id', '=', $runner_id)->get()->first()->runner_email;
+
+        return $mailDC->sendMail($dc_number, $email_id);
+
+
+//        Log::info("\n DC created  : " . $dc_number . " and : " . $notif . "\n");
+
         return 1;
 
 

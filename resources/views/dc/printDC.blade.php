@@ -139,7 +139,7 @@
 
                                                 <div class="col-md-12" style=" padding: 37px 0 0px 16px;">
                     <span class="text small"><span style="font-weight:700;">NOTE:</span><br>
-Please receive the undermentioned goods order and sound condition and return the DUPLICATE COPY duly signed with your rubber stamp.</span>
+Please receive the undermentioned goods order in sound condition and return the DUPLICATE COPY duly signed with your rubber stamp.</span>
                                                 </div>
                                             </td>
 
@@ -291,7 +291,7 @@ Please receive the undermentioned goods order and sound condition and return the
                                                                     <p class="box_head">Lorry /Vehicle No. : {{ $dc->truck_number }} </p>
                                                                     <p>
                                                                         <span>Note :</span><br>
-                                                                        Every care is taken in packing/Delivery/goods but we do not hold ourselves responsible for loss or damage after the goods have delivered and received by you or your representative as stated above.
+                                                                        Every care is taken in packing/Delivering goods and power2SME could not be held responsible for loss or damage after receipt by you or your representative as stated above.
                                                                     </p>
 
 
@@ -328,9 +328,9 @@ Please receive the undermentioned goods order and sound condition and return the
 
                                     <div class="address_box">
 
-                                        <p class="box_head">THANK YOU FOR YOUR BUSSINESS !!</p>
+                                        <p class="box_head">THANK YOU FOR YOUR BUSINESS !!</p>
                                         <p>
-                                            If you have any enquiries regading this delivery challan, Please contact us at deliveries@power2sme.com
+                                            If you have any enquiries regarding this delivery challan, Please contact us at support@power2sme.com
                                         </p>
 
                                         <p><span>This is a Computer Generated Challan and does not require Signature.</span>

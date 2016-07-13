@@ -22,6 +22,9 @@
     $(document).ready(function () {
         $('.track_runner_button').click(function () {
 //            alert('sdfsdf');
+
+            $('#loader_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');;
+
             var link = $(this).attr('target');
             var device_id = $(this).attr('device_id');
             $('#info').html("current location of device : " + device_id)
@@ -30,9 +33,17 @@
 //                $('#map_view').html(data);
                 $('#map_frame').attr('src', link);
 
+                $('#loader_div').html(' ');
+
             });
         });
     });
+
+
+    function disable_loader()
+    {
+        $('#loader_div').html('  ');
+    }
 
 </script>
 
@@ -167,7 +178,8 @@
     <br>
 
     <div id="map_view" width="80%">
-        <iframe id="map_frame" src="" width="80%" height="400px" frameborder="0"></iframe>
+        <div id="loader_div" ></div>
+        <iframe id="map_frame" src="" width="80%" height="400px" frameborder="0" onload="disable_loader();"></iframe>
     </div>
 
 </div>

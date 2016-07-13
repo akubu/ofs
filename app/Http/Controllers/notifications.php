@@ -101,7 +101,7 @@ class notifications extends Controller
         } else {
             $customer_number = $so->customer_number;
         }
-        $customer = \App\customer_contact_master::where('customer_number', '=', $customer_number)->get()->first();
+        $customer = \App\customer_contact_master::where('number', '=', $customer_number)->get()->first();
 
         $customer_email = $customer->customer_email;
         $customer_phone = $customer->customer_contact_number;
@@ -143,7 +143,7 @@ class notifications extends Controller
         $so = \App\so::where('so_number', '=', $so_number)->get()->first();
         $customer_number = $so->customer_number;
         $customer_name = $so->bill_to_name;
-        $customer = customer_contact_master::where('customer_number', '=', $customer_number)->get()->first();
+        $customer = customer_contact_master::where('number', '=', $customer_number)->get()->first();
 
         $customer_email = $customer->customer_email;
         $customer_phone = $customer->customr_contact_number;
@@ -158,7 +158,7 @@ class notifications extends Controller
     {
         $dc = \App\dc::where('dc_number', '=', $dc_number)->get()->first();
         $so = \App\so::where('so_number', '=', $dc->so_number)->get()->first();
-        $customer = customer_contact_master::where('customer_number','=', $so->customer_number)->get()->first();
+        $customer = customer_contact_master::where('number','=', $so->customer_number)->get()->first();
 
         $customer_email = $customer->customer_email;
         $customer_phone = $customer->customer_contact_number;
@@ -174,7 +174,7 @@ class notifications extends Controller
         $so = \App\so::where('so_number', '=', $so_number)->get()->first();
         $customer_number = $so->customer_number;
         $customer_name = $so->bill_to_name;
-        $customer = customer_contact_master::where('customer_number', '=', $customer_number)->get()->first();
+        $customer = customer_contact_master::where('number', '=', $customer_number)->get()->first();
 
         $customer_email = $customer->customer_email;
         $customer_phone = $customer->customer_contact_number;
@@ -237,10 +237,5 @@ class notifications extends Controller
         );
 
     }
-
-
-
-
-
 
 }

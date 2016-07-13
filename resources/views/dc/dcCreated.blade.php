@@ -136,6 +136,8 @@
                     $('#email_id_button_' + identifier).removeClass("hide");
                     $('#email_id_button_back_' + identifier).addClass('hide');
 
+                    $("#email_id_" + identifier).val("");
+
 
                 }else{
 
