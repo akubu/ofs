@@ -233,7 +233,7 @@ class notifications extends Controller
             $fileName = str_replace('/', '_', $dc_number ) . ".pdf";
             $message->to($email_id)
                 ->subject('DC - ' . $dc_number)
-                ->attach("/Users/harsh/projects/orderFulfillmentSystem/trackingsystem/public/storage/" . $fileName); }
+                ->attach("/var/www/trackingsystem/public/storage/" . $fileName); }
         );
 
     }

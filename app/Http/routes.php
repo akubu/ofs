@@ -32,6 +32,9 @@ $router->group(['middleware' => ['auth']], function () {
     Route::post($base_url . 'dc/documentUpload', 'dc@documentUpload');
 });
 
+
+Route::get($base_url . 'dc/printDC', 'dc@printDC');
+
 $router->group(['middleware' => ['auth', 'actionLog']], function () {   ///'actionLog'
 
     $base_url =  config('app.rewrite_base');
@@ -77,7 +80,7 @@ $router->group(['middleware' => ['auth', 'actionLog']], function () {   ///'acti
 
     Route::post($base_url . 'dc/newDC', 'dc@newDC');
     Route::post($base_url . 'dc/dcCreated', 'dc@dcCreated');
-    Route::get($base_url . 'dc/printDC', 'dc@printDC');
+   // Route::get($base_url . 'dc/printDC', 'dc@printDC');
     Route::get($base_url . 'dc/viewDC', 'dc@viewDC');
     Route::get($base_url . 'dc/downloadDC', 'dc@downloadDC');
 

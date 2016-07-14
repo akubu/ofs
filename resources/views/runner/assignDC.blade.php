@@ -109,6 +109,10 @@
 
         $('#assign_DC').click(function () {
 
+
+            $('#assign_DC').addClass("hide");
+            $('#assign_DC').next().removeClass('hide');
+
             var runner_id = $('#runner_id').val();
 
 
@@ -165,6 +169,9 @@
 
                 }
                 else {
+
+                    $('#assign_DC').removeClass("hide");
+                    $('#assign_DC').next().addClass('hide');
 
                     $.growl.error({
                         message: 'Cannot Allocate DC to Runner. ',
@@ -269,3 +276,4 @@
 </div>
 
 <!-- Modal -->
+

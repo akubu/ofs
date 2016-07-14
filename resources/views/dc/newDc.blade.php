@@ -281,10 +281,10 @@
 
                 $('#expected_dispatch_date').css('border-color', 'red');
                 $('#dispatch_date_error').removeClass("hide");
-                $('#dispatch_date_error').html("Please Enter Expected Dispatch Date");
+                $('#dispatch_date_error').html("Dispatch date greater than delivery date");
                 $('#expected_delivery_date').css('border-color', 'red');
                 $('#delivery_date_error').removeClass("hide");
-                $('#delivery_date_error').html("Please Select Expected Delivery Date");
+                $('#delivery_date_error').html("Dispatch date greater than delivery date");
 
 //                $.growl.error({
 //                    message: 'Delivery date can not be before dispatch date. ',
@@ -704,9 +704,9 @@
             <th>
                 Description
             </th>
-            <th>
-                Remaining Quantity
-            </th>
+           <th>
+&nbsp;
+</th>
             <th>
                 Current Quantity
             </th>
@@ -724,9 +724,7 @@
                 <td>
                     {{ $detail['sku_description'] }}
                 </td>
-                <td>
-                    {{ $detail['sku_quantity'] -  $detail['shipped'] }} {{ $detail['sku_units'] }}
-                </td>
+      <td>&nbsp;</td>          
                 <td>
                     <input type="text" class="form-control sku_class" value="0" sku="{{ $detail['sku'] }}" size="40"
                            placeholder="Enter Quantity">

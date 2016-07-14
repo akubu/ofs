@@ -156,9 +156,9 @@ class dc extends Controller
 
         $dc_file = str_replace('/', '_', $dc_number);
 
-        $command = 'wkhtmltopdf -q --copies 3 "http://localhost:1234/dc/print132DC?dc_number=' . $dc_number . '&print=2"  "/Users/harsh/projects/orderFulfillmentSystem/trackingsystem/public/storage/'.$dc_file.'.pdf" ' . '  > /dev/null 2>&1 &';
+        $command = '/usr/local/bin/wkhtmltopdf.sh -q --copies 3 "http://uat-track.power2sme.com/dc/printDC?dc_number=' . $dc_number . '&print=2"  "/var/www/trackingsystem/public/storage/'.$dc_file.'.pdf" ' . '  > /dev/null 2>&1 &';
 
-//        return $command;
+        //return $command;
 
         exec($command, $outputArray);
 
@@ -585,7 +585,7 @@ class dc extends Controller
         $dc_number = Input::get('dc_number');
         $dc_number = str_replace('/','_', $dc_number );
 
-        return Response::download("/Users/harsh/projects/orderFulfillmentSystem/trackingsystem/public/storage/" . $dc_number . ".pdf", $dc_number. ".pdf");
+        return Response::download("/var/www/trackingsystem/public/storage/" . $dc_number . ".pdf", $dc_number. ".pdf");
 
     }
 

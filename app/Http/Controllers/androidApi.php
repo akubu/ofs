@@ -338,14 +338,16 @@ class androidApi extends Controller
            $dc_number = $device->dc_number;
 
            $dc_track = dc_track::where('dc_number', '=', $dc_number)->get()->first();
-
+//return $dc_track;
            if (!$dc_track) {
 
                $response['error'] = "7001";
                return $response;
            }
 
-           $start = locations::where('device_id', '=', $device_id)->where('created_at', '>=', $dc_track->shipment_start_dt)->orderBy('created_at', "ASC")->get()->first();
+           $start = locations::where('device_id', '=', $device_id)->orderBy('created_at', "DESC")->get()->first();
+//return $start;
+           $ii =0;
 
            if(!$start)
            {
@@ -380,7 +382,7 @@ class androidApi extends Controller
 
            return $response;
 
-       }catch (Exception $e)
+       }catch (\Exception $e)
        {
            $response['error'] = "7001";
            return $response;
@@ -398,7 +400,7 @@ class androidApi extends Controller
 
         $dc_track = dc_track::where('dc_number', '=', $dc_number)->get()->first();
 
-        $start = locations::where('device_id', '=', $device_id)->where('created_at', '>=', $dc_track->shipment_start_dt)->orderBy('created_at', "ASC")->get()->first();
+        $start = locations::where('device_id', '=', $device_id)->orderBy('created_at', "DESC")->get()->first();
 
         if(!$start)
         {
@@ -754,3 +756,4 @@ class androidApi extends Controller
 
     }
 }
+

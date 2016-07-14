@@ -1,3 +1,3 @@
 Hello,<br>
-Please find Attached Requeted DC <br>
+Please find attached DC. <br>
 <h3>DC : {{ $dc_number }}</h3>
