@@ -47,6 +47,20 @@ $(document).ready(function () {
         return true;
     });
 
+    $('#reports').click(function () {
+
+        $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');
+
+        $.get("/reports", function (data, status) {
+
+            $('#body_div').html(data);
+
+
+        });
+
+        return true;
+    });
+
 
     $('#mark_delivered_nav').click(function () {
         $('#body_div').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading ... </center>');

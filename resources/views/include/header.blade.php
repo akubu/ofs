@@ -24,6 +24,10 @@
             </li>
 
               <li class="dropdown">
+                  <a href="graphs" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="reports">Reports</a>
+              </li>
+
+              <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Tracking <span class="caret"></span></a>
                   <ul class="dropdown-menu">
 
@@ -54,8 +58,10 @@
                       <li><a href="#" id="register_device_loss_nav">Register Loss</a></li>
                       <li><a href="#" id="all_device_nav">All Devices</a></li>
 
+
                   </ul>
               </li>
+
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Document management <span class="caret"></span></a>
                   <ul class="dropdown-menu">

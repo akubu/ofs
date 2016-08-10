@@ -7,7 +7,7 @@ namespace mikehaertl\shellcommand;
  * This class represents a shell command.
  *
  * @author Michael Härtl <haertl.mike@gmail.com>
- * @version 1.2.0
+ * @version 1.2.2
  * @license http://www.opensource.org/licenses/MIT
  */
 class Command
@@ -142,7 +142,15 @@ class Command
      */
     public function setCommand($command)
     {
-        $this->_command = $this->escapeCommand ? escapeshellcmd($command) : $command;
+        if ($this->escapeCommand) {
+            $command = escapeshellcmd($command);
+        }
+        if ($this->getIsWindows()) {
+            // Make sure to switch to correct drive like "E:" first if we have a full path in command
+            $chdrive = (isset($command[1]) && $command[1]===':') ? $command[0].': && ' : '';
+            $command = sprintf($chdrive.'cd %s && %s', escapeshellarg(dirname($command)), basename($command));
+        }
+        $this->_command = $command;
         return $this;
     }
 

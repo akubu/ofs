@@ -38,6 +38,13 @@ Route::get($base_url . 'dc/printDC', 'dc@printDC');
 $router->group(['middleware' => ['auth', 'actionLog']], function () {   ///'actionLog'
 
     $base_url =  config('app.rewrite_base');
+    Route::get($base_url . 'reports', function (){
+        return view('reports.main');
+    });
+    
+    Route::get($base_url . '/reports/dc', 'Reports\reports@dc');
+    Route::get($base_url . '/reports/so', 'Reports\reports@so');
+    Route::get($base_url . '/reports/document', 'Reports\reports@document');
 
     Route::get($base_url . 'manageDc', 'dc@createForm');
     Route::get($base_url . 'autosuggest/so/undelivered', 'autosuggest@soUndelivered');

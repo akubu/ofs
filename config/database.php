@@ -54,7 +54,7 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', '127.0.0.1'),
+            'host'      => env('DB_HOST', 'power2sme.com'),
             'database'  => env('DB_DATABASE', 'new_tracking'),
             'username'  => env('DB_USERNAME', 'trackingsystem'),
             'password'  => env('DB_PASSWORD', 'tr@ckingsystem'),
