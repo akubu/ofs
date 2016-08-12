@@ -38,6 +38,7 @@ Route::get($base_url . 'dc/printDC', 'dc@printDC');
 $router->group(['middleware' => ['auth', 'actionLog']], function () {   ///'actionLog'
 
     $base_url =  config('app.rewrite_base');
+    
     Route::get($base_url . 'reports', function (){
         return view('reports.main');
     });
