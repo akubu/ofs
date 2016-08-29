@@ -123,7 +123,7 @@ class AuthController extends Controller
 		); 
 		$result = json_decode(curl_exec ($ch));
 
-		//if login id and password combination is corrent, allow login
+		//if login id and password combination is correct, allow login
 		if($result->ErrorCode == 0) {
 
 			//dd($result);

@@ -11,9 +11,25 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
+    function setUp(){
+        @session_start();
+        parent::setUp();
+//        Session::setDefaultDriver('array');
+//        $this->manager = app('session');
+//
+//        $user = \Illuminate\Support\Facades\DB::table('users')->where('user_id_ish', 'user-identifier')->first();
+//        \Illuminate\Support\Facades\Auth::setUser($user);
+    }
     public function testBasicExample()
     {
-        $this->visit('/')
-             ->see('Laravel 5');
+        //@session_start();
+//        $base_url = config('app.rewrite_base');
+        $this->visit('home')
+            ->visit('reports')
+            ->press('so');
+//            ->type('BI00515','username')
+//            ->type('123456','password');
+//            ->press('login');
+//             ->see('Laravel 5');
     }
 }

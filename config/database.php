@@ -54,10 +54,10 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'power2sme.com'),
-            'database'  => env('DB_DATABASE', 'new_tracking'),
-            'username'  => env('DB_USERNAME', 'trackingsystem'),
-            'password'  => env('DB_PASSWORD', 'tr@ckingsystem'),
+            'host'      => env('DB_HOST', 'localhost'),
+            'database'  => env('DB_DATABASE', 'ofs'),
+            'username'  => env('DB_USERNAME', 'akshay'),
+            'password'  => env('DB_PASSWORD', 'abcd'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',

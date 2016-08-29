@@ -92,6 +92,10 @@
     }
 </style>
 
+<?php
+        //dd($data);
+        ?>
+
 <div style="align-items: center;">
 
     <div style="float: left;

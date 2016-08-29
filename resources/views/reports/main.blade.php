@@ -1,8 +1,8 @@
 <div>
     <nav class="navbar ">
-    <button    id="dc" style="background-color: #0ab2f1; color: #E5E5E5">DC created every day</button>
-    <button    id="document" style="background-color: #0ab2f1; color: #E5E5E5">Documents uploaded every day</button>
-    <button    id="so" style="background-color: #0ab2f1; color: #E5E5E5">SO processed every day</button>
+    <button    name="dc" id="dc" style="background-color: #0ab2f1; color: #E5E5E5">DC created every day</button>
+    <button    name="document" id="document" style="background-color: #0ab2f1; color: #E5E5E5">Documents uploaded every day</button>
+    <button    name="so" id="so" style="background-color: #0ab2f1; color: #E5E5E5">SO processed every day</button>
     </nav>
 
    <div id="graphview">

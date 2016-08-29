@@ -16,10 +16,11 @@
 
             $('#register_new_dc').addClass("hide");
             $('#register_new_dc').next().removeClass('hide');
+            var dc_type = $.trim($('#dc_type').val().toUpperCase()).replace("+","");
 
 
 
-        $.post("dc/newDC", {so_number: so_number}, function (result, status) {
+        $.post("dc/newDC", {so_number: so_number,dc_type: dc_type}, function (result, status) {
 
                 $('#new_dc_form').html(result);
 
@@ -46,11 +47,19 @@
 					
 					<div class="col-md-6 text-left">
 						SO Number :<strong id="so_number"> {{ $so_details['so_number'] }} &nbsp;( <strong>{{ $so_details['customer_name'] }} )</strong></strong>
-					</div>
 
-					<div class="col-md-3 text-right ">
+                        <select  id="dc_type" style="float: right;background-color: #e7e7e7" >
+                            <option selected="selected" value="type1">Type1</option>
+                            <option value="type2">Type2</option>
+                            <option value="type3">Type3</option>
+                        </select>
+
+                    </div>
+
+					<div class="col-md-3 ">
                         {{--<div class="col-md-2">--}}
-                            <button type="button" class="btn btn-primary" id="register_new_dc">Create New DC</button>
+
+                            <button style="float: right" type="button" class="btn btn-primary" id="register_new_dc">Create New DC</button>
                             <div class="hide" style="text-align: center;"><img src="/images/ajax-loader.gif" /></div>
 
                         {{--</div>--}}

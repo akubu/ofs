@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Reports;
 
-
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -20,8 +19,8 @@ class reports extends Controller
         $lastDate = Input::get('end');
         $dataRaw = DB::table('dc')
             ->select(DB::raw('count(*) as count'), DB::raw('DATE(created_at) as date'))
-            ->whereDate('created_at', '>', $startDate)
-            ->whereDate('created_at', '<', $lastDate)
+            ->whereDate('created_at', '>=', $startDate)
+            ->whereDate('created_at', '<=', $lastDate)
             ->groupBy('date')->get();
 
         }
@@ -32,6 +31,7 @@ class reports extends Controller
                 ->whereDate('created_at','>',$date)
                 ->groupBy('date')->get();
         }
+//        dd($dataRaw);
         $data = array();
         $ii = 0;
         foreach ($dataRaw as $rawData) {
@@ -53,8 +53,8 @@ class reports extends Controller
 
             $dataRaw=DB::table('dc')
                 ->select(DB::raw('count(DISTINCT so_number) as count'),DB::raw('DATE(updated_at) as date'))
-                ->whereDate('created_at','>',$startDate)
-                ->whereDate('created_at','<',$lastDate)
+                ->whereDate('created_at','>=',$startDate)
+                ->whereDate('created_at','<=',$lastDate)
                 ->groupBy('date')->get();
 
         }
@@ -86,8 +86,8 @@ class reports extends Controller
             $lastDate = Input::get('end');
             $dataRaw=DB::table('documents')
                 ->select(DB::raw('count(*) as count'),DB::raw('DATE(updated_at) as date'))
-                ->whereDate('updated_at','>',$startDate)
-                ->whereDate('updated_at','<',$lastDate)
+                ->whereDate('updated_at','>=',$startDate)
+                ->whereDate('updated_at','<=',$lastDate)
                 ->groupBy('date')->get();
             
         }

@@ -177,6 +177,7 @@
 
             var driver_name = $('#driver_name').val();
 
+
             which = 3;
             if (driver_name == '' || driver_name.length < 3) {
                 $('#driver_name').css('border-color', 'red');
@@ -460,9 +461,11 @@
 
 
 
-
+            var dc_type=$('#dc_t').val();
+            //console.log(dc_type);
 
                     var JavaScriptObjectLiteral = {
+                        dc_type:dc_type,
                         dc_number: "",
                         runner_assigned: "",
                         driver_name: driver_name,
@@ -479,15 +482,19 @@
                         so_number: so_number,
                         dc_date: $('#dc_date').val()
 
-                    }
+                    };
 
 
-                    skuObj = [];
+                     skuObj = [];
                     $(".sku_class").each(function () {
                         itemxx = {};
                         itemxx['sku'] = $(this).attr('sku');
+                        itemxx['sku_units'] = $(this).attr('sku_units');
+                        index_c = $(this).attr('index_c');
                         itemxx['sku_quantity'] = $(this).val();
+                        itemxx['sku_description'] = $('#'+itemxx['sku']+'_'+index_c+'_description').val();
                         skuObj.push(itemxx);
+                        //console.log(skuObj);
                     });
 
                     JavaScriptObjectLiteral['sku_details'] = skuObj;
@@ -696,7 +703,7 @@
 
     <br><br>
 
-    <table class="table table-striped">
+    <table class="table table-striped ">
         <tr>
             <th>
                 SKU
@@ -716,23 +723,28 @@
         </tr>
 
 
+        <?php $var = 1; ?>
+
         @foreach($details['details'] as $detail)
             <tr>
                 <td>
                     {{ $detail['sku'] }}
                 </td>
                 <td>
-                    {{ $detail['sku_description'] }}
+                    <input type="text" class="form-control " value='{{$detail['sku_description']}}' size="40"
+                           placeholder="Update Description" id="{{ $detail['sku'] }}_{{ $var }}_description">
                 </td>
       <td>&nbsp;</td>          
                 <td>
-                    <input type="text" class="form-control sku_class" value="0" sku="{{ $detail['sku'] }}" size="40"
-                           placeholder="Enter Quantity">
+                    <input type="text" class="form-control sku_class" value="0" index_c="{{ $var }}" sku="{{ $detail['sku'] }}" size="40"
+                           placeholder="Enter Quantity" sku_units="{{$detail['sku_units']}}">
                 </td>
                 <td>
                     {{ $detail['sku_units'] }}
                 </td>
             </tr>
+
+            <?php ++$var; ?>
         @endforeach
 
     </table>
@@ -773,7 +785,7 @@
         </div>
 
     </div>
-
+    <input type="text" hidden value="{{$dc_type}}" id="dc_t">
     <div class="col-md-12">
         <div class="col-md-5"></div>
         <div class="col-md-2">

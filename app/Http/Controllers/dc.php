@@ -57,9 +57,13 @@ class dc extends Controller
 
         $runner_id = substr($runner_assigned, strpos($runner_assigned, "(") + 1, -1);
         $driver_name = trim($decoded['driver_name']);
+        $dc_type = trim($decoded['dc_type']);
+        //dd($dc_type);
         $driver_contact_number = trim($decoded['driver_contact_number']);
         $truck_number = trim($decoded['truck_number']);
         $truck_type = trim($decoded['truck_capacity']);
+
+
         $expected_delivery_date = trim($decoded['expected_delivery_date']);
 
         $expected_dispatch_date = trim($decoded['expected_dispatch_date']);
@@ -108,19 +112,21 @@ class dc extends Controller
         $dc->expected_delivery_dt = $expected_delivery_date;
         $dc->expected_dispatch_dt = $expected_dispatch_date;
         $dc->created_at = $dc_date;
-
-
         $dc->is_tracked = $tracking_status;
+        $dc->dc_type=$dc_type;
+
+
 
 
         $dc->save();
-
+//dd($sku_details);
         foreach ($sku_details as $sku_detail) {
             $dc_detail = new dc_details();
             $dc_detail->dc_number = $dc_number;
             $dc_detail->sku = $sku_detail['sku' ];
             $dc_detail->sku_quantity = trim($sku_detail['sku_quantity']);
-
+            $dc_detail->sku_description = trim($sku_detail['sku_description']);
+            $dc_detail->sku_units = trim($sku_detail['sku_units']);
             $dc_detail->save();
         }
 
@@ -213,6 +219,8 @@ class dc extends Controller
     public function newDC(Request $request)
     {
         $so_number = Input::get('so_number');
+        $dc_type = Input::get('dc_type');
+        //dd($dc_type);
 
         $so = new \App\Http\Controllers\so();
 
@@ -261,8 +269,9 @@ class dc extends Controller
         $location_code = so::where('so_number', '=', $so_number)->get()->first()->location_code;
 
 //        return $details;
+//dd(compact('details'));
 
-        return view('dc.newDc', compact('details', 'bebb_locations', 'date_time', 'location_code'));
+        return view('dc.newDc', compact('details', 'bebb_locations', 'date_time', 'location_code','dc_type'));
     }
 
     public function generateDCNumber()
