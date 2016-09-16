@@ -9,6 +9,7 @@ return array(
     'ActionLog' => $baseDir . '/database/migrations/2015_12_21_073615_action_log.php',
     'AddDcTypeToDc' => $baseDir . '/database/migrations/2016_08_24_132828_add_dc_type_to_dc.php',
     'AddSkuDescriptionToDcDetails' => $baseDir . '/database/migrations/2016_08_23_171957_add_sku_description_to_dc_details.php',
+    'AddStatusToSo' => $baseDir . '/database/migrations/2016_09_16_134807_add_status_to_so.php',
     'BEBBLocalLocations' => $baseDir . '/database/migrations/2016_05_31_124024_BEBBLocalLocations.php',
     'CreateBEBBPOlinesTable' => $baseDir . '/database/migrations/2016_06_14_205051_create_b_e_b_b_p_olines_table.php',
     'CreateBEBBPOsTable' => $baseDir . '/database/migrations/2016_06_14_204925_create_b_e_b_b_p_os_table.php',

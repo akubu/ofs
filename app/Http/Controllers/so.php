@@ -20,7 +20,15 @@ class so extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+
+    public function close()
+    {
+        $so_number = Input::get('so_number');
+        App\so::where('so_number','=',$so_number)->update(['status'=>0]);
+        return $this->show();
+    }
+
+    public function show()
     {
         $so_number = Input::get('so_number');
         $raw_details = App\so_details::where('so_number', '=', $so_number)->get();
@@ -55,7 +63,13 @@ class so extends Controller
         $so_details['customer_number'] = $raw_so->customer_number;
         $so_details['customer_name'] = $raw_so->bill_to_name;
 
-        return view('so.soDetails', compact('so_details', 'details', 'shipped_quantity'));
+        $status=App\so::where('so_number','=',$so_number)->pluck('status');
+        if($status==1) {
+            return view('so.soDetails', compact('so_details', 'details', 'shipped_quantity'));
+        }
+        else
+            return view('so.soDetailsClosed', compact('so_details', 'details', 'shipped_quantity'));
+
     }
 
 

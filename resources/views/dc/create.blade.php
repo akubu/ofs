@@ -1,5 +1,3 @@
-
-
 <script type="application/javascript">
     $(document).ready(function () {
 

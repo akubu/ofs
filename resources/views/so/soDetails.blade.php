@@ -1,13 +1,24 @@
 <script type="application/javascript">
+
+
     $(document).ready(function () {
 
         var so_number = $.trim($('#so_number').val().toUpperCase()).replace("+","");
 
+        $("#closeSO").click(function () {
+            if(confirm("Close this SO")==true){
+                $.post("/so/closeSO",{so_number:so_number},function (result) {
+                    $("#main").html(result);
+                });
+                $("#new_dc_form").html('<strong> Order closed </strong>');
+            }
+        });
+
+
+
         $('#new_dc_form').html('<center><img src="./img/loading.gif" height="20%" width="20%"> <br> Loading DCs ... </center>');
 
         $.post("/dc/dcCreated", { so_number : so_number}, function (data, status) {
-
-
 
             $('#new_dc_form').html(data);
         });
@@ -38,6 +49,8 @@
 
 
 </script>
+
+<div id="main">
 
 <div class="table_titles filter_bar">
 
@@ -86,7 +99,6 @@
             <tr>
                 <th>S.No.</th>
                 <th>Material</th>
-
                 <th>Booked Quantity</th>
                 <th>Dispatched Quantity</th>
                 <th>Remaining Quantity</th>
@@ -123,6 +135,7 @@
 
             @endforeach
         </table>
+        <input class="btn btn-primary" style="float:right; width: 10%" type="button" id="closeSO" value="close SO">
     </div>
 
     <div class="row">
@@ -140,3 +153,4 @@
 </div>
 
 
+</div>

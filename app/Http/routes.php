@@ -52,6 +52,8 @@ $router->group(['middleware' => ['auth', 'actionLog']], function () {   ///'acti
     Route::post($base_url . 'so/show', 'so@show');
     Route::post($base_url . 'so/checkExistence', 'so@exists');
     Route::get($base_url . 'so/test', 'so@test');
+    
+    Route::post($base_url . 'so/closeSO', 'so@close');
 
     Route::get($base_url . '/help/askForm', 'help@askForm');
     Route::get($base_url . '/help/question', 'help@question');
@@ -116,7 +118,7 @@ $router->group(['middleware' => ['auth', 'actionLog']], function () {   ///'acti
     Route::post($base_url . '/dc/markDelivered', 'dc@markDelivered');
     Route::post($base_url . '/dc/validateDCNumber/{dc_number}', 'dc@validateDCNumber');
 
-    Route::get($base_url . '/', 'frontend@index');
+//    Route::get($base_url . '/', 'frontend@index');
 
     Route::get($base_url . 'home', 'panel@home');
     Route::get($base_url . '/', 'panel@index');
