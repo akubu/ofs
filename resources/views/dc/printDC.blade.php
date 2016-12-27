@@ -94,18 +94,23 @@
                             <div class="row">
                                 <table>
                                     <tr>
-                                        <td width="40%">
+                                        <td width="30%">
                                             <div class="col-md-12 logoDiv">
                                                 <a href="#"><img src="../img/logo_nDC.png" alt="Power2Sme"></a>
                                                 <span style="font-size:12px; padding:0 0 0 16px;">www.power2sme.com</span>
                                             </div>
                                         </td>
-
-                                        <td width="60%">
+                                        <td width="20%">
+                                            <div>
+                                                {!! QrCode::size(150)->generate('ofs QR') !!}
+                                            </div>
+                                        </td>
+                                        <td width="50%">
                                             <div class="col-md-12">
                                                 <p class="head text-right">Delivery Challan</p>
                                             </div>
                                         </td>
+
                                     </tr>
                                 </table>
                             </div>
@@ -174,14 +179,16 @@ Please receive the undermentioned goods order in sound condition and return the 
                                 <table>
                                     <tr>
                                         <td width="50%">
-
+                                            <?php if($bebb_location){ ?>
                                             <div class="col-md-12 address_panel">
                                                 <div class="address_head"><strong>Invoice Address:</strong></div>
 
                                                 <div class="address_box" style=" border: 1px solid #ddd !important;">
 
                                                     <p class="box_head">BEBB INDIA PVT. LTD.</p>
-                                                    <p>{{ $bebb_location->address }}</p>
+                                                    <p>
+                                                        { echo $bebb_location->address ;
+                                                        </p>
 
                                                     <p>
                                                         <span>TIN :</span> {{ $bebb_location->tin }}<br>
@@ -195,7 +202,7 @@ Please receive the undermentioned goods order in sound condition and return the 
                                                 </div>
 
                                             </div>
-
+                                            <?php } ?>
                                         </td>
 
                                         <td width="50%">

@@ -132,6 +132,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
@@ -178,6 +179,7 @@ return [
 
     'aliases' => [
 
+        'QrCode'    => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'App'       => Illuminate\Support\Facades\App::class,
         'Artisan'   => Illuminate\Support\Facades\Artisan::class,
         'Auth'      => Illuminate\Support\Facades\Auth::class,

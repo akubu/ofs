@@ -557,7 +557,8 @@ class dc extends Controller
 
     }
 
-    public function printDC(){
+    public function printDC()
+    {
 
         $dc_number = Input::get('dc_number');
         $print = Input::get('print');
@@ -584,7 +585,7 @@ class dc extends Controller
             $amount  = $amount + $dc_details[$ii]['net_sku_price'];
             ++$ii;
         }
-
+//        dd($dc);
         return view('dc.printDC', compact('dc', 'so', 'bebb_location', 'customer', 'dc_details', 'print', 'amount'));
 
     }
