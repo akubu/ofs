@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,7 +101,7 @@
                                         </td>
                                         <td width="20%">
                                             <div>
-                                                {!! QrCode::size(150)->generate('ofs QR') !!}
+                                                {!! QrCode::size(150)->generate(\Illuminate\Support\Facades\Request::get('dc_number')) !!}
                                             </div>
                                         </td>
                                         <td width="50%">

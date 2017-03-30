@@ -12,10 +12,13 @@ use App\dc_track_deleted;
 use App\device;
 use App\document_type_master;
 use App\documents;
+use App\Events\Email;
+use App\Jobs\SendMail;
 use App\runner;
 use App\so;
 use App\so_details;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Mockery\CountValidator\Exception;
 use Validator;
 use Response;
@@ -605,9 +608,20 @@ class dc extends Controller
         $dc_number = Input::get('dc_number');
         $email_id = Input::get('email_id');
 
-        $mailDC = new notifications();
+        $redis = Redis::connection();
+        $message=['dc_number'=>$dc_number,'email_id'=>$email_id];
+        $json=json_encode($message);
+        $redis->publish('channel1', $json);
+        return $redis->publish('channel2', $json);
 
-        return $mailDC->sendMail($dc_number, $email_id);
+//        $job= (new SendMail($dc_number,$email_id))->onQueue('redis');
+//        return $this->dispatch($job);
+
+//        event(new Email($dc_number,$email_id));
+
+//        $mailDC = new notifications();
+//
+//        return $mailDC->sendMail($dc_number, $email_id);
 
 
     }
