@@ -71,6 +71,7 @@ return [
             'connection' => 'default',
             'queue'  => 'default',
             'expire' => -1,
+            'persistent'=> true
         ],
 
     ],

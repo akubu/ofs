@@ -2,14 +2,13 @@
 
 namespace App\Jobs;
 
-use App\Http\Controllers\notifications;
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class SendMail extends Job implements ShouldQueue,SelfHandling
+class PrintDC extends Job implements SelfHandling,ShouldQueue
 {
     use InteractsWithQueue,SerializesModels;
     /**
@@ -18,12 +17,11 @@ class SendMail extends Job implements ShouldQueue,SelfHandling
      * @return void
      */
     private $dc_number="";
-    private $email_id="";
-    public function __construct($dc_number,$email_id)
+    private $dc_file="";
+    public function __construct($dc_number,$dc_file)
     {
         $this->dc_number=$dc_number;
-        $this->email_id=$email_id;
-
+        $this->dc_file=$dc_file;
         //
     }
 
@@ -34,10 +32,8 @@ class SendMail extends Job implements ShouldQueue,SelfHandling
      */
     public function handle()
     {
-//        dd($this->dc_number.$this->email_id);
-//        $mailDC = new notifications();
-//        $mailDC->sendMail($this->dc_number, $this->email_id);
-        return "job";
+        $command = '/usr/local/bin/wkhtmltopdf -q --copies 3 "localhost:8000/dc/printDC?dc_number=' . $this->dc_number . '&print=2"  "/Applications/projects/trackingsystem/public/storage/'.$this->dc_file.'.pdf" ' . '  > /dev/null 2>&1 &';
+        exec($command, $outputArray);
         //
     }
 }

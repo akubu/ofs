@@ -13,11 +13,14 @@ use App\device;
 use App\document_type_master;
 use App\documents;
 use App\Events\Email;
+use App\Jobs\PrintDC;
 use App\Jobs\SendMail;
 use App\runner;
 use App\so;
 use App\so_details;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Redis;
 use Mockery\CountValidator\Exception;
 use Validator;
@@ -157,18 +160,20 @@ class dc extends Controller
 
         Log::useDailyFiles(storage_path() . '/logs/notificationsl.log');
 
-        $notifier = new notifications();
+//        $notifier = new notifications();
 //        $notif = $notifier->sendDcCreatedNotification($dc_number, $so_number);
 //        Log::info("\n DC created  : " . $dc_number . " and : " . $notif . "\n");
 
         $dc_file = str_replace('/', '_', $dc_number);
+//        Artisan::call('print:DC');
+//        $redis = Redis::connection();
+//        $message=['dc_number'=>$dc_number,'dc_file'=>$dc_file];
+//        $json=json_encode($message);
+////        Queue::push('printDC',$json);
+//        $redis->publish('printDC', $json);
 
-        $redis = Redis::connection();
-        $message=['dc_number'=>$dc_number,'dc_file'=>$dc_file];
-        $json=json_encode($message);
-        $redis->publish('printDC', $json);
-
-
+        $job= (new PrintDC($dc_number,$dc_file));
+        $this->dispatch($job);
         $response['dc_number'] = $dc_number;
 
         return $response;
@@ -605,14 +610,16 @@ class dc extends Controller
         $dc_number = Input::get('dc_number');
         $email_id = Input::get('email_id');
 
-        $redis = Redis::connection();
+//        $redis = Redis::connection();
         $message=['dc_number'=>$dc_number,'email_id'=>$email_id];
-        $json=json_encode($message);
-        $redis->publish('channel1', $json);
-        return $redis->publish('channel2', $json);
+//        $json=json_encode($message);
+//        $redis->publish('channel1', $json);
+//        return $redis->publish('channel2', $json);
 
-//        $job= (new SendMail($dc_number,$email_id))->onQueue('redis');
-//        return $this->dispatch($job);
+        $job= (new SendMail($dc_number,$email_id));
+        $this->dispatch($job);
+        return 1;
+
 
 //        event(new Email($dc_number,$email_id));
 

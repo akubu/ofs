@@ -39,14 +39,14 @@ class PrintDC extends Command
      */
     public function handle()
     {
-        $redis = new Redis('tcp://0.0.0.0:6379'."?read_write_timeout=-1");
+        $redis = new Redis('tcp://0.0.0.0:6379'."?read_write_timeout=-1&persistent=1");
         $redis::subscribe(['printDC'],function ($message){
             $json=json_decode($message);
             $dc_number=$json->dc_number;
             $dc_file=$json->dc_file;
-            echo "$dc_number...."."$dc_file";
-            $command = '/usr/local/bin/wkhtmltopdf.sh -q --copies 3 "localhost:8000/dc/printDC?dc_number=' . $dc_number . '&print=2"  "/Applications/projects/trackingsystem/storage/'.$dc_file.'.pdf" ' . '  > /dev/null 2>&1 &';
+            $command = '/usr/local/bin/wkhtmltopdf -q --copies 3 "localhost:8000/dc/printDC?dc_number=' . $dc_number . '&print=2"  "/Applications/projects/trackingsystem/public/storage/'.$dc_file.'.pdf" ' . '  > /dev/null 2>&1 &';
             exec($command, $outputArray);
+
         });
 
         //
