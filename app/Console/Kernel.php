@@ -21,7 +21,8 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\getBEBBNos::class,
         \App\Console\Commands\pullPO::class,
         \App\Console\Commands\SubscribeChannel1::class,
-        \App\Console\Commands\SubscribeChannel2::class
+        \App\Console\Commands\SubscribeChannel2::class,
+        \App\Console\Commands\PrintDC::class
 
     ];
 

@@ -161,15 +161,12 @@ class dc extends Controller
 //        $notif = $notifier->sendDcCreatedNotification($dc_number, $so_number);
 //        Log::info("\n DC created  : " . $dc_number . " and : " . $notif . "\n");
 
-
-
         $dc_file = str_replace('/', '_', $dc_number);
 
-        $command = '/usr/local/bin/wkhtmltopdf.sh -q --copies 3 "http://uat-track.power2sme.com/dc/printDC?dc_number=' . $dc_number . '&print=2"  "/var/www/trackingsystem/public/storage/'.$dc_file.'.pdf" ' . '  > /dev/null 2>&1 &';
-
-        //return $command;
-
-        exec($command, $outputArray);
+        $redis = Redis::connection();
+        $message=['dc_number'=>$dc_number,'dc_file'=>$dc_file];
+        $json=json_encode($message);
+        $redis->publish('printDC', $json);
 
 
         $response['dc_number'] = $dc_number;
