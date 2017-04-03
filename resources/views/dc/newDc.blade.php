@@ -462,9 +462,13 @@
 
 
             var dc_type=$('#dc_t').val();
-            //console.log(dc_type);
+            var freight_charges=$("#freight_charges").val();
+            var freight_method=$("#freight_method").val();
+            console.log(freight_charges+freight_method);
 
                     var JavaScriptObjectLiteral = {
+                        freight_method:freight_method,
+                        freight_charges:freight_charges,
                         dc_type:dc_type,
                         dc_number: "",
                         runner_assigned: "",
@@ -696,6 +700,33 @@
 
                 </td>
             </tr>
+            <tr>
+                <th>
+                    <center>
+                        Freight Charges
+                        <Span class="danger">*</Span>
+                    </center>
+                </th>
+                <td>
+                    <input type="text" size="40" id="freight_charges" value="" class="form-control"
+                           placeholder="Enter freight charges" />
+                    <span class="help-block hide danger" id="freight_error"></span>
+                </td>
+
+                <th>
+                    <center>
+                        Freight Method
+                        <Span class="danger">*</Span>
+                    </center>
+                </th>
+                <td>
+                <select  id="freight_method" style="float: right;background-color: #e7e7e7" >
+                    <option selected="selected" value="invoice_to_customer">Invoice to customer</option>
+                    <option value="paid_by_p2s">Paid by P2S</option>
+                </select>
+                </td>
+            </tr>
+
         </table>
     </div>
 

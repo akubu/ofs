@@ -64,6 +64,8 @@ class dc extends Controller
         $runner_id = substr($runner_assigned, strpos($runner_assigned, "(") + 1, -1);
         $driver_name = trim($decoded['driver_name']);
         $dc_type = trim($decoded['dc_type']);
+        $freight_charges=trim($decoded['freight_charges']);
+        $freight_method=trim($decoded['freight_method']);
         //dd($dc_type);
         $driver_contact_number = trim($decoded['driver_contact_number']);
         $truck_number = trim($decoded['truck_number']);
@@ -120,6 +122,8 @@ class dc extends Controller
         $dc->created_at = $dc_date;
         $dc->is_tracked = $tracking_status;
         $dc->dc_type=$dc_type;
+        $dc->freight_charges=$freight_charges;
+        $dc->freight_method=$freight_method;
 
 
 
